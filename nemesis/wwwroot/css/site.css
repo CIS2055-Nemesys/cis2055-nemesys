@@ -26,7 +26,7 @@ body {
 
 .navbar {
     background-color: #0A1828 !important;
-    border-bottom: none !important;
+    border-bottom-color: #BFA181 !important;
 }
 .nav-link {
     color: #178582 !important;
@@ -48,7 +48,9 @@ body {
     display: block;
     margin: auto;
 }
-.footer{
-    border-top:none !important;
+.footer {
+    border-top-color: #BFA181 !important;
+    display: flex !important;
+    text-align: center !important;
 }
 
