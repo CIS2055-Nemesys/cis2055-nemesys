@@ -24,10 +24,9 @@ body {
     color: #BFA181;
 }
 
-
 .navbar {
     background-color: #0A1828 !important;
-  
+    border-bottom: none !important;
 }
 .nav-link {
     color: #178582 !important;
@@ -44,8 +43,12 @@ body {
     object-fit: contain;
 }
 .nav-logo {
-    width: 6vw; /* Container's dimensions */
+    width: 6vw; 
     height: 6vw;
     display: block;
     margin: auto;
 }
+.footer{
+    border-top:none !important;
+}
+
