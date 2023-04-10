@@ -27,6 +27,7 @@ body {
 
 .navbar {
     background-color: #0A1828 !important;
+  
 }
 .nav-link {
     color: #178582 !important;
@@ -36,4 +37,15 @@ body {
 }
 .container {
     color: #178582 !important;
+}
+.logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.nav-logo {
+    width: 6vw; /* Container's dimensions */
+    height: 6vw;
+    display: block;
+    margin: auto;
 }
