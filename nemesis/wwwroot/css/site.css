@@ -9,10 +9,31 @@ html {
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
+    background: #0A1828;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background: #0A1828;
+    color: #BFA181;
+}
+
+.text-center {
+    color: #BFA181;
+}
+
+
+.navbar {
+    background-color: #0A1828 !important;
+}
+.nav-link {
+    color: #178582 !important;
+}
+.navbar-brand {
+    color: #178582 !important;
+}
+.container {
+    color: #178582 !important;
 }

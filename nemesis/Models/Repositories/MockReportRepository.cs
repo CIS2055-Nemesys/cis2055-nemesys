@@ -11,10 +11,20 @@ namespace nemesis.Models.Repositories
             _reports = new List<Report>();
         }
 
+        public IEnumerable<Category> getAllCategories(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Report> getAllReports()
         {
             IEnumerable<Report> result = new List<Report>();
             return result;
+        }
+
+        public Category GetCategoryById(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public Report GetReportById(int id)
