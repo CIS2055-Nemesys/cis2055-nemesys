@@ -10,7 +10,7 @@
 
         public void AddUser(User user);
 
-        public void EditUser(int id, string email, string name, int num, bool role);
+        public void EditUser(User updatedUser);
 
         public void DeleteUser(int id);
 

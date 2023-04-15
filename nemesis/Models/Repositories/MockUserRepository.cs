@@ -9,7 +9,7 @@ namespace nemesis.Models.Repositories
     {
 
         public List<User>? _users;
-        public List<Report> _reports;
+        public List<Report>? _reports;
 
         public void AddUser(User user)
         {
@@ -18,43 +18,27 @@ namespace nemesis.Models.Repositories
 
         public void DeleteUser(int id)
         {
-            foreach(User user in _users)
+            var user = _users.FirstOrDefault(u => u.Id == id);
+            if (user != null)
             {
-                if(user.Id == id)
-                {
-                    _users.Remove(user);
-                }
+                _users.Remove(user);
             }
         }
 
-        public void EditUser(int id, string email, string name, int num, bool role)
+        public void EditUser(User updatedUser)
         {
-            foreach (User user in _users)
+            var user = _users.FirstOrDefault(u => u.Id == updatedUser.Id);
+            if (user != null)
             {
-                if (user.Id == id)
-                {
-                    user.Name = name;
-                    user.Email = email;
-                    user.PhoneNum = num; 
-                    user.IsInvestigator = role;
-                    return;
-                }
+                int index = _users.IndexOf(user);
+                _users[index] = updatedUser;
             }
         }
 
         //returns all reports made by a specific user
         public IEnumerable<Report> GetAllReportersReports(int id)
         {
-            List<Report> _userReports = new List<Report>();
-
-            foreach (Report report in _reports)
-            {
-                if (report.CreatedByUserId == id)
-                {
-                    _userReports.Add(report);
-                }
-            }
-            return _userReports;
+            return _reports.Where(r => r.CreatedByUserId == id);
         }
 
         public IEnumerable<User> GetAllUsers()
