@@ -6,25 +6,50 @@ namespace nemesis.Models.Repositories
     {
 
         public List<Report> _reports;
+        public List<Category> _categories;
 
-        public ReportRepository() { 
+        public ReportRepository() {
+            _categories = new List<Category>();
             _reports = new List<Report>();
+        }
+
+        public void AddReport(Report report)
+        {
+            _reports.Add(report);
+         }
+
+        public void DeleteReport(int id)
+        {
+            var report = _reports.FirstOrDefault(u => u.Id == id);
+            if (report != null)
+            {
+                _reports.Remove(report);
+            }
+        }
+
+        public void EditReport(Report updatedreport)
+        {
+            var report = _reports.FirstOrDefault(u => u.Id == updatedreport.Id);
+            if (report != null)
+            {
+                int index = _reports.IndexOf(report);
+                _reports[index] = updatedreport;
+            }
         }
 
         public IEnumerable<Category> getAllCategories(int id)
         {
-            throw new NotImplementedException();
+            return _categories;
         }
 
         public IEnumerable<Report> getAllReports()
         {
-            IEnumerable<Report> result = new List<Report>();
-            return result;
+            return _reports;
         }
 
         public Category GetCategoryById(int id)
         {
-            throw new NotImplementedException();
+            return _categories.FirstOrDefault((r) => r.Id == id); //return null if not found
         }
 
         public Report GetReportById(int id)
