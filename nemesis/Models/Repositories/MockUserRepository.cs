@@ -5,7 +5,7 @@ using System;
 
 namespace nemesis.Models.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class MockUserRepository : IUserRepository
     {
 
         public List<User>? _users;

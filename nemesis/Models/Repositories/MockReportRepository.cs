@@ -2,13 +2,13 @@
 
 namespace nemesis.Models.Repositories
 {
-    public class ReportRepository : IReportRepository
+    public class MockReportRepository : IReportRepository
     {
 
         public List<Report> _reports;
         public List<Category> _categories;
 
-        public ReportRepository() {
+        public MockReportRepository() {
             _categories = new List<Category>();
             _reports = new List<Report>();
         }

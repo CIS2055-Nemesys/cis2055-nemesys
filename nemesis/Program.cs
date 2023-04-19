@@ -9,10 +9,19 @@ namespace nemesis
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            if(builder.Environment.IsDevelopment())
-                builder.Services.AddSingleton<IReportRepository,ReportRepository>();
-            if(builder.Environment.IsProduction())
-                builder.Services.AddSingleton<IReportRepository, ReportRepository>();
+            if (builder.Environment.IsDevelopment())
+            {
+                builder.Services.AddSingleton<IReportRepository, MockReportRepository>();
+                builder.Services.AddSingleton<IInvestigationRepository,MockInvestigationRepository>();
+                builder.Services.AddSingleton<IUserRepository,MockUserRepository>();
+
+            }
+            if (builder.Environment.IsProduction())
+            {
+                builder.Services.AddSingleton<IReportRepository, MockReportRepository>();
+                builder.Services.AddSingleton<IInvestigationRepository, MockInvestigationRepository>();
+                builder.Services.AddSingleton<IUserRepository, MockUserRepository>();
+            }
 
 
             // Add services to the container.
