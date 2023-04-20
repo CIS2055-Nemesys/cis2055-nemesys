@@ -16,37 +16,37 @@ namespace nemesis.Models.Repositories
 
         public void AddReport(Report report)
         {
-            _appDbContext.reports.Add(report);
+            _appDbContext.Reports.Add(report);
         }
 
         public void DeleteReport(int id)
         {
-            _appDbContext.reports.Remove(GetReportById(id));
+            _appDbContext.Reports.Remove(GetReportById(id));
         }
 
         public void EditReport(Report report)
         {
-            throw new NotImplementedException();
+            _appDbContext.Reports.Update(report);
         }
 
         public IEnumerable<Category> getAllCategories(int id)
         {
-            return _appDbContext.categories.ToList();
+            return _appDbContext.Categories.ToList();
         }
 
         public IEnumerable<Report> getAllReports()
         {
-            return _appDbContext.reports.Include(r => r.Category).Include(r=> r.CreatedByUser).OrderByDescending(r=>r.DateOfReport);
+            return _appDbContext.Reports.Include(r => r.Category).Include(r=> r.CreatedByUser).OrderByDescending(r=>r.DateOfReport);
         }
 
         public Category? GetCategoryById(int id)
         {
-            return _appDbContext.categories.FirstOrDefault(c => c.Id == id);
+            return _appDbContext.Categories.FirstOrDefault(c => c.Id == id);
         }
 
         public Report? GetReportById(int id)
         {
-            return _appDbContext.reports.Include(r => r.Category).Include(r => r.CreatedByUser).FirstOrDefault(r => r.Id == id);
+            return _appDbContext.Reports.Include(r => r.Category).Include(r => r.CreatedByUser).FirstOrDefault(r => r.Id == id);
         }
     }
 }

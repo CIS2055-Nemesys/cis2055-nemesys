@@ -10,12 +10,12 @@ namespace nemesis.Models.Contexts
         }
 
 
-        public DbSet<User> users { get; set; }
-        public DbSet<Report> reports { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Report> Reports { get; set; }
 
-        public DbSet<Investigation> investigations { get; set; }
+        public DbSet<Investigation> Investigations { get; set; }
 
-        public DbSet<Category> categories { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
 
 
