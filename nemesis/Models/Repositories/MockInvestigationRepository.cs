@@ -18,7 +18,7 @@ namespace nemesis.Models.Repositories
         {
             _investigations.Add(investigation);
 
-            var report = _reports.FirstOrDefault(u => u.Id == reportId);
+            var report = _reports.FirstOrDefault(r => r.Id == reportId);
             if (report != null)
             {
                 int index = _reports.IndexOf(report);
@@ -29,13 +29,13 @@ namespace nemesis.Models.Repositories
         //delete's an investigation and removes the investigation ID from the associated report
         public void DeleteInvestigation(int id)
         {
-            var investigation = _investigations.FirstOrDefault(u => u.Id == id);
+            var investigation = _investigations.FirstOrDefault(i => i.Id == id);
             if (investigation != null)
             {
                 _investigations.Remove(investigation);
             }
 
-            var report = _reports.FirstOrDefault(u => u.InvestigationId == id);
+            var report = _reports.FirstOrDefault(r => r.InvestigationId == id);
             if (report != null)
             {
                 report.InvestigationId = null;
@@ -44,7 +44,7 @@ namespace nemesis.Models.Repositories
 
         public void EditInvestigation(Investigation updatedInvestigation)
         {
-            var investigation = _investigations.FirstOrDefault(u => u.Id == updatedInvestigation.Id);
+            var investigation = _investigations.FirstOrDefault(i => i.Id == updatedInvestigation.Id);
             if (investigation != null)
             {
                 int index = _investigations.IndexOf(investigation);
@@ -59,7 +59,7 @@ namespace nemesis.Models.Repositories
 
         public Investigation GetInvestigationById(int id)
         {
-            return _investigations.FirstOrDefault((r) => r.Id == id); //return null if not found
+            return _investigations.FirstOrDefault((i) => i.Id == id); //return null if not found
         }
     }
 }
