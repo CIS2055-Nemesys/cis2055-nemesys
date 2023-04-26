@@ -20,7 +20,7 @@ namespace nemesis.Models.Repositories
 
         public void DeleteReport(int id)
         {
-            var report = _reports.FirstOrDefault(u => u.Id == id);
+            var report = _reports.FirstOrDefault(r => r.Id == id);
             if (report != null)
             {
                 _reports.Remove(report);
@@ -29,7 +29,7 @@ namespace nemesis.Models.Repositories
 
         public void EditReport(Report updatedreport)
         {
-            var report = _reports.FirstOrDefault(u => u.Id == updatedreport.Id);
+            var report = _reports.FirstOrDefault(r => r.Id == updatedreport.Id);
             if (report != null)
             {
                 int index = _reports.IndexOf(report);
@@ -49,7 +49,7 @@ namespace nemesis.Models.Repositories
 
         public Category GetCategoryById(int id)
         {
-            return _categories.FirstOrDefault((r) => r.Id == id); //return null if not found
+            return _categories.FirstOrDefault((c) => c.Id == id); //return null if not found
         }
 
         public Report GetReportById(int id)
