@@ -50,9 +50,8 @@ namespace nemesis
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseStatusCodePages();
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.MapControllerRoute(
