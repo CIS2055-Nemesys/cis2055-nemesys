@@ -15,16 +15,19 @@ namespace nemesis.Models.Repositories
         public void AddUser(User user)
         {
             _appDbContext.Users.Add(user);
+            _appDbContext.SaveChanges();
         }
 
         public void DeleteUser(int id)
         {
             _appDbContext.Users.Remove(GetUserById(id));
+            _appDbContext.SaveChanges();
         }
 
         public void EditUser(User updatedUser)
         {
             _appDbContext.Users.Update(updatedUser);
+            _appDbContext.SaveChanges();
         }
 
         public IEnumerable<Report> GetAllReportersReports(int id)
