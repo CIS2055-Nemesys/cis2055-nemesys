@@ -16,5 +16,7 @@
 
         public Category GetCategoryById(int id);
 
+        public IEnumerable<Report> GetTop3Reports();
+
     }
 }
