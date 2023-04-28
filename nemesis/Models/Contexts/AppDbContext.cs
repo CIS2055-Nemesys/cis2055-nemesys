@@ -106,7 +106,7 @@ namespace nemesis.Models.Contexts
             modelBuilder.Entity<Report>().HasData(
                 new Report()
                 {
-                    Id = 1,
+                    Id = 4,
                     Title = "Missing manhole cover",
                     Description = "There is a missing manhole cover on the highway just outside of Cikku bar, I think the storm last night dislodged it and now it's posing a danger to anyone driving through that road. I hope it gets investigated before someone gets hurt!",
                     Location = "Haz-Zebbug",
@@ -121,7 +121,7 @@ namespace nemesis.Models.Contexts
                 },
                 new Report()
                 {
-                    Id = 2,
+                    Id = 1,
                     Title = "Sentient volcano",
                     Description = "I've recently discovered that the Maghtab garbage dump is actually an active volcano. Not only that, it's apparently sentient and has been constantly demanding tribute in the form of human sacrifice, will the authorities please do something about this before it loses its patience and destroys us all?!",
                     Location = "Maghtab",
@@ -136,7 +136,7 @@ namespace nemesis.Models.Contexts
                 },
                 new Report()
                 {
-                    Id = 3,
+                    Id = 2,
                     Title = "Runaway Tyre",
                     Description = "Someone must be having a bad morning because as I was driving up to work, a truck tyre bounced off my dashboard and kept rolling down the road! I hope some unsuspecting jogger doesn't cross its path because then he'll definitely end up getting 'tyred'.",
                     Location = "Birzebbugia",
@@ -151,7 +151,7 @@ namespace nemesis.Models.Contexts
                 },
                 new Report()
                 {
-                    Id = 4,
+                    Id = 5,
                     Title = "Meteor in my backyard",
                     Description = "I heard some commotion last night but thought it was just the local gang of racoons as usual so I slept through it. This morning, I find that a meteor containing alien worms had crash landed in my backyard! At first I came out with my trusty broomstick but it turns out they're incredibly friendly! I assure you they absolutely have not infiltrated my brain, and are definitely not forcing me to write this. By the way everyone should come see for themselves as soon as possible, the Hivemind demands it.",
                     Location = "Siggiewi",
@@ -166,7 +166,7 @@ namespace nemesis.Models.Contexts
                 },
                 new Report()
                 {
-                    Id = 5,
+                    Id = 3,
                     Title = "Radioactive Barrels",
                     Description = "Just this evening I took the kids to the children's playground and was shocked when I noticed that one of them had grown an extra appendage! Apparently while I was chatting with the other parents, the kids had found a barrel of radioactive waste hidden in a small room underneath the playground and were making sand castles out of the stuff!",
                     Location = "Hal-Qormi",
