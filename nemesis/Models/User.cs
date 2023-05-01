@@ -12,8 +12,6 @@
 
         public int? PhoneNum { get; set; }
 
-        public int? Ranking { get; set; }
-
         public bool IsInvestigator { get; set; }
 
         List<Report>? Reports { get; set; }
