@@ -51,15 +51,8 @@ namespace nemesis.Models.Repositories
         {
             return _appDbContext.Reports.Include(r => r.Category).Include(r => r.CreatedByUser).FirstOrDefault(r => r.Id == id);
         }
-        public IEnumerable<Report> GetTop3Reports()
-        {
-            return _appDbContext.Reports
-                .Include(r => r.Category)
-                .Include(r => r.CreatedByUser)
-                .OrderByDescending(r => r.DateOfReport)
-                .OrderByDescending(r => r.Upvotes)
-                .Take(3);
-        }
+       
+
 
     }
 }

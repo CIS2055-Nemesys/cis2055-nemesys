@@ -46,6 +46,29 @@ namespace nemesis.Models.Repositories
             return _users;
         }
 
+        public IEnumerable<User> GetTop3Reporters()
+        {
+            var groupedReports = _reports
+                   .GroupBy(r => r.CreatedByUserId)
+                   .Select(g => new { UserId = g.Key, ReportCount = g.Count() });
+
+            // Sort the result by the count in descending order and take the top 3 items
+            var topReporters = groupedReports
+                .OrderByDescending(g => g.ReportCount)
+                .Take(3)
+                .ToList();
+
+            var top3Users = topReporters
+                .Join(_users,
+                g => g.UserId,
+                u => u.Id,
+                (g, u) => u)
+                .ToList();
+
+                // Return the top 3 users
+                return top3Users;
+        }
+
         public User GetUserById(int id)
         {
             return _users.FirstOrDefault((r) => r.Id == id); //return null if not found

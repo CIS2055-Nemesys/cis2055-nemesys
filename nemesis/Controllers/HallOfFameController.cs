@@ -1,25 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using nemesis.Models.Interfaces;
+using nemesis.Models.Repositories;
 using nemesis.ViewModels;
 
 namespace nemesis.Controllers
 {
     public class HallOfFameController : Controller
     {
-        private readonly IReportRepository _reportRepository;
+        private readonly IUserRepository _userRepository;
 
-        public HallOfFameController(IReportRepository reportRepository)
+        public HallOfFameController(IUserRepository userRepository)
         {
-            _reportRepository = reportRepository;
+            _userRepository = userRepository;
         }
 
         public IActionResult Index()
         {
-            var reports = _reportRepository.GetTop3Reports();
+            var topUsers = _userRepository.GetTop3Reporters();
             var model = new HallOfFameViewModel()
             {
-                TopReports = reports.Count(),
-                Reports = reports
+                TopUsers = topUsers.Count(),
+                Users = topUsers
             };
             return View(model);
         }

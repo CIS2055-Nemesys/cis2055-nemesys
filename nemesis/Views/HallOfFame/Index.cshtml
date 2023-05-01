@@ -1,32 +1,26 @@
 ﻿@model HallOfFameViewModel
 
 @{
-    ViewData["Title"] = "Most upvoted Reports";
+    ViewData["Title"] = "Top 3 Reporters";
 }
 
 <h1>@ViewData["Title"]</h1>
 
-<h2>Showing @Model.TopReports Reports</h2>
 <div class="row">
 
     <table class="reports-table">
         <tr>
-            <th>Report Number</th>
-            <th>Report Name</th>
-            <th>Upvotes</th>
-            <th>Location</th>
-            <th>Hazard Type</th>
-            <th>Date</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Investigator</th>
+
         </tr>
-        @foreach (var report in Model.Reports)
+        @foreach (var user in Model.Users)
         {
             <tr>
-                <td>@report.Id</td>
-                <td>@report.Title</td>
-                <td>@report.Upvotes</td>
-                <td>@report.Location</td>
-                <td>@report.CategoryId</td>
-                <td>@report.DateOfReport.ToShortDateString()</td>
+                <td>@user.Name</td>
+                <td>@user.Surname</td>
+                <td>@user.IsInvestigator</td>
             </tr>
         }
     </table>

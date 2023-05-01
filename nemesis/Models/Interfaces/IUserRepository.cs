@@ -16,5 +16,8 @@
 
         public bool IsInvestigator(int id);
 
+        public IEnumerable<User> GetTop3Reporters();
+
+
     }
 }

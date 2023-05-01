@@ -49,5 +49,19 @@ namespace nemesis.Models.Repositories
         {
             return _appDbContext.Users.Any(u => u.Id == id && u.IsInvestigator);
         }
+
+        public IEnumerable<User> GetTop3Reporters()
+        {
+            return _appDbContext.Reports
+                .GroupBy(r => r.CreatedByUserId)
+                .Select(g => new { UserId = g.Key, ReportCount = g.Count() })
+                .OrderByDescending(g => g.ReportCount)
+                .Take(3)
+                .Join(_appDbContext.Users,
+                    g => g.UserId,
+                    u => u.Id,
+                    (g, u) => u);
+        }
+
     }
 }
