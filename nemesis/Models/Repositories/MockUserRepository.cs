@@ -52,7 +52,6 @@ namespace nemesis.Models.Repositories
                    .GroupBy(r => r.CreatedByUserId)
                    .Select(g => new { UserId = g.Key, ReportCount = g.Count() });
 
-            // Sort the result by the count in descending order and take the top 3 items
             var topReporters = groupedReports
                 .OrderByDescending(g => g.ReportCount)
                 .Take(3)
@@ -65,7 +64,6 @@ namespace nemesis.Models.Repositories
                 (g, u) => u)
                 .ToList();
 
-                // Return the top 3 users
                 return top3Users;
         }
 
