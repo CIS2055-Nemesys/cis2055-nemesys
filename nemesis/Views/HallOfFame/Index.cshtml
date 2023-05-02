@@ -1,0 +1,28 @@
+﻿@model HallOfFameViewModel
+
+@{
+    ViewData["Title"] = "Top 3 Reporters";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+
+    <table class="reports-table">
+        <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Investigator</th>
+
+        </tr>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>@user.Name</td>
+                <td>@user.Surname</td>
+                <td>@user.IsInvestigator</td>
+            </tr>
+        }
+    </table>
+
+</div>

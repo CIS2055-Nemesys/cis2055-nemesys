@@ -17,16 +17,19 @@ namespace nemesis.Models.Repositories
         public void AddReport(Report report)
         {
             _appDbContext.Reports.Add(report);
+            _appDbContext.SaveChanges();
         }
 
         public void DeleteReport(int id)
         {
             _appDbContext.Reports.Remove(GetReportById(id));
+            _appDbContext.SaveChanges();
         }
 
         public void EditReport(Report report)
         {
             _appDbContext.Reports.Update(report);
+            _appDbContext.SaveChanges();
         }
 
         public IEnumerable<Category> getAllCategories(int id)
@@ -48,5 +51,8 @@ namespace nemesis.Models.Repositories
         {
             return _appDbContext.Reports.Include(r => r.Category).Include(r => r.CreatedByUser).FirstOrDefault(r => r.Id == id);
         }
+       
+
+
     }
 }

@@ -15,16 +15,19 @@ namespace nemesis.Models.Repositories
         public void AddUser(User user)
         {
             _appDbContext.Users.Add(user);
+            _appDbContext.SaveChanges();
         }
 
         public void DeleteUser(int id)
         {
             _appDbContext.Users.Remove(GetUserById(id));
+            _appDbContext.SaveChanges();
         }
 
         public void EditUser(User updatedUser)
         {
             _appDbContext.Users.Update(updatedUser);
+            _appDbContext.SaveChanges();
         }
 
         public IEnumerable<Report> GetAllReportersReports(int id)
@@ -46,5 +49,19 @@ namespace nemesis.Models.Repositories
         {
             return _appDbContext.Users.Any(u => u.Id == id && u.IsInvestigator);
         }
+
+        public IEnumerable<User> GetTop3Reporters()
+        {
+            return _appDbContext.Reports
+                .GroupBy(r => r.CreatedByUserId)
+                .Select(g => new { UserId = g.Key, ReportCount = g.Count() })
+                .OrderByDescending(g => g.ReportCount)
+                .Take(3)
+                .Join(_appDbContext.Users,
+                    g => g.UserId,
+                    u => u.Id,
+                    (g, u) => u);
+        }
+
     }
 }

@@ -56,5 +56,10 @@ namespace nemesis.Models.Repositories
         {
             return _reports.FirstOrDefault((r) => r.Id == id); //return null if not found
         }
+
+        public IEnumerable<Report> GetTop3Reports()
+        {
+            return _reports.OrderByDescending(r => r.Upvotes).Take(3);
+        }
     }
 }

@@ -54,3 +54,32 @@ body {
     text-align: center !important;
 }
 
+.reports-table {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+
+}
+
+.reports-table td, .reports-table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+    .reports-table tr:nth-child(even) {
+        background-color: #178582;
+        color: #0A1828;
+    }
+
+.reports-table tr:hover {
+    background-color: #ddd;
+}
+
+    .reports-table th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background: #0A1828;
+        color: #BFA181;
+    }
+

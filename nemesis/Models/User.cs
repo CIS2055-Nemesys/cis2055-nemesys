@@ -2,17 +2,15 @@
 {
     public class User
     {
-        public int? Id { get; set; }
+        public int Id { get; set; }
 
-        public string? Name { get; set; }
+        public string Name { get; set; }
 
-        public string? Surname { get; set; }
+        public string Surname { get; set; }
 
         public string? Email { get; set; }
 
         public int? PhoneNum { get; set; }
-
-        public int? Ranking { get; set; }
 
         public bool IsInvestigator { get; set; }
 

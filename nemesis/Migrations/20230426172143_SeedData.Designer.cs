@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using nemesis.Models.Contexts;
 
@@ -11,13 +12,15 @@ using nemesis.Models.Contexts;
 namespace nemesis.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230426172143_SeedData")]
+    partial class SeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.0-preview.3.23174.2")
+                .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -149,52 +152,10 @@ namespace nemesis.Migrations
                         new
                         {
                             Id = 1,
-                            CategoryId = 6,
-                            CreatedByUserId = 2,
-                            DateOfReport = new DateTime(2023, 4, 13, 12, 36, 12, 25, DateTimeKind.Utc).AddTicks(9033),
-                            DateSpotted = new DateTime(2023, 4, 11, 12, 36, 12, 25, DateTimeKind.Utc).AddTicks(9029),
-                            Description = "I've recently discovered that the Maghtab garbage dump is actually an active volcano. Not only that, it's apparently sentient and has been constantly demanding tribute in the form of human sacrifice, will the authorities please do something about this before it loses its patience and destroys us all?!",
-                            ImageUrl = "/images/SentientVolcano.jpg",
-                            Location = "Maghtab",
-                            Status = false,
-                            Title = "Sentient volcano",
-                            Upvotes = 178
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CategoryId = 4,
-                            CreatedByUserId = 3,
-                            DateOfReport = new DateTime(2023, 4, 19, 15, 0, 12, 25, DateTimeKind.Utc).AddTicks(9036),
-                            DateSpotted = new DateTime(2023, 4, 19, 12, 36, 12, 25, DateTimeKind.Utc).AddTicks(9035),
-                            Description = "Someone must be having a bad morning because as I was driving up to work, a truck tyre bounced off my dashboard and kept rolling down the road! I hope some unsuspecting jogger doesn't cross its path because then he'll definitely end up getting 'tyred'.",
-                            ImageUrl = "/images/RunawayTyre.jpg",
-                            Location = "Birzebbugia",
-                            Status = false,
-                            Title = "Runaway Tyre",
-                            Upvotes = 43
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CategoryId = 2,
-                            CreatedByUserId = 5,
-                            DateOfReport = new DateTime(2023, 4, 20, 13, 48, 12, 25, DateTimeKind.Utc).AddTicks(9040),
-                            DateSpotted = new DateTime(2023, 4, 20, 12, 36, 12, 25, DateTimeKind.Utc).AddTicks(9040),
-                            Description = "Just this evening I took the kids to the children's playground and was shocked when I noticed that one of them had grown an extra appendage! Apparently while I was chatting with the other parents, the kids had found a barrel of radioactive waste hidden in a small room underneath the playground and were making sand castles out of the stuff!",
-                            ImageUrl = "/images/RadioactiveBarrel.jpg",
-                            Location = "Hal-Qormi",
-                            Status = false,
-                            Title = "Radioactive Barrels",
-                            Upvotes = 482
-                        },
-                        new
-                        {
-                            Id = 4,
                             CategoryId = 4,
                             CreatedByUserId = 1,
-                            DateOfReport = new DateTime(2023, 4, 26, 15, 0, 12, 25, DateTimeKind.Utc).AddTicks(9043),
-                            DateSpotted = new DateTime(2023, 4, 26, 12, 36, 12, 25, DateTimeKind.Utc).AddTicks(9042),
+                            DateOfReport = new DateTime(2023, 4, 21, 19, 45, 43, 53, DateTimeKind.Utc).AddTicks(5577),
+                            DateSpotted = new DateTime(2023, 4, 21, 17, 21, 43, 53, DateTimeKind.Utc).AddTicks(5568),
                             Description = "There is a missing manhole cover on the highway just outside of Cikku bar, I think the storm last night dislodged it and now it's posing a danger to anyone driving through that road. I hope it gets investigated before someone gets hurt!",
                             ImageUrl = "/images/Manhole.jpg",
                             Location = "Haz-Zebbug",
@@ -204,11 +165,39 @@ namespace nemesis.Migrations
                         },
                         new
                         {
-                            Id = 5,
+                            Id = 2,
+                            CategoryId = 6,
+                            CreatedByUserId = 2,
+                            DateOfReport = new DateTime(2023, 4, 8, 17, 21, 43, 53, DateTimeKind.Utc).AddTicks(5584),
+                            DateSpotted = new DateTime(2023, 4, 6, 17, 21, 43, 53, DateTimeKind.Utc).AddTicks(5583),
+                            Description = "I've recently discovered that the Maghtab garbage dump is actually an active volcano. Not only that, it's apparently sentient and has been constantly demanding tribute in the form of human sacrifice, will the authorities please do something about this before it loses its patience and destroys us all?!",
+                            ImageUrl = "/images/SentientVolcano.jpg",
+                            Location = "Maghtab",
+                            Status = false,
+                            Title = "Sentient volcano",
+                            Upvotes = 178
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryId = 4,
+                            CreatedByUserId = 3,
+                            DateOfReport = new DateTime(2023, 4, 14, 19, 45, 43, 53, DateTimeKind.Utc).AddTicks(5587),
+                            DateSpotted = new DateTime(2023, 4, 14, 17, 21, 43, 53, DateTimeKind.Utc).AddTicks(5586),
+                            Description = "Someone must be having a bad morning because as I was driving up to work, a truck tyre bounced off my dashboard and kept rolling down the road! I hope some unsuspecting jogger doesn't cross its path because then he'll definitely end up getting 'tyred'.",
+                            ImageUrl = "/images/RunawayTyre.jpg",
+                            Location = "Birzebbugia",
+                            Status = false,
+                            Title = "Runaway Tyre",
+                            Upvotes = 43
+                        },
+                        new
+                        {
+                            Id = 4,
                             CategoryId = 1,
                             CreatedByUserId = 4,
-                            DateOfReport = new DateTime(2023, 4, 29, 15, 0, 12, 25, DateTimeKind.Utc).AddTicks(9044),
-                            DateSpotted = new DateTime(2023, 4, 29, 12, 36, 12, 25, DateTimeKind.Utc).AddTicks(9044),
+                            DateOfReport = new DateTime(2023, 4, 24, 19, 45, 43, 53, DateTimeKind.Utc).AddTicks(5589),
+                            DateSpotted = new DateTime(2023, 4, 24, 17, 21, 43, 53, DateTimeKind.Utc).AddTicks(5589),
                             Description = "I heard some commotion last night but thought it was just the local gang of racoons as usual so I slept through it. This morning, I find that a meteor containing alien worms had crash landed in my backyard! At first I came out with my trusty broomstick but it turns out they're incredibly friendly! I assure you they absolutely have not infiltrated my brain, and are definitely not forcing me to write this. By the way everyone should come see for themselves as soon as possible, the Hivemind demands it.",
                             ImageUrl = "/images/Meteor.jpg",
                             Location = "Siggiewi",
@@ -218,87 +207,17 @@ namespace nemesis.Migrations
                         },
                         new
                         {
-                            Id = 6,
-                            CategoryId = 6,
-                            CreatedByUserId = 4,
-                            DateOfReport = new DateTime(2023, 4, 28, 12, 36, 12, 25, DateTimeKind.Utc).AddTicks(9046),
-                            DateSpotted = new DateTime(2023, 4, 28, 0, 36, 12, 25, DateTimeKind.Utc).AddTicks(9045),
-                            Description = "I was taking a lovely stroll on the beach last night when suddenly, my partner noted that the ancient old god Cthulhu had manifested out of the sea, heralding the end of days for humanity",
-                            ImageUrl = "/images/Cthulhu.jpg",
-                            Location = "Ghar Lapsi",
-                            Status = false,
-                            Title = "Old God rises from the depths",
-                            Upvotes = 777
-                        },
-                        new
-                        {
-                            Id = 7,
+                            Id = 5,
                             CategoryId = 2,
                             CreatedByUserId = 5,
-                            DateOfReport = new DateTime(2023, 4, 29, 3, 0, 12, 25, DateTimeKind.Utc).AddTicks(9048),
-                            DateSpotted = new DateTime(2023, 4, 29, 0, 36, 12, 25, DateTimeKind.Utc).AddTicks(9047),
-                            Description = "We were having lunch at Zeppi's Diner last night when suddenly, a rodent the size of a car scurried out of the kitchen! I have to say it really put us off finishing the meal. I hope the food safety authorities see this post!",
-                            ImageUrl = "/images/GiantRodent.jpg",
-                            Location = "Hamrun",
+                            DateOfReport = new DateTime(2023, 4, 15, 18, 33, 43, 53, DateTimeKind.Utc).AddTicks(5593),
+                            DateSpotted = new DateTime(2023, 4, 15, 17, 21, 43, 53, DateTimeKind.Utc).AddTicks(5593),
+                            Description = "Just this evening I took the kids to the children's playground and was shocked when I noticed that one of them had grown an extra appendage! Apparently while I was chatting with the other parents, the kids had found a barrel of radioactive waste hidden in a small room underneath the playground and were making sand castles out of the stuff!",
+                            ImageUrl = "/images/RadioactiveBarrel.jpg",
+                            Location = "Hal-Qormi",
                             Status = false,
-                            Title = "Giant rodent",
-                            Upvotes = 246
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CategoryId = 1,
-                            CreatedByUserId = 5,
-                            DateOfReport = new DateTime(2023, 4, 29, 15, 0, 12, 25, DateTimeKind.Utc).AddTicks(9049),
-                            DateSpotted = new DateTime(2023, 4, 29, 12, 36, 12, 25, DateTimeKind.Utc).AddTicks(9049),
-                            Description = "We went out for dinner at Fonzu's last night and were having a great time! Hats off to the guy who was playing the accordion with his feet. I ordered the special 'Fonzu's Burger' off the menu, and, to say the least, was shocked when the waitress brought it to the table. It was just a clump of greasy hair! I don't know who thought this was a good idea or how it passed any form of review! Talk about finding a hair in the food! ",
-                            ImageUrl = "/images/HairBurger.jpeg",
-                            Location = "Naxxar",
-                            Status = false,
-                            Title = "Hairy Burger",
-                            Upvotes = 52
-                        },
-                        new
-                        {
-                            Id = 9,
-                            CategoryId = 2,
-                            CreatedByUserId = 3,
-                            DateOfReport = new DateTime(2023, 4, 30, 0, 36, 12, 25, DateTimeKind.Utc).AddTicks(9051),
-                            DateSpotted = new DateTime(2023, 4, 29, 19, 48, 12, 25, DateTimeKind.Utc).AddTicks(9050),
-                            Description = "I was out shopping with the kids when we came across a passed out man in the middle of the sidewalk. Normally I wouldn't post something like this, because let's face it, we've all been there. However, what really bothered me was that he was snoring so loud it sounded like an entire trombone orchestra! Simply unacceptable!",
-                            ImageUrl = "/images/ManPassedOut.jpg",
-                            Location = "Bormla",
-                            Status = false,
-                            Title = "Passed out man",
-                            Upvotes = 120
-                        },
-                        new
-                        {
-                            Id = 10,
-                            CategoryId = 6,
-                            CreatedByUserId = 4,
-                            DateOfReport = new DateTime(2023, 4, 30, 17, 24, 12, 25, DateTimeKind.Utc).AddTicks(9052),
-                            DateSpotted = new DateTime(2023, 4, 30, 12, 36, 12, 25, DateTimeKind.Utc).AddTicks(9052),
-                            Description = "HOW IS THIS ACCEPTABLE!? MY FAVOURITE HEINZ BAKED BEANZ HAVE BEEN OUT OF STOCK FOR THE LAST 2 DAYS!??!1?111? HOW AM I SUPPOSED TO FEED MY CHILDREN A NUTRITIOUS BREAKFAST IF I DON'T HAVE ANY BEANZ! WHY AREN'T THERE ANY BEANZ!?!11?",
-                            ImageUrl = "/images/MissingBeans.webp",
-                            Location = "Mosta",
-                            Status = false,
-                            Title = "MISSING BEANZ",
-                            Upvotes = 345
-                        },
-                        new
-                        {
-                            Id = 11,
-                            CategoryId = 1,
-                            CreatedByUserId = 5,
-                            DateOfReport = new DateTime(2023, 5, 1, 5, 24, 12, 25, DateTimeKind.Utc).AddTicks(9054),
-                            DateSpotted = new DateTime(2023, 5, 1, 0, 36, 12, 25, DateTimeKind.Utc).AddTicks(9053),
-                            Description = "Like most of you, I buy my toilet paper from the gas station. I was disgusted this morning when some --redacted-- bought out the entire shop! Does this guy have ten --redacted--!? How am I supposed to wipe my --redacted-- without any toilet paper?!",
-                            ImageUrl = "/images/ToiletPaperHoarder",
-                            Location = "Mosta",
-                            Status = false,
-                            Title = "Toilet Paper Hoarder",
-                            Upvotes = 498
+                            Title = "Radioactive Barrels",
+                            Upvotes = 482
                         });
                 });
 
