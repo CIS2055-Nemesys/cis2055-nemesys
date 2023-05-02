@@ -18,7 +18,7 @@ namespace nemesis.ViewModels
 
         public string? ImageUrl { get; set; }
 
-        public Category Category { get; set; }
+        public CategoryViewModel Category { get; set; }
 
         public User CreatedByUser { get; set; }
 

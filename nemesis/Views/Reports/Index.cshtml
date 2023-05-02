@@ -22,7 +22,11 @@
         {
             <tr>
                 <td>@report.Id</td>
-                <td>@report.Title</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@report.Id">
+                    @report.Title
+                    </a>
+                </td>
                 <td>@report.Upvotes</td>
                 <td>@report.Location</td>
                 <td>@report.CategoryId</td>

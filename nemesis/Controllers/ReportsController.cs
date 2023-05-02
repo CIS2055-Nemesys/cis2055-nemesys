@@ -25,6 +25,38 @@ namespace nemesis.Controllers
             return View(model);
         }
 
+        public IActionResult Details(int id)
+        {
+            var report = _reportRepository.GetReportById(id);
+            if (report == null)
+                return NotFound();
+            else
+            {
+                var model = new ReportViewModel()
+                {
+                    Id = report.Id,
+                    Title = report.Title,
+                    Description = report.Description,
+                    Location = report.Location,
+                    DateSpotted = report.DateSpotted,
+                    DateOfReport = report.DateOfReport,
+                    ImageUrl = report.ImageUrl,
+                    Category = new CategoryViewModel()
+                    {
+                        Id = report.Category.Id,
+                        Name = report.Category.Name
+                    },
+                    CreatedByUser = report.CreatedByUser,
+                    Status = report.Status,
+                    InvestigationId = report.InvestigationId,
+                    Upvotes = report.Upvotes                    
+                };
+
+                return View(model);
+            }
+
+        }
+
         [HttpGet]
         public IActionResult Create()
         {
