@@ -12,7 +12,7 @@
 
         public Report GetReportById(int id);
 
-        public IEnumerable<Category> getAllCategories(int id);
+        public IEnumerable<Category> getAllCategories();
 
         public Category GetCategoryById(int id);
 
