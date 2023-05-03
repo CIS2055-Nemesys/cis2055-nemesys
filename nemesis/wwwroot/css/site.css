@@ -103,6 +103,12 @@ body {
     vertical-align:middle;
 }
 
+.btn-secondary {
+    background-color: #178582;
+    color: #BFA181;
+    font-size: 1.2vw;
+}
+
 .display-1{
     font-size: 4vw;
 }
@@ -111,6 +117,26 @@ body {
     font-style: italic;
     font-size: 2vw;
 }
+
+.row {
+    font-size: 1vw;
+    margin: 20px 0;
+}
+
+dt {
+    margin: 15px 0;
+}
+
+.report-title{
+    font-size:2vw;
+}
+.category{
+    font-style: italic;
+}
+
+
+
+
 
 
 
