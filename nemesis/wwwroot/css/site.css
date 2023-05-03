@@ -22,32 +22,45 @@ body {
 
 .text-center {
     color: #BFA181;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .navbar {
     background-color: #0A1828 !important;
     border-bottom-color: #BFA181 !important;
 }
+
 .nav-link {
     color: #178582 !important;
+    font-size: 1.2vw;
+    margin-left: 1vw;
 }
+
 .navbar-brand {
     color: #178582 !important;
+    font-size: 2vw;
 }
+
 .container {
     color: #178582 !important;
 }
+
 .logo {
     width: 100%;
     height: 100%;
     object-fit: contain;
 }
+
 .nav-logo {
     width: 6vw; 
     height: 6vw;
     display: block;
     margin: auto;
 }
+
 .footer {
     border-top-color: #BFA181 !important;
     display: flex !important;
@@ -58,7 +71,6 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
-
 }
 
 .reports-table td, .reports-table th {
@@ -66,20 +78,39 @@ body {
     padding: 8px;
 }
 
-    .reports-table tr:nth-child(even) {
-        background-color: #178582;
-        color: #0A1828;
-    }
+.reports-table tr:nth-child(even) {
+    background-color: #178582;
+    color: #0A1828;
+}
 
 .reports-table tr:hover {
     background-color: #ddd;
 }
 
-    .reports-table th {
-        padding-top: 12px;
-        padding-bottom: 12px;
-        text-align: left;
-        background: #0A1828;
-        color: #BFA181;
-    }
+.reports-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background: #0A1828;
+    color: #BFA181;
+}
+
+.btn-primary {
+    width: 10vw;
+    height: 2.2vw;
+    font-size: 1vw;
+    text-align: center;
+    vertical-align:middle;
+}
+
+.display-1{
+    font-size: 4vw;
+}
+
+.display-7 {
+    font-style: italic;
+    font-size: 2vw;
+}
+
+
 
