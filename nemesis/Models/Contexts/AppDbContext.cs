@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using nemesis.ViewModels;
 
 namespace nemesis.Models.Contexts
 {
@@ -25,7 +26,6 @@ namespace nemesis.Models.Contexts
                     Surname = "Gatt",
                     Email = "chalijgatt@sampleemail.com",
                     PhoneNum = 44236421,
-                    Ranking = null,
                     IsInvestigator = false,
                 },
                 new User()
@@ -35,7 +35,6 @@ namespace nemesis.Models.Contexts
                     Surname = "Dimech",
                     Email = "dimpeter@sampleemail.com",
                     PhoneNum = 12345668,
-                    Ranking = null,
                     IsInvestigator = false,
                 },
                 new User()
@@ -45,7 +44,6 @@ namespace nemesis.Models.Contexts
                     Surname = "Buttigieg",
                     Email = "valbutt@sampleemail.com",
                     PhoneNum = 36435173,
-                    Ranking = null,
                     IsInvestigator = true,
                 },
                 new User()
@@ -55,7 +53,6 @@ namespace nemesis.Models.Contexts
                     Surname = "Briffa",
                     Email = "david_d_best@sampleemail.com",
                     PhoneNum = 77777777,
-                    Ranking = null,
                     IsInvestigator = false,
                 },
                 new User()
@@ -65,7 +62,6 @@ namespace nemesis.Models.Contexts
                     Surname = "Borg",
                     Email = "borgwayne420@sampleemail.com",
                     PhoneNum = 94215242,
-                    Ranking = null,
                     IsInvestigator = false,
                 }
                 );
@@ -275,5 +271,8 @@ namespace nemesis.Models.Contexts
 
             );
         }
+
+
+        public DbSet<nemesis.ViewModels.ReportViewModel>? ReportViewModel { get; set; }
     }
 }

@@ -32,7 +32,7 @@ namespace nemesis.Models.Repositories
             _appDbContext.SaveChanges();
         }
 
-        public IEnumerable<Category> getAllCategories(int id)
+        public IEnumerable<Category> getAllCategories()
         {
             return _appDbContext.Categories.ToList();
         }

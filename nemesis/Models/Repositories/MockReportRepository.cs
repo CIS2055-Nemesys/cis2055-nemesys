@@ -37,7 +37,7 @@ namespace nemesis.Models.Repositories
             }
         }
 
-        public IEnumerable<Category> getAllCategories(int id)
+        public IEnumerable<Category> getAllCategories()
         {
             return _categories;
         }
