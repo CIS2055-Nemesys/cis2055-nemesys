@@ -1,5 +1,5 @@
-    /* global css */   
-    @media (min-width: 768px) {
+    /* global css */
+@media (min-width: 768px) {
     html {
         position: relative;
         min-height: 100%;
@@ -88,7 +88,6 @@
     .report-num {
         width: 1vw;
         text-align: center;
-           
     }
 
     .image-center {
@@ -181,20 +180,37 @@
 
     /* Create Report Page */
     .form-group > textarea {
-        height: 5vw;
+        height: 7vw;
         max-height: 14vw;
+        width: 30vw;
+    }
+
+    .form-group {
+        width: 20vw;
+    }
+
+    #title {
+        width: 15vw;
     }
 
     .form-control {
         font-size: 1vw;
+        background-color: #0A1828 !important;
+        color: #178582 !important;
+        border-color: #BFA181 !important;
+        font-size: 1.2vw;
     }
 
     .category-picker {
-        font-size: 1vw;
+        font-size: 1.3vw;
+        background-color: #0A1828 !important;
+        color: #178582 !important;
+        border-color: #BFA181 !important;
     }
 
     .date-picker .form-control {
         width: 12vw;
     }
+
 
 }
