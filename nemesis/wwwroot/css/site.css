@@ -151,15 +151,15 @@
 
     /* Buttons */
     .btn-primary {
-        width: 10vw;
-        height: 2.2vw;
+        width: auto;
+        height: auto;
         font-size: 1vw;
     }
 
     .btn-secondary {
-        height: 2.2vw;
-        width: 3vw;
-        font-size:1vw;
+        width: auto;
+        height: auto;
+        font-size: 1vw;
     }
 
     /* Details Page */

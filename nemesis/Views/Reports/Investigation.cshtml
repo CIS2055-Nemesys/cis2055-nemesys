@@ -1,0 +1,59 @@
+﻿@model nemesis.ViewModels.InvestigationViewModel
+@using Microsoft.AspNetCore.Http
+@{
+    HttpContext httpContext = ViewContext.HttpContext;
+    ViewData["Title"] = "Investigation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<form asp-action="Create" class="text-center" method="post" enctype="multipart/form-data">
+    <h1 class="report-headers">New Investigation</h1>
+    <h2>Report ID: @httpContext.Request.Query["reportId"]</h2>
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="DateOfAction" class="control-label"></label>
+        <div class="date-picker d-flex align-items-center justify-content-center">
+            <input asp-for="DateOfAction" class="form-control" />
+        </div>
+        <span asp-validation-for="DateOfAction" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <!--TODO: These must be replaced with identity credentials-->
+    <div class="form-group">
+        <label asp-for="Investigator.Name" class="control-label"></label>
+        <input asp-for="Investigator.Name" class="form-control" />
+        <span asp-validation-for="Investigator.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Investigator.Surname" class="control-label"></label>
+        <input asp-for="Investigator.Surname" class="form-control" />
+        <span asp-validation-for="Investigator.Surname" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Investigator.Email" class="control-label"></label>
+        <input asp-for="Investigator.Email" class="form-control" />
+        <span asp-validation-for="Investigator.Email" class="text-danger"></span>
+    </div>
+    <br>
+
+
+    <div class="form-group">
+        <a class="btn btn-secondary" href="@Url.Action("Index", "Reports")">Back</a>
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+
+@*Inject JQuery validation scripts in Layout*@
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
