@@ -4,12 +4,14 @@
     ViewData["Title"] = "Details";
 }
 
-<h1 class = "report-title">
-    @Html.DisplayFor(model => model.Title) <br />
-</h1>
-<h2 class = "category">
-    Category: @Html.DisplayFor(model => model.Category.Name)
-</h2>
+<div class="report-headers">
+    <h1 class = "report-title">
+        @Html.DisplayFor(model => model.Title) <br />
+    </h1>
+    <h2 class = "category">
+        Category: @Html.DisplayFor(model => model.Category.Name)
+    </h2>
+</div>
 
 <div>
     <hr />
