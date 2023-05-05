@@ -74,7 +74,7 @@
     <div>
         <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
         <a class="btn btn-secondary" href="@Url.Action("Index", "Reports")">Back</a>
-        <a class="btn btn-secondary" href="@Url.Action("Investigation", "Reports", new { reportId = Model.Id })">Submit Investigation</a>
+        <a class="btn btn-secondary" href="@Url.Action("Investigation", "Reports", new { reportId = Model.Id, reportTitle = Model.Title })">Submit Investigation</a>
 
     </div>
 
