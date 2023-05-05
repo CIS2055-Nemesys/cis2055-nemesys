@@ -296,7 +296,7 @@ namespace nemesis.Models.Contexts
                 {
                     Id = "9059e247-2854-40bd-af2b-76088f8dd4e6",
                     UserName = "InspectorGadget",
-                    NormalizedUserName = "InspectorGadget",
+                    NormalizedUserName = "INSPECTORGADGET",
                     Email = "gadget@inspect.com",
                     NormalizedEmail = "GADGET@INSPECT.COM",
                     PhoneNumber = "23480922",
@@ -344,6 +344,14 @@ namespace nemesis.Models.Contexts
                     Email = "head@snitch.com",
                     NormalizedEmail = "HEAD@SNITCH.COM",
                     PhoneNumber = "1231233412",
+                }, new IdentityUser()
+                {
+                    Id = "3303fdaf-f438-4582-8f10-52b578c50cb8",
+                    UserName = "homeworkReminder",
+                    NormalizedUserName = "HOMEWORKREMINDER",
+                    Email = "homework@reminder.com",
+                    NormalizedEmail = "HOMEWORK@REMINDER.COM",
+                    PhoneNumber = "123412521",
                 }
             );
         }
