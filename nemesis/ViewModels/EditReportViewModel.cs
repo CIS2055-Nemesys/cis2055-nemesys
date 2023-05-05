@@ -1,4 +1,5 @@
-﻿using nemesis.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using nemesis.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace nemesis.ViewModels
@@ -45,7 +46,7 @@ namespace nemesis.ViewModels
         [Required(ErrorMessage = "Category is required")]
         public int CategoryId { get; set; }
 
-        public User? CreatedByUser { get; set; }
+        public IdentityUser? CreatedByUser { get; set; }
 
         public bool? Status { get; set; }
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using nemesis.Models;
 using nemesis.Models.Interfaces;
 using nemesis.ViewModels;
@@ -58,6 +59,7 @@ namespace nemesis.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Create()
         {
             //Load all categories and create a list of CategoryViewModel

@@ -1,16 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using nemesis.ViewModels;
 
 namespace nemesis.Models.Contexts
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
 
         }
 
-        public DbSet<User> Users { get; set; }
         public DbSet<Report> Reports { get; set; }
         public DbSet<Investigation> Investigations { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -18,7 +18,8 @@ namespace nemesis.Models.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().HasData(
+            base.OnModelCreating(modelBuilder);
+            /*modelBuilder.Entity<User>().HasData(
                 new User()
                 {
                     Id = 1,
@@ -64,7 +65,7 @@ namespace nemesis.Models.Contexts
                     PhoneNum = 94215242,
                     IsInvestigator = false,
                 }
-                );
+                );*/
 
             modelBuilder.Entity<Category>().HasData(
                 new Category()

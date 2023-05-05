@@ -7,14 +7,13 @@ namespace nemesis.Controllers
 {
     public class HallOfFameController : Controller
     {
-        private readonly IUserRepository _userRepository;
 
-        public HallOfFameController(IUserRepository userRepository)
+        public HallOfFameController(/*IUserRepository userRepository*/)
         {
-            _userRepository = userRepository;
+//            _userRepository = userRepository;
         }
 
-        public IActionResult Index()
+        /*public IActionResult Index()
         {
             var topUsers = _userRepository.GetTop3Reporters();
             var model = new HallOfFameViewModel()
@@ -23,7 +22,7 @@ namespace nemesis.Controllers
                 Users = topUsers
             };
             return View(model);
-        }
+        }*/
     }
 }
 

@@ -1,4 +1,5 @@
-﻿using nemesis.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using nemesis.Models;
 
 namespace nemesis.ViewModels
 {
@@ -20,7 +21,7 @@ namespace nemesis.ViewModels
 
         public CategoryViewModel Category { get; set; }
 
-        public User CreatedByUser { get; set; }
+        public IdentityUser CreatedByUser { get; set; }
 
         public bool Status { get; set; }
 
