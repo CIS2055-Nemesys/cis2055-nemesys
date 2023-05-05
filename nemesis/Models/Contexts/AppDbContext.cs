@@ -286,49 +286,66 @@ namespace nemesis.Models.Contexts
                 new IdentityUser()
                 {
                     Id = "92b32ccb-8835-4e2d-ae6c-8c86eb2efed6",
-                    UserName = "CharlesG",
-                    NormalizedUserName ="CHARLESG",
-                    Email = "chalijgatt@sampleemail.com",
-                    NormalizedEmail = "CHALIJGATT@SAMPLEEMAIL.COM",
-                    PhoneNumber = "44236421",
+                    UserName = "PaulBlart",
+                    NormalizedUserName = "PAULBLART",
+                    Email = "cop2@mall.com",
+                    NormalizedEmail = "COP2@MALL.COM",
+                    PhoneNumber = "911911",
+                },
+                new IdentityUser()
+                {
+                    Id = "9059e247-2854-40bd-af2b-76088f8dd4e6",
+                    UserName = "InspectorGadget",
+                    NormalizedUserName = "InspectorGadget",
+                    Email = "gadget@inspect.com",
+                    NormalizedEmail = "GADGET@INSPECT.COM",
+                    PhoneNumber = "23480922",
+                },
+                new IdentityUser()
+                {
+                    Id = "84b91c9f-74d1-452d-927b-439bfd3a7287",
+                    UserName = "Element",
+                    NormalizedUserName = "ELEMENT",
+                    Email = "element@inspect.com",
+                    NormalizedEmail = "ELEMENT@INSPECT.COM",
+                    PhoneNumber = "(650) 253-0000",
+                },
+                new IdentityUser()
+                {
+                    Id = "5888e361-c81f-4ac9-8e16-961b0eeed0ae",
+                    UserName = "Cetta",
+                    NormalizedUserName = "CETTA",
+                    Email = "cetta@hotmail.com",
+                    NormalizedEmail = "CETTA@HOTMAIL.COM",
+                    PhoneNumber = "21249200",
+                },
+                new IdentityUser()
+                {
+                    Id = "ad9a20a1-779e-4991-8881-9af6171668a5",
+                    UserName = "Karen",
+                    NormalizedUserName = "KAREN",
+                    Email = "karen@qrid.com",
+                    NormalizedEmail = "KAREN@QRID.COM",
+                    PhoneNumber = "10291029",
+                },
+                new IdentityUser()
+                {
+                    Id = "555e52b8-22db-4c15-a037-107016c7f827",
+                    UserName = "Candice",
+                    NormalizedUserName = "CANDICE",
+                    Email = "CandiceFlynn@snitch.com",
+                    NormalizedEmail = "CANDICEFLYNN@SNITCH.COM",
+                    PhoneNumber = "201920192",
+                },new IdentityUser()
+                {
+                    Id = "5cefc46b-1918-4ae3-8a40-4d337ff9a670",
+                    UserName = "6ix9ine",
+                    NormalizedUserName = "6IX9INE",
+                    Email = "head@snitch.com",
+                    NormalizedEmail = "HEAD@SNITCH.COM",
+                    PhoneNumber = "1231233412",
                 }
-                /*new User()
-                {
-                    Id = 2,
-                    Name = "Peter",
-                    Surname = "Dimech",
-                    Email = "dimpeter@sampleemail.com",
-                    PhoneNum = 12345668,
-                    IsInvestigator = false,
-                },
-                new User()
-                {
-                    Id = 3,
-                    Name = "Valentina",
-                    Surname = "Buttigieg",
-                    Email = "valbutt@sampleemail.com",
-                    PhoneNum = 36435173,
-                    IsInvestigator = true,
-                },
-                new User()
-                {
-                    Id = 4,
-                    Name = "David",
-                    Surname = "Briffa",
-                    Email = "david_d_best@sampleemail.com",
-                    PhoneNum = 77777777,
-                    IsInvestigator = false,
-                },
-                new User()
-                {
-                    Id = 5,
-                    Name = "Wayne",
-                    Surname = "Borg",
-                    Email = "borgwayne420@sampleemail.com",
-                    PhoneNum = 94215242,
-                    IsInvestigator = false,
-                }*/
-                );
+            );
         }
 
         public DbSet<nemesis.ViewModels.ReportViewModel>? ReportViewModel { get; set; }
