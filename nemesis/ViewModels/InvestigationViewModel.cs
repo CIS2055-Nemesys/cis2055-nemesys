@@ -1,4 +1,5 @@
-﻿using nemesis.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using nemesis.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace nemesis.ViewModels
@@ -22,7 +23,7 @@ namespace nemesis.ViewModels
         public DateTime DateOfAction { get; set; }
 
 
-        public User Investigator { get; set; }
+        public IdentityUser Investigator { get; set; }
 
         public bool? IncludePhoneNumber { get; set; }
 

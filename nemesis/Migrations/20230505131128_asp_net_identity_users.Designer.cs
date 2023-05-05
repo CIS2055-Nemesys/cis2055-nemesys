@@ -12,8 +12,8 @@ using nemesis.Models.Contexts;
 namespace nemesis.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230505101314_deleting_old_user_table")]
-    partial class deleting_old_user_table
+    [Migration("20230505131128_asp_net_identity_users")]
+    partial class asp_net_identity_users
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -140,6 +140,22 @@ namespace nemesis.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "92b32ccb-8835-4e2d-ae6c-8c86eb2efed6",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "fb76fef5-62e2-4cf0-b908-74efd31349e3",
+                            Email = "chalijgatt@sampleemail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PhoneNumber = "44236421",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "cd4bc2a6-df80-4726-aa0c-2ecede784a64",
+                            TwoFactorEnabled = false,
+                            UserName = "CharlesG"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -290,8 +306,9 @@ namespace nemesis.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("InvestigatorId")
-                        .HasColumnType("int");
+                    b.Property<string>("InvestigatorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -309,10 +326,8 @@ namespace nemesis.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CreatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CreatedByUserId1")
+                    b.Property<string>("CreatedByUserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("DateOfReport")
@@ -349,7 +364,7 @@ namespace nemesis.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("CreatedByUserId1");
+                    b.HasIndex("CreatedByUserId");
 
                     b.ToTable("Reports");
 
@@ -358,9 +373,9 @@ namespace nemesis.Migrations
                         {
                             Id = 1,
                             CategoryId = 6,
-                            CreatedByUserId = 2,
-                            DateOfReport = new DateTime(2023, 4, 17, 10, 13, 13, 812, DateTimeKind.Utc).AddTicks(6495),
-                            DateSpotted = new DateTime(2023, 4, 15, 10, 13, 13, 812, DateTimeKind.Utc).AddTicks(6490),
+                            CreatedByUserId = "92b32ccb-8835-4e2d-ae6c-8c86eb2efed6",
+                            DateOfReport = new DateTime(2023, 4, 17, 13, 11, 27, 792, DateTimeKind.Utc).AddTicks(1018),
+                            DateSpotted = new DateTime(2023, 4, 15, 13, 11, 27, 792, DateTimeKind.Utc).AddTicks(1006),
                             Description = "I've recently discovered that the Maghtab garbage dump is actually an active volcano. Not only that, it's apparently sentient and has been constantly demanding tribute in the form of human sacrifice, will the authorities please do something about this before it loses its patience and destroys us all?!",
                             ImageUrl = "/images/SentientVolcano.jpg",
                             Location = "Maghtab",
@@ -372,9 +387,9 @@ namespace nemesis.Migrations
                         {
                             Id = 2,
                             CategoryId = 4,
-                            CreatedByUserId = 3,
-                            DateOfReport = new DateTime(2023, 4, 23, 12, 37, 13, 812, DateTimeKind.Utc).AddTicks(6499),
-                            DateSpotted = new DateTime(2023, 4, 23, 10, 13, 13, 812, DateTimeKind.Utc).AddTicks(6498),
+                            CreatedByUserId = "92b32ccb-8835-4e2d-ae6c-8c86eb2efed6",
+                            DateOfReport = new DateTime(2023, 4, 23, 15, 35, 27, 792, DateTimeKind.Utc).AddTicks(1030),
+                            DateSpotted = new DateTime(2023, 4, 23, 13, 11, 27, 792, DateTimeKind.Utc).AddTicks(1028),
                             Description = "Someone must be having a bad morning because as I was driving up to work, a truck tyre bounced off my dashboard and kept rolling down the road! I hope some unsuspecting jogger doesn't cross its path because then he'll definitely end up getting 'tyred'.",
                             ImageUrl = "/images/RunawayTyre.jpg",
                             Location = "Birzebbugia",
@@ -386,9 +401,9 @@ namespace nemesis.Migrations
                         {
                             Id = 3,
                             CategoryId = 2,
-                            CreatedByUserId = 5,
-                            DateOfReport = new DateTime(2023, 4, 24, 11, 25, 13, 812, DateTimeKind.Utc).AddTicks(6500),
-                            DateSpotted = new DateTime(2023, 4, 24, 10, 13, 13, 812, DateTimeKind.Utc).AddTicks(6500),
+                            CreatedByUserId = "92b32ccb-8835-4e2d-ae6c-8c86eb2efed6",
+                            DateOfReport = new DateTime(2023, 4, 24, 14, 23, 27, 792, DateTimeKind.Utc).AddTicks(1035),
+                            DateSpotted = new DateTime(2023, 4, 24, 13, 11, 27, 792, DateTimeKind.Utc).AddTicks(1034),
                             Description = "Just this evening I took the kids to the children's playground and was shocked when I noticed that one of them had grown an extra appendage! Apparently while I was chatting with the other parents, the kids had found a barrel of radioactive waste hidden in a small room underneath the playground and were making sand castles out of the stuff!",
                             ImageUrl = "/images/RadioactiveBarrel.jpg",
                             Location = "Hal-Qormi",
@@ -400,9 +415,9 @@ namespace nemesis.Migrations
                         {
                             Id = 4,
                             CategoryId = 4,
-                            CreatedByUserId = 1,
-                            DateOfReport = new DateTime(2023, 4, 30, 12, 37, 13, 812, DateTimeKind.Utc).AddTicks(6502),
-                            DateSpotted = new DateTime(2023, 4, 30, 10, 13, 13, 812, DateTimeKind.Utc).AddTicks(6502),
+                            CreatedByUserId = "92b32ccb-8835-4e2d-ae6c-8c86eb2efed6",
+                            DateOfReport = new DateTime(2023, 4, 30, 15, 35, 27, 792, DateTimeKind.Utc).AddTicks(1039),
+                            DateSpotted = new DateTime(2023, 4, 30, 13, 11, 27, 792, DateTimeKind.Utc).AddTicks(1038),
                             Description = "There is a missing manhole cover on the highway just outside of Cikku bar, I think the storm last night dislodged it and now it's posing a danger to anyone driving through that road. I hope it gets investigated before someone gets hurt!",
                             ImageUrl = "/images/Manhole.jpg",
                             Location = "Haz-Zebbug",
@@ -414,9 +429,9 @@ namespace nemesis.Migrations
                         {
                             Id = 5,
                             CategoryId = 1,
-                            CreatedByUserId = 4,
-                            DateOfReport = new DateTime(2023, 5, 3, 12, 37, 13, 812, DateTimeKind.Utc).AddTicks(6504),
-                            DateSpotted = new DateTime(2023, 5, 3, 10, 13, 13, 812, DateTimeKind.Utc).AddTicks(6504),
+                            CreatedByUserId = "92b32ccb-8835-4e2d-ae6c-8c86eb2efed6",
+                            DateOfReport = new DateTime(2023, 5, 3, 15, 35, 27, 792, DateTimeKind.Utc).AddTicks(1043),
+                            DateSpotted = new DateTime(2023, 5, 3, 13, 11, 27, 792, DateTimeKind.Utc).AddTicks(1042),
                             Description = "I heard some commotion last night but thought it was just the local gang of racoons as usual so I slept through it. This morning, I find that a meteor containing alien worms had crash landed in my backyard! At first I came out with my trusty broomstick but it turns out they're incredibly friendly! I assure you they absolutely have not infiltrated my brain, and are definitely not forcing me to write this. By the way everyone should come see for themselves as soon as possible, the Hivemind demands it.",
                             ImageUrl = "/images/Meteor.jpg",
                             Location = "Siggiewi",
@@ -428,9 +443,9 @@ namespace nemesis.Migrations
                         {
                             Id = 6,
                             CategoryId = 6,
-                            CreatedByUserId = 4,
-                            DateOfReport = new DateTime(2023, 5, 2, 10, 13, 13, 812, DateTimeKind.Utc).AddTicks(6506),
-                            DateSpotted = new DateTime(2023, 5, 1, 22, 13, 13, 812, DateTimeKind.Utc).AddTicks(6505),
+                            CreatedByUserId = "92b32ccb-8835-4e2d-ae6c-8c86eb2efed6",
+                            DateOfReport = new DateTime(2023, 5, 2, 13, 11, 27, 792, DateTimeKind.Utc).AddTicks(1046),
+                            DateSpotted = new DateTime(2023, 5, 2, 1, 11, 27, 792, DateTimeKind.Utc).AddTicks(1045),
                             Description = "I was taking a lovely stroll on the beach last night when suddenly, my partner noted that the ancient old god Cthulhu had manifested out of the sea, heralding the end of days for humanity",
                             ImageUrl = "/images/Cthulhu.jpg",
                             Location = "Ghar Lapsi",
@@ -442,9 +457,9 @@ namespace nemesis.Migrations
                         {
                             Id = 7,
                             CategoryId = 2,
-                            CreatedByUserId = 5,
-                            DateOfReport = new DateTime(2023, 5, 3, 0, 37, 13, 812, DateTimeKind.Utc).AddTicks(6508),
-                            DateSpotted = new DateTime(2023, 5, 2, 22, 13, 13, 812, DateTimeKind.Utc).AddTicks(6508),
+                            CreatedByUserId = "92b32ccb-8835-4e2d-ae6c-8c86eb2efed6",
+                            DateOfReport = new DateTime(2023, 5, 3, 3, 35, 27, 792, DateTimeKind.Utc).AddTicks(1112),
+                            DateSpotted = new DateTime(2023, 5, 3, 1, 11, 27, 792, DateTimeKind.Utc).AddTicks(1111),
                             Description = "We were having lunch at Zeppi's Diner last night when suddenly, a rodent the size of a car scurried out of the kitchen! I have to say it really put us off finishing the meal. I hope the food safety authorities see this post!",
                             ImageUrl = "/images/GiantRodent.jpg",
                             Location = "Hamrun",
@@ -456,9 +471,9 @@ namespace nemesis.Migrations
                         {
                             Id = 8,
                             CategoryId = 1,
-                            CreatedByUserId = 5,
-                            DateOfReport = new DateTime(2023, 5, 3, 12, 37, 13, 812, DateTimeKind.Utc).AddTicks(6510),
-                            DateSpotted = new DateTime(2023, 5, 3, 10, 13, 13, 812, DateTimeKind.Utc).AddTicks(6509),
+                            CreatedByUserId = "92b32ccb-8835-4e2d-ae6c-8c86eb2efed6",
+                            DateOfReport = new DateTime(2023, 5, 3, 15, 35, 27, 792, DateTimeKind.Utc).AddTicks(1117),
+                            DateSpotted = new DateTime(2023, 5, 3, 13, 11, 27, 792, DateTimeKind.Utc).AddTicks(1115),
                             Description = "We went out for dinner at Fonzu's last night and were having a great time! Hats off to the guy who was playing the accordion with his feet. I ordered the special 'Fonzu's Burger' off the menu, and, to say the least, was shocked when the waitress brought it to the table. It was just a clump of greasy hair! I don't know who thought this was a good idea or how it passed any form of review! Talk about finding a hair in the food! ",
                             ImageUrl = "/images/HairBurger.jpeg",
                             Location = "Naxxar",
@@ -470,9 +485,9 @@ namespace nemesis.Migrations
                         {
                             Id = 9,
                             CategoryId = 2,
-                            CreatedByUserId = 3,
-                            DateOfReport = new DateTime(2023, 5, 3, 22, 13, 13, 812, DateTimeKind.Utc).AddTicks(6512),
-                            DateSpotted = new DateTime(2023, 5, 3, 17, 25, 13, 812, DateTimeKind.Utc).AddTicks(6511),
+                            CreatedByUserId = "92b32ccb-8835-4e2d-ae6c-8c86eb2efed6",
+                            DateOfReport = new DateTime(2023, 5, 4, 1, 11, 27, 792, DateTimeKind.Utc).AddTicks(1120),
+                            DateSpotted = new DateTime(2023, 5, 3, 20, 23, 27, 792, DateTimeKind.Utc).AddTicks(1119),
                             Description = "I was out shopping with the kids when we came across a passed out man in the middle of the sidewalk. Normally I wouldn't post something like this, because let's face it, we've all been there. However, what really bothered me was that he was snoring so loud it sounded like an entire trombone orchestra! Simply unacceptable!",
                             ImageUrl = "/images/ManPassedOut.jpg",
                             Location = "Bormla",
@@ -484,9 +499,9 @@ namespace nemesis.Migrations
                         {
                             Id = 10,
                             CategoryId = 6,
-                            CreatedByUserId = 4,
-                            DateOfReport = new DateTime(2023, 5, 4, 15, 1, 13, 812, DateTimeKind.Utc).AddTicks(6514),
-                            DateSpotted = new DateTime(2023, 5, 4, 10, 13, 13, 812, DateTimeKind.Utc).AddTicks(6513),
+                            CreatedByUserId = "92b32ccb-8835-4e2d-ae6c-8c86eb2efed6",
+                            DateOfReport = new DateTime(2023, 5, 4, 17, 59, 27, 792, DateTimeKind.Utc).AddTicks(1124),
+                            DateSpotted = new DateTime(2023, 5, 4, 13, 11, 27, 792, DateTimeKind.Utc).AddTicks(1123),
                             Description = "HOW IS THIS ACCEPTABLE!? MY FAVOURITE HEINZ BAKED BEANZ HAVE BEEN OUT OF STOCK FOR THE LAST 2 DAYS!??!1?111? HOW AM I SUPPOSED TO FEED MY CHILDREN A NUTRITIOUS BREAKFAST IF I DON'T HAVE ANY BEANZ! WHY AREN'T THERE ANY BEANZ!?!11?",
                             ImageUrl = "/images/MissingBeans.webp",
                             Location = "Mosta",
@@ -498,9 +513,9 @@ namespace nemesis.Migrations
                         {
                             Id = 11,
                             CategoryId = 1,
-                            CreatedByUserId = 5,
-                            DateOfReport = new DateTime(2023, 5, 5, 3, 1, 13, 812, DateTimeKind.Utc).AddTicks(6516),
-                            DateSpotted = new DateTime(2023, 5, 4, 22, 13, 13, 812, DateTimeKind.Utc).AddTicks(6515),
+                            CreatedByUserId = "92b32ccb-8835-4e2d-ae6c-8c86eb2efed6",
+                            DateOfReport = new DateTime(2023, 5, 5, 5, 59, 27, 792, DateTimeKind.Utc).AddTicks(1127),
+                            DateSpotted = new DateTime(2023, 5, 5, 1, 11, 27, 792, DateTimeKind.Utc).AddTicks(1127),
                             Description = "Like most of you, I buy my toilet paper from the gas station. I was disgusted this morning when some --redacted-- bought out the entire shop! Does this guy have ten --redacted--!? How am I supposed to wipe my --redacted-- without any toilet paper?!",
                             ImageUrl = "/images/ToiletPaperHoarder",
                             Location = "Mosta",
@@ -641,7 +656,9 @@ namespace nemesis.Migrations
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedByUser")
                         .WithMany()
-                        .HasForeignKey("CreatedByUserId1");
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Category");
 
