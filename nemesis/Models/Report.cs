@@ -1,4 +1,6 @@
-﻿namespace nemesis.Models
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace nemesis.Models
 {
     public class Report
     {
@@ -22,7 +24,7 @@
 
         public int CreatedByUserId { get; set; }
 
-        public User CreatedByUser { get; set; }
+        public IdentityUser CreatedByUser { get; set; }
 
         public bool Status { get; set; }
 

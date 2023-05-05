@@ -57,7 +57,6 @@ namespace nemesis
             }*/
 
             builder.Services.AddTransient<IReportRepository, ReportRepository>();
-            builder.Services.AddTransient<IUserRepository, UserRepository>();
             builder.Services.AddTransient<IInvestigationRepository, InvestigationRepository>();
 
 
