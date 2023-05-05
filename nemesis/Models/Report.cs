@@ -22,7 +22,7 @@ namespace nemesis.Models
 
         public Category Category { get; set; }
 
-        public int CreatedByUserId { get; set; }
+        public string CreatedByUserId { get; set; }
 
         public IdentityUser CreatedByUser { get; set; }
 

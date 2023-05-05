@@ -108,7 +108,7 @@ namespace nemesis.Controllers
                     ImageUrl = "/UserContent/Images/" + fileName,
                     CategoryId = newReport.CategoryId,
                     Status = false,
-                    CreatedByUserId = 5 //todo - un hard code this
+                    CreatedByUserId = "92b32ccb-8835-4e2d-ae6c-8c86eb2efed6" //todo - un hard code this
                 };
 
                 _reportRepository.AddReport(report);

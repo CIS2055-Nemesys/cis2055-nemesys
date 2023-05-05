@@ -9,7 +9,7 @@
 
         public DateTime DateOfAction { get; set; }
 
-        public int InvestigatorId { get; set; }
+        public string InvestigatorId { get; set; }
 
 
     }
