@@ -5,11 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
 
-<h4>ReportViewModel</h4>
 
-<form asp-action="Create" method="post" enctype="multipart/form-data">
+<form asp-action="Create" class="text-center" method="post" enctype="multipart/form-data">
+    <h1 class="report-headers">New Report</h1>
+
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
         <label asp-for="Title" class="control-label"></label>
@@ -18,8 +18,8 @@
     </div>
     <div class="form-group">
         <label asp-for="CategoryId" class="control-label"></label>
-        <div class="col-md-5">
-            <select asp-for="CategoryId"
+        <div class="col-md-5 mx-auto">
+            <select asp-for="CategoryId" class="category-picker"
                     asp-items="@(new SelectList(Model.Categories,"Id","Name"))">
             </select>
             <span asp-validation-for="CategoryId" class="text-danger"></span>
@@ -37,24 +37,23 @@
     </div>
     <div class="form-group">
         <label asp-for="DateSpotted" class="control-label"></label>
-        <input asp-for="DateSpotted" class="form-control" />
+        <div class="date-picker d-flex align-items-center justify-content-center">
+            <input asp-for="DateSpotted" class="form-control" />
+        </div>
         <span asp-validation-for="DateSpotted" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="ImageToUpload" class="control-label"></label>
         <input type="file" asp-for="ImageToUpload" class="form-control" />
         <span asp-validation-for="ImageToUpload" class="text-danger"></span>
-    </div>
+    </div><br>
 
             
     <div class="form-group">
+        <a class="btn btn-secondary" href="@Url.Action("Index", "Reports")">Back</a>
         <input type="submit" value="Create" class="btn btn-primary" />
     </div>
 </form>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @*Inject JQuery validation scripts in Layout*@
 @section Scripts {

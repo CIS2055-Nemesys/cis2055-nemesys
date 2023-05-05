@@ -4,35 +4,41 @@
     ViewData["Title"] = "Recent Reports";
 }
 
-<h1>@ViewData["Title"]</h1>
-
-<h2>Showing @Model.TotalReports Reports</h2>
-<div class="row">
-   
-        <table class="reports-table">
-            <tr>
-                <th>Report Number</th>
-                <th>Report Name</th>
-                <th>Upvotes</th>
-                <th>Location</th>
-                <th>Hazard Type</th>
-                <th>Date</th>
-            </tr>
-        @foreach (var report in Model.Reports)
-        {
-            <tr>
-                <td>@report.Id</td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@report.Id">
-                    @report.Title
-                    </a>
-                </td>
-                <td>@report.Upvotes</td>
-                <td>@report.Location</td>
-                <td>@report.CategoryId</td>
-                <td>@report.DateOfReport.ToShortDateString()</td>
-            </tr>
-        }
-        </table>
-    
+<div class="report-headers">
+    <h1>@ViewData["Title"]</h1>
+    <h2>Showing @Model.TotalReports Reports</h2>
 </div>
+
+   
+<div class="table-container">
+    <table class="reports-table">
+        <tr class="report-headers">
+            <th class="header-container"> # </th>
+            <th>Report Name</th>
+            <th>
+                <div class="header-container">
+                    <img src="/images/Upvote.png" class="upvote" alt="Upvotes">
+                </div>
+            </th>
+            <th>Location</th>
+            <th>Type</th>
+            <th class="header-container">Date</th>
+        </tr>
+    @foreach (var report in Model.Reports)
+    {
+        <tr>
+            <td class="report-num">@report.Id</td>
+            <td>
+                <a class="title-link" asp-action="Details" asp-route-id="@report.Id">
+                        <div class="report-name">@report.Title</div>
+                </a>
+            </td>
+            <td>@report.Upvotes</td>
+            <td>@report.Location</td>
+            <td class="report-num">@report.CategoryId</td>
+            <td>@report.DateOfReport.ToShortDateString()</td>
+        </tr>
+    }
+    </table>
+</div>
+    
