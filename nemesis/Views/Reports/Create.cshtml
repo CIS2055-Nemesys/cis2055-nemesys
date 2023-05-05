@@ -6,19 +6,18 @@
 }
 
 
-
-<form asp-action="Create" class="text-center" method="post" enctype="multipart/form-data">
+<form asp-action="Create" class="text-left" method="post" enctype="multipart/form-data">
     <h1 class="report-headers">New Report</h1>
 
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="form-group">
+    <div class="form-group text-left">
         <label asp-for="Title" class="control-label"></label>
-        <input asp-for="Title" class="form-control" />
+        <input asp-for="Title" class="form-control" id="title" />
         <span asp-validation-for="Title" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="CategoryId" class="control-label"></label>
-        <div class="col-md-5 mx-auto">
+        <div class="col-md-5">
             <select asp-for="CategoryId" class="category-picker"
                     asp-items="@(new SelectList(Model.Categories,"Id","Name"))">
             </select>
@@ -27,7 +26,7 @@
     </div>
     <div class="form-group">
         <label asp-for="Description" class="control-label"></label>
-        <textarea asp-for="Description" class="form-control" ></textarea>
+        <textarea asp-for="Description" class="form-control"></textarea>
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
     <div class="form-group">
@@ -37,7 +36,7 @@
     </div>
     <div class="form-group">
         <label asp-for="DateSpotted" class="control-label"></label>
-        <div class="date-picker d-flex align-items-center justify-content-center">
+        <div class="date-picker">
             <input asp-for="DateSpotted" class="form-control" />
         </div>
         <span asp-validation-for="DateSpotted" class="text-danger"></span>

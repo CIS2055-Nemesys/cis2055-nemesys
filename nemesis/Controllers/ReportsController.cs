@@ -131,5 +131,12 @@ namespace nemesis.Controllers
 
 
         }
+
+        [HttpGet]
+        public IActionResult Investigation(int reportId)
+        {
+            var model = new InvestigationViewModel();
+            return View(model);
+        }
     }
 }

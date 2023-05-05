@@ -23,20 +23,23 @@
             <th>Location</th>
             <th>Type</th>
             <th class="header-container">Date</th>
+            <th>Details</th>
+
         </tr>
     @foreach (var report in Model.Reports)
     {
         <tr>
             <td class="report-num">@report.Id</td>
-            <td>
-                <a class="title-link" asp-action="Details" asp-route-id="@report.Id">
-                        <div class="report-name">@report.Title</div>
-                </a>
-            </td>
-            <td>@report.Upvotes</td>
-            <td>@report.Location</td>
+            <td class="report-column">@report.Title</td>
+            <td class="report-column">@report.Upvotes</td>
+            <td class="report-column">@report.Location</td>
             <td class="report-num">@report.CategoryId</td>
             <td>@report.DateOfReport.ToShortDateString()</td>
+            <td class="image-center">
+                <a asp-action="Details" asp-route-id="@report.Id">
+                    <img src="/images/Details.png" class="details-image" alt="Upvotes">
+                </a>
+            </td>
         </tr>
     }
     </table>

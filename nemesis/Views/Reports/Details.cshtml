@@ -3,71 +3,80 @@
 @{
     ViewData["Title"] = "Details";
 }
+<div class="text-center">
+    <div class="report-headers">
+        <h1 class="report-title">
+            @Html.DisplayFor(model => model.Title) <br />
+        </h1>
+        <h2 class="category">
+            Category: @Html.DisplayFor(model => model.Category.Name)
+        </h2>
+    </div>
 
-<div class="report-headers">
-    <h1 class = "report-title">
-        @Html.DisplayFor(model => model.Title) <br />
-    </h1>
-    <h2 class = "category">
-        Category: @Html.DisplayFor(model => model.Category.Name)
-    </h2>
-</div>
+    <div>
+        <hr />
+        <dl class="row">
 
-<div>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            
+
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Location)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Location)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DateSpotted)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DateSpotted)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DateOfReport)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DateOfReport)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ImageUrl)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Status)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Status)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.InvestigationId)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.InvestigationId)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Upvotes)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Upvotes)
+            </dd>
+        </dl>
+    </div>
     <hr />
-    <dl class="row">
 
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Location)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Location)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateSpotted)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateSpotted)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateOfReport)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateOfReport)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImageUrl)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.InvestigationId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.InvestigationId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Upvotes)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Upvotes)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a class="btn btn-secondary" href="@Url.Action("Index", "Reports")">Back</a>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+        <a class="btn btn-secondary" href="@Url.Action("Index", "Reports")">Back</a>
+        <a class="btn btn-secondary" href="@Url.Action("Investigation", "Reports", new { reportId = Model.Id, reportTitle = Model.Title })">Submit Investigation</a>
+
+    </div>
+
+
 </div>
