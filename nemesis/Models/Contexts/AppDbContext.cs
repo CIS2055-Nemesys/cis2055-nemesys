@@ -287,7 +287,9 @@ namespace nemesis.Models.Contexts
                 {
                     Id = "92b32ccb-8835-4e2d-ae6c-8c86eb2efed6",
                     UserName = "CharlesG",
+                    NormalizedUserName ="CHARLESG",
                     Email = "chalijgatt@sampleemail.com",
+                    NormalizedEmail = "CHALIJGATT@SAMPLEEMAIL.COM",
                     PhoneNumber = "44236421",
                 }
                 /*new User()
