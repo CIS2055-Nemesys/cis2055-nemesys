@@ -212,5 +212,10 @@
         width: 12vw;
     }
 
+    .control-label {
+        color: #BFA181;
+        padding-top:0.5vw;
+        font-size:0.8vw;
+    }
 
 }
