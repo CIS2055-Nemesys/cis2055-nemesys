@@ -1,4 +1,5 @@
-﻿using nemesis.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using nemesis.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace nemesis.ViewModels
