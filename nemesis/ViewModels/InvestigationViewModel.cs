@@ -21,9 +21,6 @@ namespace nemesis.ViewModels
         [Display(Name = "Date of Investigation")]
         public DateTime DateOfAction { get; set; }
 
-
-        public User Investigator { get; set; }
-
         public bool? IncludePhoneNumber { get; set; }
 
         public string Status { get; set; }
