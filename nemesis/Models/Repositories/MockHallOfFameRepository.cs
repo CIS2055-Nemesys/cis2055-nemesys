@@ -29,5 +29,17 @@ namespace nemesis.Models.Repositories
             return top3Users;
         }
 
+        public Report GetMostUpvotedReport(string userId)
+        {
+            var userReports = _reports.Where(r => r.CreatedByUserId == userId);
+            if (userReports.Any())
+            {
+                return userReports
+                    .OrderByDescending(r => r.Upvotes)
+                    .First();
+            }
+            return null;
+        }
+
     }
 }

@@ -12,12 +12,14 @@
         <tr>
             <th>Name</th>
             <th>Reports</th>
+            <th>Most Upvoted Report</th>
         </tr>
         @foreach (var user in Model.Users)
         {
             <tr>
                 <td>@user.User.UserName</td>
                 <td>@user.ReportCount</td>
+                <td>@user.MostUpvotedReport.Title</td>
             </tr>
         }
     </table>

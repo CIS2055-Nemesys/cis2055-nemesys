@@ -6,5 +6,7 @@ namespace nemesis.Models
     {
         public IdentityUser User { get; set; }
         public int ReportCount { get; set; }
+        public Report MostUpvotedReport { get; set; }
+
     }
 }

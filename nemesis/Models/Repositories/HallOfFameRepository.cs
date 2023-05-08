@@ -15,15 +15,36 @@ namespace nemesis.Models.Repositories
 
         public IEnumerable<UserReportCount> GetTop3Reporters()
         {
+            var groupedReports = _appDbContext.Reports
+                 .GroupBy(r => r.CreatedByUserId)
+                 .Select(g => new { UserId = g.Key, ReportCount = g.Count() });
+
+            var topReporters = groupedReports
+                .OrderByDescending(g => g.ReportCount)
+                .Take(3)
+                .ToList();
+
+            var topUsers = topReporters
+                .Join(_appDbContext.Users,
+                    g => g.UserId,
+                    u => u.Id,
+                    (g, u) => new UserReportCount
+                    {
+                        User = u,
+                        ReportCount = g.ReportCount,
+                        MostUpvotedReport = GetMostUpvotedReport(g.UserId)
+                    })
+                .ToList();
+
+            return topUsers;
+        }
+
+        public Report GetMostUpvotedReport(string userId)
+        {
             return _appDbContext.Reports
-                        .GroupBy(r => r.CreatedByUserId)
-                        .Select(g => new UserReportCount
-                        {
-                            User = _appDbContext.Users.FirstOrDefault(u => u.Id == g.Key),
-                            ReportCount = g.Count()
-                        })
-                        .OrderByDescending(urc => urc.ReportCount)
-                        .Take(3);
+                .Where(r => r.CreatedByUserId == userId)
+                .OrderByDescending(r => r.Upvotes)
+                .FirstOrDefault();
         }
     }
 }
