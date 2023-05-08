@@ -131,7 +131,7 @@ namespace nemesis.Models.Contexts
                     DateOfReport = DateTime.UtcNow.AddDays(-1.9),
                     ImageUrl = "/images/Meteor.jpg",
                     CategoryId = 1,
-                    CreatedByUserId = "555e52b8-22db-4c15-a037-107016c7f827",
+                    CreatedByUserId = "afdb900f-344d-4bf7-9239-34a2e",
                     Status = false,
                     InvestigationId = null,
                     Upvotes = 782
@@ -140,13 +140,13 @@ namespace nemesis.Models.Contexts
                 {
                     Id = 6,
                     Title = "Old God rises from the depths",
-                    Description = "I was taking a lovely stroll on the beach last night when suddenly, my partner noted that the ancient old god Cthulhu had manifested out of the sea, heralding the end of days for humanity",
+                    Description = "I was taking a lovely stroll on the beach last night when suddenly, my partner noted that the ancient old god Cthulhu had manifested out of the sea, heralding the end of days for humanity and all life as we know it!",
                     Location = "Ghar Lapsi",
                     DateSpotted = DateTime.UtcNow.AddDays(-3.5),
                     DateOfReport = DateTime.UtcNow.AddDays(-3),
                     ImageUrl = "/images/Cthulhu.jpg",
                     CategoryId = 6,
-                    CreatedByUserId = "5888e361-c81f-4ac9-8e16-961b0eeed0ae",
+                    CreatedByUserId = "afdb900f-344d-4bf7-9239-34a2e",
                     Status = false,
                     InvestigationId = null,
                     Upvotes = 777
@@ -206,7 +206,7 @@ namespace nemesis.Models.Contexts
                     DateOfReport = DateTime.UtcNow.AddDays(-0.8),
                     ImageUrl = "/images/MissingBeans.webp",
                     CategoryId = 6,
-                    CreatedByUserId = "ad9a20a1-779e-4991-8881-9af6171668a5",
+                    CreatedByUserId = "afdb900f-344d-4bf7-9239-34a2e",
                     Status = false,
                     InvestigationId = null,
                     Upvotes = 345
@@ -230,7 +230,7 @@ namespace nemesis.Models.Contexts
                 {
                     Id = 12,
                     Title = "Porter imposter",
-                    Description = "Impostor detected!!!!!!\n This van tried to impersonate Dr Chris Porter (PhD, MD, JD, MBA, MS, MFA, DSc, DPhil, DEd, DPT, DVM, DSW, DMus, DEng, DM, DNurs, DLit, DDS, DClinPsy, DPharm, DArch, and DBA), the erudite, brilliant, innovative, charismatic, awe-inspiring, compassionate, visionary, and unparalleled intellectual powerhouse, whose prodigious knowledge, remarkable expertise, and boundless passion for teaching have transformed countless minds and left an indelible mark on the realm of academia.\n\nps: chatgpt is really useful",
+                    Description = "Imposter detected!!!!!!\n This van tried to impersonate Dr Chris Porter (PhD, MD, JD, MBA, MS, MFA, DSc, DPhil, DEd, DPT, DVM, DSW, DMus, DEng, DM, DNurs, DLit, DDS, DClinPsy, DPharm, DArch, and DBA), the erudite, brilliant, innovative, charismatic, awe-inspiring, compassionate, visionary, and unparalleled intellectual powerhouse, whose prodigious knowledge, remarkable expertise, and boundless passion for teaching have transformed countless minds and left an indelible mark on the realm of academia.\n\nps: chatgpt is really useful",
                     Location = "London",
                     DateSpotted = DateTime.UtcNow.AddDays(-1),
                     DateOfReport = DateTime.UtcNow,
