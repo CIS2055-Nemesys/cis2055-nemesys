@@ -3,8 +3,8 @@
 @{
     ViewData["Title"] = "Details";
 }
-<div class="text-center">
-    <div class="report-headers">
+<div class="container">
+    <div class="report-headers row">
         <h1 class="report-title">
             @Html.DisplayFor(model => model.Title) <br />
         </h1>
@@ -15,7 +15,14 @@
 
     <div>
         <hr />
+
+        <div class="row">
+            <img class="col" src="@Model.ImageUrl" alt="Image for @Model.Title" />
+        </div>
+
         <dl class="row">
+
+            
 
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.Description)
@@ -42,12 +49,6 @@
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.DateOfReport)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.ImageUrl)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.ImageUrl)
             </dd>
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.Status)
