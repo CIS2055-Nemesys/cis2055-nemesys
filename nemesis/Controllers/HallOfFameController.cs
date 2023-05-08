@@ -7,22 +7,24 @@ namespace nemesis.Controllers
 {
     public class HallOfFameController : Controller
     {
+        private readonly IHallOfFameRepository _hallOfFameRepository;
 
-        public HallOfFameController(/*IUserRepository userRepository*/)
+        public HallOfFameController(IHallOfFameRepository hallOfFameRepository)
         {
-//            _userRepository = userRepository;
+            _hallOfFameRepository = hallOfFameRepository;
         }
 
-        /*public IActionResult Index()
+        public IActionResult Index()
         {
-            var topUsers = _userRepository.GetTop3Reporters();
+            var topUsers = _hallOfFameRepository.GetTop3Reporters();
             var model = new HallOfFameViewModel()
             {
                 TopUsers = topUsers.Count(),
                 Users = topUsers
             };
             return View(model);
-        }*/
+        }
+
     }
 }
 

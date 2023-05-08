@@ -11,15 +11,13 @@
     <table class="reports-table">
         <tr>
             <th>Name</th>
-            <th>Surname</th>
-            <th>Investigator</th>
+            <th>Reports</th>
         </tr>
         @foreach (var user in Model.Users)
         {
             <tr>
-                <td>@user.UserName</td>@*
-                <td>@user.Surname</td>
-                <td>@user.IsInvestigator</td>*@
+                <td>@user.User.UserName</td>
+                <td>@user.ReportCount</td>
             </tr>
         }
     </table>
