@@ -58,6 +58,7 @@ namespace nemesis
 
             builder.Services.AddTransient<IReportRepository, ReportRepository>();
             builder.Services.AddTransient<IInvestigationRepository, InvestigationRepository>();
+            builder.Services.AddTransient<IHallOfFameRepository, HallOfFameRepository>();
 
 
             // Add services to the container.

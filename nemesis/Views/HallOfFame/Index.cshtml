@@ -11,15 +11,20 @@
     <table class="reports-table">
         <tr>
             <th>Name</th>
-            <th>Surname</th>
-            <th>Investigator</th>
+            <th>Reports</th>
+            <th>Most Upvoted Report</th>
         </tr>
         @foreach (var user in Model.Users)
         {
             <tr>
-                <td>@user.UserName</td>@*
-                <td>@user.Surname</td>
-                <td>@user.IsInvestigator</td>*@
+                <td>@user.User.UserName</td>
+                <td>@user.ReportCount</td>
+                <td>
+                    <a class="title-link" asp-controller="Reports" asp-action="Details" asp-route-id="@user.MostUpvotedReport.Id">
+                        <div class="report-name">@user.MostUpvotedReport.Title</div>
+                    </a>
+
+               </td>
             </tr>
         }
     </table>

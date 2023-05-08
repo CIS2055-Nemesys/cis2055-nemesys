@@ -136,6 +136,14 @@
         user-select: none;
     }
 
+    .title-link {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .title-link:hover {
+        text-decoration: underline;
+    }
     .report-column {
         max-width: 17vw;
         white-space: nowrap;
