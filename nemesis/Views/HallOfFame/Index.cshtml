@@ -19,7 +19,12 @@
             <tr>
                 <td>@user.User.UserName</td>
                 <td>@user.ReportCount</td>
-                <td>@user.MostUpvotedReport.Title</td>
+                <td>
+                    <a class="title-link" asp-controller="Reports" asp-action="Details" asp-route-id="@user.MostUpvotedReport.Id">
+                        <div class="report-name">@user.MostUpvotedReport.Title</div>
+                    </a>
+
+               </td>
             </tr>
         }
     </table>
