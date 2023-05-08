@@ -22,6 +22,8 @@ namespace nemesis.Models.Contexts
             base.OnModelCreating(modelBuilder);
 
             this.SeedUsers(modelBuilder);
+            this.SeedRoles(modelBuilder);
+            this.SeedUserRoles(modelBuilder);
 
             modelBuilder.Entity<Category>().HasData(
                 new Category()
@@ -57,7 +59,7 @@ namespace nemesis.Models.Contexts
              );
 
             modelBuilder.Entity<Report>().HasData(
-                
+
                 new Report()
                 {
                     Id = 1,
@@ -223,6 +225,21 @@ namespace nemesis.Models.Contexts
                     Status = false,
                     InvestigationId = null,
                     Upvotes = 498
+                },
+                new Report()
+                {
+                    Id = 12,
+                    Title = "Porter imposter",
+                    Description = "Impostor detected!!!!!!\n This van tried to impersonate Dr Chris Porter (PhD, MD, JD, MBA, MS, MFA, DSc, DPhil, DEd, DPT, DVM, DSW, DMus, DEng, DM, DNurs, DLit, DDS, DClinPsy, DPharm, DArch, and DBA), the erudite, brilliant, innovative, charismatic, awe-inspiring, compassionate, visionary, and unparalleled intellectual powerhouse, whose prodigious knowledge, remarkable expertise, and boundless passion for teaching have transformed countless minds and left an indelible mark on the realm of academia.\n\nps: chatgpt is really useful",
+                    Location = "London",
+                    DateSpotted = DateTime.UtcNow.AddDays(-1),
+                    DateOfReport = DateTime.UtcNow,
+                    ImageUrl = "/images/Porter.jpg",
+                    CategoryId = 1,
+                    CreatedByUserId = "84b91c9f-74d1-452d-927b-439bfd3a7287",
+                    Status = false,
+                    InvestigationId = null,
+                    Upvotes = 2000
                 }
 
 
@@ -233,8 +250,16 @@ namespace nemesis.Models.Contexts
         {
             modelBuilder.Entity<IdentityUser>().HasData(
 
-                
 
+                new IdentityUser()
+                {
+                    Id = "fac97539-cb0b-4b9f-ae20-497eafb414bc",
+                    UserName = "Sudo",
+                    NormalizedUserName = "SUDO",
+                    Email = "su@do.com",
+                    NormalizedEmail = "SU@DO.COM",
+                    PhoneNumber = "0", //you don't need to call him, he's already listening
+                },
                 new IdentityUser()
                 {
                     Id = "92b32ccb-8835-4e2d-ae6c-8c86eb2efed6",
@@ -304,6 +329,58 @@ namespace nemesis.Models.Contexts
                     Email = "homework@reminder.com",
                     NormalizedEmail = "HOMEWORK@REMINDER.COM",
                     PhoneNumber = "123412521",
+                }
+            );
+        }
+
+        private void SeedRoles(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<IdentityRole>().HasData(
+                new IdentityRole
+                {
+                    Name = "Admin",
+                    NormalizedName = "ADMIN",
+                    Id = "68a525ac-d446-4c8c-983c-047afdffed13"
+                },
+                new IdentityRole
+                {
+                    Name = "Investigator",
+                    NormalizedName = "INVESTIGATOR",
+                    Id = "fca95d41-370a-4218-b0aa-8502494448fb"
+                }
+            );;
+        }
+
+        private void SeedUserRoles(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(
+                new IdentityUserRole<string>
+                {
+                    //admin
+                    RoleId = "68a525ac-d446-4c8c-983c-047afdffed13",
+                    UserId = "fac97539-cb0b-4b9f-ae20-497eafb414bc"
+                },
+
+                //investigators
+                new IdentityUserRole<string>
+                {
+                    RoleId = "fca95d41-370a-4218-b0aa-8502494448fb",
+                    UserId = "fac97539-cb0b-4b9f-ae20-497eafb414bc"
+                },
+                new IdentityUserRole<string>
+                {
+                    RoleId = "fca95d41-370a-4218-b0aa-8502494448fb",
+                    UserId = "92b32ccb-8835-4e2d-ae6c-8c86eb2efed6"
+                },
+                new IdentityUserRole<string>
+                {
+                    RoleId = "fca95d41-370a-4218-b0aa-8502494448fb",
+                    UserId = "9059e247-2854-40bd-af2b-76088f8dd4e6"
+                },
+                new IdentityUserRole<string>
+                {
+                    RoleId = "fca95d41-370a-4218-b0aa-8502494448fb",
+                    UserId = "84b91c9f-74d1-452d-927b-439bfd3a7287"
                 }
             );
         }
