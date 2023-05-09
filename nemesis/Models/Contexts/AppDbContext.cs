@@ -219,7 +219,7 @@ namespace nemesis.Models.Contexts
                     Location = "Mosta",
                     DateSpotted = DateTime.UtcNow.AddDays(-0.5),
                     DateOfReport = DateTime.UtcNow.AddDays(-0.3),
-                    ImageUrl = "/images/ToiletPaperHoarder",
+                    ImageUrl = "/images/ToiletPaperHoarder.jpg",
                     CategoryId = 1,
                     CreatedByUserId = "5888e361-c81f-4ac9-8e16-961b0eeed0ae",
                     Status = false,

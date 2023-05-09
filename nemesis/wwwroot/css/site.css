@@ -71,7 +71,6 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        user-select: none;
         font-size: 0.8vw;
         line-height: 1.4;
     }
@@ -131,10 +130,6 @@
         font-style: italic;
     }
 
-
-    .report-headers {
-        user-select: none;
-    }
 
     .title-link {
         text-decoration: none;
