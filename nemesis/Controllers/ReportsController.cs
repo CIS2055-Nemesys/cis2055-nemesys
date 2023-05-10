@@ -83,6 +83,7 @@ namespace nemesis.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("Title, Description, Location, DateSpotted,CategoryId,ImageToUpload")] EditReportViewModel newReport)
         {
             if (ModelState.IsValid)
