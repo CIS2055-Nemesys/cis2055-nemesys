@@ -137,10 +137,25 @@ namespace nemesis.Controllers
         }
 
         [HttpGet]
-        public IActionResult Investigation(int reportId)
+        public IActionResult Investigation(int Id)
         {
-            var model = new InvestigationViewModel();
+            // Retrieve the report from your data source based on the reportId
+            Report report = _reportRepository.GetReportById(Id);
+
+            if (report == null)
+            {
+                // Handle the case where the report is not found
+                return NotFound();
+            }
+
+            var model = new InvestigationViewModel
+            {
+                Id = Id,
+                Title = report.Title
+            };
+
             return View(model);
         }
+
     }
 }

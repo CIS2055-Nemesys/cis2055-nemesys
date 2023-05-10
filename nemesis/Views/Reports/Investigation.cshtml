@@ -9,8 +9,8 @@
 
 <form asp-action="Create" class="text-left" method="post" enctype="multipart/form-data">
     <h1 class="report-headers">New Investigation</h1>
-    <h2>Report Title: @httpContext.Request.Query["reportTitle"]</h2>
-    <h3>Report ID: @httpContext.Request.Query["reportId"]</h3>
+    <h2>Report Title: @Model.Title</h2>
+    <h3>Report ID: @Model.Id</h3>
 
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 

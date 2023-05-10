@@ -10,6 +10,8 @@ namespace nemesis.ViewModels
         public List<ReportViewModel>? Reports { get; set; }
 
 
+        public int InvestigationId { get; set; }
+        public string Title { get; set; }
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Description of the investigation is required")]
