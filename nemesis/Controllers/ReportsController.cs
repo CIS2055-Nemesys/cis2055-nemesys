@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using nemesis.Models;
 using nemesis.Models.Interfaces;
@@ -9,10 +10,12 @@ namespace nemesis.Controllers
     public class ReportsController : Controller
     {
         private readonly IReportRepository _reportRepository;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public ReportsController(IReportRepository reportRepository)
+        public ReportsController(IReportRepository reportRepository,UserManager<IdentityUser> userManager)
         {
             _reportRepository = reportRepository;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -108,7 +111,7 @@ namespace nemesis.Controllers
                     ImageUrl = "/UserContent/Images/" + fileName,
                     CategoryId = newReport.CategoryId,
                     Status = false,
-                    CreatedByUserId = "92b32ccb-8835-4e2d-ae6c-8c86eb2efed6" //todo - un hard code this
+                    CreatedByUserId = _userManager.GetUserId(User)
                 };
 
                 _reportRepository.AddReport(report);
