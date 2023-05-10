@@ -111,7 +111,7 @@ namespace nemesis.Controllers
                     ImageUrl = "/UserContent/Images/" + fileName,
                     CategoryId = newReport.CategoryId,
                     Status = false,
-                    CreatedByUserId = _userManager
+                    CreatedByUserId = _userManager.GetUserId(User)
                 };
 
                 _reportRepository.AddReport(report);
