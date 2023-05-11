@@ -3,6 +3,9 @@
     public interface IInvestigationRepository
     {
         public IEnumerable<Investigation> GetAllInvestigations();
+        public Status GetStatusById(int id);
+
+        public IEnumerable<Status> GetAllStatuses();
 
         public Investigation GetInvestigationById(int id);
 

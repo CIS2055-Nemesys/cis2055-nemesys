@@ -23,7 +23,7 @@ namespace nemesis.ViewModels
 
         public IdentityUser CreatedByUser { get; set; }
 
-        public bool Status { get; set; }
+        public StatusViewModel Status { get; set; }
 
         public int? InvestigationId { get; set; }
 

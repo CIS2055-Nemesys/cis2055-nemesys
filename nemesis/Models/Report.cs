@@ -26,7 +26,9 @@ namespace nemesis.Models
 
         public IdentityUser CreatedByUser { get; set; }
 
-        public bool Status { get; set; }
+        public int StatusId { get; set; } = 1;
+
+        public Status Status { get; set; }
 
         public int? InvestigationId { get; set; }
 

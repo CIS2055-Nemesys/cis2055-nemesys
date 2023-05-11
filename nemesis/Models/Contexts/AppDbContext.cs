@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using nemesis.Migrations;
 using nemesis.ViewModels;
 
 namespace nemesis.Models.Contexts
@@ -11,7 +12,7 @@ namespace nemesis.Models.Contexts
         {
 
         }
-
+        public DbSet<Status> Statuses { get; set; }
         public DbSet<Report> Reports { get; set; }
         public DbSet<Investigation> Investigations { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -71,8 +72,8 @@ namespace nemesis.Models.Contexts
                     ImageUrl = "/images/SentientVolcano.jpg",
                     CategoryId = 6,
                     CreatedByUserId = "555e52b8-22db-4c15-a037-107016c7f827",
-                    Status = false,
-                    InvestigationId = null,
+                    StatusId = 1,
+                    InvestigationId = 1,
                     Upvotes = 178
                 },
 
@@ -87,8 +88,8 @@ namespace nemesis.Models.Contexts
                     ImageUrl = "/images/RunawayTyre.jpg",
                     CategoryId = 4,
                     CreatedByUserId = "ad9a20a1-779e-4991-8881-9af6171668a5",
-                    Status = false,
-                    InvestigationId = null,
+                    StatusId = 1,
+                    InvestigationId = 2,
                     Upvotes = 43
                 },
                 new Report()
@@ -102,7 +103,7 @@ namespace nemesis.Models.Contexts
                     ImageUrl = "/images/RadioactiveBarrel.jpg",
                     CategoryId = 2,
                     CreatedByUserId = "ad9a20a1-779e-4991-8881-9af6171668a5",
-                    Status = false,
+                    StatusId = 1,
                     InvestigationId = null,
                     Upvotes = 482
                 },
@@ -117,7 +118,7 @@ namespace nemesis.Models.Contexts
                     ImageUrl = "/images/Manhole.jpg",
                     CategoryId = 4,
                     CreatedByUserId = "ad9a20a1-779e-4991-8881-9af6171668a5",
-                    Status = false,
+                    StatusId = 1,
                     InvestigationId = null,
                     Upvotes = 25
                 },
@@ -132,7 +133,7 @@ namespace nemesis.Models.Contexts
                     ImageUrl = "/images/Meteor.jpg",
                     CategoryId = 1,
                     CreatedByUserId = "afdb900f-344d-4bf7-9239-34a2e",
-                    Status = false,
+                    StatusId = 1,
                     InvestigationId = null,
                     Upvotes = 782
                 },
@@ -147,7 +148,7 @@ namespace nemesis.Models.Contexts
                     ImageUrl = "/images/Cthulhu.jpg",
                     CategoryId = 6,
                     CreatedByUserId = "afdb900f-344d-4bf7-9239-34a2e",
-                    Status = false,
+                    StatusId = 1,
                     InvestigationId = null,
                     Upvotes = 777
                 },
@@ -162,7 +163,7 @@ namespace nemesis.Models.Contexts
                     ImageUrl = "/images/GiantRodent.jpg",
                     CategoryId = 2,
                     CreatedByUserId = "5888e361-c81f-4ac9-8e16-961b0eeed0ae",
-                    Status = false,
+                    StatusId = 1,
                     InvestigationId = null,
                     Upvotes = 246
                 },
@@ -177,7 +178,7 @@ namespace nemesis.Models.Contexts
                     ImageUrl = "/images/HairBurger.jpeg",
                     CategoryId = 1,
                     CreatedByUserId = "ad9a20a1-779e-4991-8881-9af6171668a5",
-                    Status = false,
+                    StatusId = 1,
                     InvestigationId = null,
                     Upvotes = 52
                 },
@@ -192,7 +193,7 @@ namespace nemesis.Models.Contexts
                     ImageUrl = "/images/ManPassedOut.jpg",
                     CategoryId = 2,
                     CreatedByUserId = "5cefc46b-1918-4ae3-8a40-4d337ff9a670",
-                    Status = false,
+                    StatusId = 1,
                     InvestigationId = null,
                     Upvotes = 120
                 },
@@ -207,7 +208,7 @@ namespace nemesis.Models.Contexts
                     ImageUrl = "/images/MissingBeans.webp",
                     CategoryId = 6,
                     CreatedByUserId = "afdb900f-344d-4bf7-9239-34a2e",
-                    Status = false,
+                    StatusId = 1,
                     InvestigationId = null,
                     Upvotes = 345
                 },
@@ -222,7 +223,7 @@ namespace nemesis.Models.Contexts
                     ImageUrl = "/images/ToiletPaperHoarder.jpg",
                     CategoryId = 1,
                     CreatedByUserId = "5888e361-c81f-4ac9-8e16-961b0eeed0ae",
-                    Status = false,
+                    StatusId = 1,
                     InvestigationId = null,
                     Upvotes = 498
                 },
@@ -237,13 +238,34 @@ namespace nemesis.Models.Contexts
                     ImageUrl = "/images/Porter.jpg",
                     CategoryId = 1,
                     CreatedByUserId = "84b91c9f-74d1-452d-927b-439bfd3a7287",
-                    Status = false,
+                    StatusId = 1,
                     InvestigationId = null,
                     Upvotes = 2000
                 }
-
-
             );
+            modelBuilder.Entity<Status>().HasData(
+               new Status()
+               {
+                   Id = 1,
+                   Name = "Open"
+               },
+               new Status()
+               {
+                   Id = 2,
+                   Name = "Being Investigated"
+               },
+               new Status()
+               {
+                   Id = 3,
+                   Name = "Closed"
+               },
+               new Status()
+               {
+                   Id = 4,
+                   Name = "No Action Required"
+               }
+            );
+            
         }
 
         private void SeedUsers(ModelBuilder modelBuilder)

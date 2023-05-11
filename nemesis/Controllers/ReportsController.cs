@@ -57,7 +57,7 @@ namespace nemesis.Controllers
                         Name = report.Category.Name
                     },
                     CreatedByUser = report.CreatedByUser,
-                    Status = report.Status,
+ 
                     InvestigationId = report.InvestigationId,
                     Upvotes = report.Upvotes                    
                 };
@@ -78,10 +78,11 @@ namespace nemesis.Controllers
                 Name = c.Name
             }).ToList();
 
+
             //Pass the list into an EditReportViewModel, which is used by the View (all other properties may be left blank, unless you want to add other default values
             var model = new EditReportViewModel()
             {
-                Categories = categoryList
+                Categories = categoryList,
             };
 
             //Pass model to View
@@ -117,7 +118,7 @@ namespace nemesis.Controllers
                     DateOfReport = DateTime.UtcNow,
                     ImageUrl = "/UserContent/Images/" + fileName,
                     CategoryId = newReport.CategoryId,
-                    Status = false,
+                    StatusId = 1,
                     CreatedByUserId = _userManager.GetUserId(User)
                 };
 
@@ -143,10 +144,19 @@ namespace nemesis.Controllers
         }
 
         [HttpGet]
+        [Authorize]
+
         public IActionResult Investigation(int Id)
         {
             // Retrieve the report from your data source based on the reportId
             Report report = _reportRepository.GetReportById(Id);
+
+
+            var statusList = _investigationRepository.GetAllStatuses().Select(c => new StatusViewModel()
+            {
+                Id = c.Id,
+                Name = c.Name
+            }).ToList();
 
             if (report == null)
             {
@@ -154,9 +164,11 @@ namespace nemesis.Controllers
                 return NotFound();
             }
 
-            var model = new InvestigationViewModel
+            var model = new EditInvestigationViewModel
             {
                 ReportId = Id,
+                Statuses = statusList
+
             };
 
             return View(model);
@@ -164,10 +176,8 @@ namespace nemesis.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Investigation([Bind("DateOfAction, Description, Status")] InvestigationViewModel newInvestigation, int reportId)
+        public IActionResult Investigation([Bind("DateOfAction, Description, StatusId")] EditInvestigationViewModel newInvestigation, int reportId)
         {
-
-            
             if (ModelState.IsValid)
             {
                 Investigation investigation = new Investigation()
@@ -175,23 +185,14 @@ namespace nemesis.Controllers
                     Description = newInvestigation.Description,
                     DateOfAction = newInvestigation.DateOfAction,
                     InvestigatorId = _userManager.GetUserId(User),
-                    Status = newInvestigation.Status
+                    StatusId = newInvestigation.StatusId
                 };
 
                 _investigationRepository.AddInvestigation(reportId, investigation);
-                    return RedirectToAction("Index");
+                return RedirectToAction("Index");
             }
             else
             {
-
-                foreach (var modelStateValue in ModelState.Values)
-                {
-                    foreach (var error in modelStateValue.Errors)
-                    {
-                        Debug.WriteLine($"Field: {error.ErrorMessage}");
-                    }
-                }
-
                 return View(newInvestigation);
             }
 

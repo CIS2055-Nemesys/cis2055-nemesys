@@ -8,8 +8,9 @@ namespace nemesis.ViewModels
     {
 
         public List<CategoryViewModel>? Categories { get; set; }
+        public List<StatusViewModel>? Statuses { get; set; }
 
-        
+
         public int Id { get; set; }
 
         [Required(ErrorMessage = "A title is required")]
@@ -48,7 +49,7 @@ namespace nemesis.ViewModels
 
         public IdentityUser? CreatedByUser { get; set; }
 
-        public bool? Status { get; set; }
+        public int StatusId { get; set; } = 1;
 
         public int? InvestigationId { get; set; }
 

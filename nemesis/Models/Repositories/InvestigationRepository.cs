@@ -26,6 +26,7 @@ namespace nemesis.Models.Repositories
             if (report != null)
             {
                 report.InvestigationId = investigation.Id;
+                report.StatusId = investigation.StatusId;
             }
 
             _appDbContext.SaveChanges();
@@ -56,9 +57,19 @@ namespace nemesis.Models.Repositories
             return _appDbContext.Investigations.Include(i => i.InvestigatorId).OrderByDescending(i => i.DateOfAction);
         }
 
+        public IEnumerable<Status> GetAllStatuses()
+        {
+            return _appDbContext.Statuses.ToList();
+        }
+
         public Investigation GetInvestigationById(int id)
         {
             return _appDbContext.Investigations.FirstOrDefault(i => i.Id == id);
+        }
+
+        public Status GetStatusById(int id)
+        {
+            return _appDbContext.Statuses.FirstOrDefault(c => c.Id == id);
         }
     }
 }
