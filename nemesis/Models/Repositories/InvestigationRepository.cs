@@ -18,13 +18,18 @@ namespace nemesis.Models.Repositories
         {
             var report = _appDbContext.Reports.SingleOrDefault(r => r.Id == reportId);
 
+          
+            _appDbContext.Investigations.Add(investigation);
+
+            _appDbContext.SaveChanges();
+
             if (report != null)
             {
                 report.InvestigationId = investigation.Id;
             }
 
-            _appDbContext.Investigations.Add(investigation);
-            _appDbContext.SaveChanges(); 
+            _appDbContext.SaveChanges();
+
         }
 
         public void DeleteInvestigation(int id)
