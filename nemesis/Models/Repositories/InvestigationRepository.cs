@@ -69,7 +69,7 @@ namespace nemesis.Models.Repositories
 
         public Status GetStatusById(int id)
         {
-            return _appDbContext.Statuses.FirstOrDefault(c => c.Id == id);
+            return _appDbContext.Statuses.FirstOrDefault(s => s.Id == id);
         }
     }
 }

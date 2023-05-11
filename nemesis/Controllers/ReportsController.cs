@@ -56,6 +56,7 @@ namespace nemesis.Controllers
                         Id = report.Category.Id,
                         Name = report.Category.Name
                     },
+                    //TODO: Add Status
                     CreatedByUser = report.CreatedByUser,
  
                     InvestigationId = report.InvestigationId,
@@ -145,12 +146,10 @@ namespace nemesis.Controllers
 
         [HttpGet]
         [Authorize]
-
         public IActionResult Investigation(int Id)
         {
             // Retrieve the report from your data source based on the reportId
             Report report = _reportRepository.GetReportById(Id);
-
 
             var statusList = _investigationRepository.GetAllStatuses().Select(c => new StatusViewModel()
             {
