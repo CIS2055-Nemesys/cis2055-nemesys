@@ -10,9 +10,9 @@ namespace nemesis.ViewModels
         public List<ReportViewModel>? Reports { get; set; }
 
 
-        public int InvestigationId { get; set; }
-        public string Title { get; set; }
         public int Id { get; set; }
+
+        public int ReportId { get; set; }
 
         [Required(ErrorMessage = "Description of the investigation is required")]
         [StringLength(50000)]
@@ -26,6 +26,12 @@ namespace nemesis.ViewModels
 
         public bool? IncludePhoneNumber { get; set; }
 
+        [Required(ErrorMessage = "Status is required")]
+        [StringLength(400)]
+        [Display(Name = "Current Status")]
         public string Status { get; set; }
+
+
+
     }
 }

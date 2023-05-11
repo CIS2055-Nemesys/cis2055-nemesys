@@ -1,19 +1,25 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using nemesis.Migrations;
 using nemesis.Models;
 using nemesis.Models.Interfaces;
+using nemesis.Models.Repositories;
 using nemesis.ViewModels;
+using System.Diagnostics;
 
 namespace nemesis.Controllers
 {
     public class ReportsController : Controller
     {
         private readonly IReportRepository _reportRepository;
+        private readonly IInvestigationRepository _investigationRepository;
+
         private readonly UserManager<IdentityUser> _userManager;
 
-        public ReportsController(IReportRepository reportRepository,UserManager<IdentityUser> userManager)
+        public ReportsController(IReportRepository reportRepository,UserManager<IdentityUser> userManager, IInvestigationRepository investigationRepository)
         {
+            _investigationRepository = investigationRepository;
             _reportRepository = reportRepository;
             _userManager = userManager;
         }
@@ -150,12 +156,48 @@ namespace nemesis.Controllers
 
             var model = new InvestigationViewModel
             {
-                Id = Id,
-                Title = report.Title
+                ReportId = Id,
             };
 
             return View(model);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Investigation([Bind("DateOfAction, Description, Status")] InvestigationViewModel newInvestigation, int reportId)
+        {
+
+            
+            if (ModelState.IsValid)
+            {
+                Investigation investigation = new Investigation()
+                {
+                    Description = newInvestigation.Description,
+                    DateOfAction = newInvestigation.DateOfAction,
+                    InvestigatorId = _userManager.GetUserId(User),
+                    Status = newInvestigation.Status
+                };
+
+                _investigationRepository.AddInvestigation(reportId, investigation);
+                    return RedirectToAction("Index");
+            }
+            else
+            {
+
+                foreach (var modelStateValue in ModelState.Values)
+                {
+                    foreach (var error in modelStateValue.Errors)
+                    {
+                        Debug.WriteLine($"Field: {error.ErrorMessage}");
+                    }
+                }
+
+                return View(newInvestigation);
+            }
+
+
+        }
     }
+
+    
 }

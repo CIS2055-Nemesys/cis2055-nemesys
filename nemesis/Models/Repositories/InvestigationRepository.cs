@@ -13,6 +13,7 @@ namespace nemesis.Models.Repositories
         {
             _appDbContext = appDbContext;
         }
+
         public void AddInvestigation(int reportId, Investigation investigation)
         {
             var report = _appDbContext.Reports.SingleOrDefault(r => r.Id == reportId);
