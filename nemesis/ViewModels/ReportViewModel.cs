@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using nemesis.Models;
+using System.ComponentModel;
 
 namespace nemesis.ViewModels
 {
@@ -25,7 +26,8 @@ namespace nemesis.ViewModels
 
         public StatusViewModel Status { get; set; }
 
-        public int? InvestigationId { get; set; }
+        [DisplayName("Investigation")]
+        public int? InvestigationId{ get; set; }
 
         public int Upvotes { get; set; }
     }

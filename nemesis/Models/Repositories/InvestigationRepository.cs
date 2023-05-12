@@ -64,7 +64,8 @@ namespace nemesis.Models.Repositories
 
         public Investigation GetInvestigationById(int id)
         {
-            return _appDbContext.Investigations.FirstOrDefault(i => i.Id == id);
+            return _appDbContext.Investigations.Include(r => r.Status).FirstOrDefault(r => r.Id == id);
+
         }
 
         public Status GetStatusById(int id)

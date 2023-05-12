@@ -1,0 +1,54 @@
+﻿@model nemesis.ViewModels.EditInvestigationViewModel
+@{
+    ViewData["Title"] = "Investigation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form asp-action="Investigation" class="text-left" method="post" enctype="multipart/form-data">
+    <h1 class="report-headers">New Investigation</h1>
+    <h3>Report ID: @Model.ReportId</h3>
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="DateOfAction" class="control-label"></label>
+        <div class="date-picker">
+            <input asp-for="DateOfAction" class="form-control" />
+        </div>
+        <span asp-validation-for="DateOfAction" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <textarea asp-for="Description" class="form-control" required></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="StatusId" class="control-label"></label>
+        <div class="col-md-5">
+            <select asp-for="StatusId" class="category-picker"
+                    asp-items="@(new SelectList(Model.Statuses,"Id","Name"))">
+            </select>
+            <span asp-validation-for="StatusId" class="text-danger"></span>
+        </div>
+    </div>
+
+
+    <div>
+        Include phone number in Report: @Html.CheckBox("isActive", true)
+    </div>
+
+    <!--TODO: These must be replaced with identity credentials-->
+
+    <input type="hidden" name="reportId" value="@Model.ReportId" />
+    <div class="form-group">
+        <a class="btn btn-secondary" href="@Url.Action("Index", "Reports")">Back</a>
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+
+@*Inject JQuery validation scripts in Layout*@
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

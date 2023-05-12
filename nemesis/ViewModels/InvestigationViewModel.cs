@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using nemesis.Models;
+using System.ComponentModel;
 
 namespace nemesis.ViewModels
 {
@@ -11,9 +12,12 @@ namespace nemesis.ViewModels
 
         public DateTime DateOfAction { get; set; }
 
+        public StatusViewModel Status { get; set; }
+
+        [DisplayName("Investigator")]
         public string InvestigatorId { get; set; }
 
-        public StatusViewModel Status { get; set; }
+        public string InvestigatorUsername { get; set; }
 
 
     }

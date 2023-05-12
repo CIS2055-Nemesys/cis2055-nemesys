@@ -7,6 +7,7 @@ using nemesis.Models.Contexts;
 using nemesis.Models.Interfaces;
 using nemesis.Models.Repositories;
 using nemesis.ViewModels;
+using System.Composition;
 using System.Diagnostics;
 
 namespace nemesis.Controllers
@@ -156,7 +157,7 @@ namespace nemesis.Controllers
 
         [HttpGet]
         [Authorize]
-        public IActionResult Investigation(int Id)
+        public IActionResult CreateInvestigation(int Id)
         {
             // Retrieve the report from your data source based on the reportId
             Report report = _reportRepository.GetReportById(Id);
@@ -185,7 +186,7 @@ namespace nemesis.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Investigation([Bind("DateOfAction, Description, StatusId")] EditInvestigationViewModel newInvestigation, int reportId)
+        public IActionResult CreateInvestigation([Bind("DateOfAction, Description, StatusId")] EditInvestigationViewModel newInvestigation, int reportId)
         {
             if (ModelState.IsValid)
             {
@@ -204,10 +205,38 @@ namespace nemesis.Controllers
             {
                 return View(newInvestigation);
             }
+        }
 
+        public async Task<IActionResult> InvestigationAsync(int id)
+        {
+            var investigation = _investigationRepository.GetInvestigationById(id);
+            var investigator = await _userManager.FindByIdAsync(investigation.InvestigatorId);
+            var investigatorUsername = investigator != null ? investigator.UserName : "Unknown";
 
+            if (investigation == null)
+                return NotFound();
+            else
+            {
+                var model = new InvestigationViewModel()
+                {
+                    DateOfAction = investigation.DateOfAction,
+                    Description = investigation.Description,
+                    InvestigatorId = investigation.InvestigatorId,
+                    InvestigatorUsername = investigatorUsername
+
+                };
+
+                var status = _investigationRepository.GetStatusById(investigation.StatusId);
+                if (status != null)
+                {
+                    model.Status = new StatusViewModel()
+                    {
+                        Id = status.Id,
+                        Name = status.Name
+                    };
+                }
+                return View(model);
+            }
         }
     }
-
-    
 }
