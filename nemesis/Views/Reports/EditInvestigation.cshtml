@@ -1,10 +1,10 @@
 ﻿@model nemesis.ViewModels.EditInvestigationViewModel
 @{
-    ViewData["Title"] = "Investigation";
+    ViewData["Title"] = "Edit Investigation";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<form asp-action="Investigation" class="text-left" method="post" enctype="multipart/form-data">
+<form asp-action="EditInvestigation" class="text-left" method="post" enctype="multipart/form-data">
     <h1 class="report-headers">New Investigation</h1>
     <h3>Report ID: @Model.ReportId</h3>
 
@@ -40,7 +40,7 @@
     <input type="hidden" name="reportId" value="@Model.ReportId" />
     <div class="form-group">
         <a class="btn btn-secondary" href="@Url.Action("Details", "Reports", new { id = Model.ReportId })">Back</a>
-        <input type="submit" value="Create" class="btn btn-primary" />
+        <input type="submit" value="Update" class="btn btn-primary" />
     </div>
 </form>
 

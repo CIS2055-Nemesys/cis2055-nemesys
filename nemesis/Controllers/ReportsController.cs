@@ -19,7 +19,7 @@ namespace nemesis.Controllers
 
         private readonly UserManager<IdentityUser> _userManager;
 
-        public ReportsController(IReportRepository reportRepository,UserManager<IdentityUser> userManager, IInvestigationRepository investigationRepository)
+        public ReportsController(IReportRepository reportRepository, UserManager<IdentityUser> userManager, IInvestigationRepository investigationRepository)
         {
             _investigationRepository = investigationRepository;
             _reportRepository = reportRepository;
@@ -63,16 +63,16 @@ namespace nemesis.Controllers
                     Upvotes = report.Upvotes
                 };
 
-                    var status = _investigationRepository.GetStatusById(report.StatusId);
-                    if (status != null)
+                var status = _investigationRepository.GetStatusById(report.StatusId);
+                if (status != null)
+                {
+                    model.Status = new StatusViewModel()
                     {
-                        model.Status = new StatusViewModel()
-                        {
-                            Id = status.Id,
-                            Name = status.Name
-                        };
-                    }
-                
+                        Id = status.Id,
+                        Name = status.Name
+                    };
+                }
+
 
                 return View(model);
             }
@@ -157,7 +157,7 @@ namespace nemesis.Controllers
 
         [HttpGet]
         [Authorize]
-        public IActionResult CreateInvestigation(int id) 
+        public IActionResult CreateInvestigation(int id)
         {
             Report report = _reportRepository.GetReportById(id);
 
@@ -174,7 +174,7 @@ namespace nemesis.Controllers
 
             var model = new EditInvestigationViewModel
             {
-                ReportId = report.Id, 
+                ReportId = report.Id,
                 Statuses = statusList
             };
 
@@ -207,33 +207,82 @@ namespace nemesis.Controllers
         public async Task<IActionResult> InvestigationAsync(int id)
         {
             var investigation = _investigationRepository.GetInvestigationById(id);
+            if (investigation == null)
+                return NotFound();
+
             var investigator = await _userManager.FindByIdAsync(investigation.InvestigatorId);
             var investigatorUsername = investigator != null ? investigator.UserName : "Unknown";
 
-            if (investigation == null)
-                return NotFound();
-            else
+            var model = new InvestigationViewModel()
             {
-                var model = new InvestigationViewModel()
-                {
-                    DateOfAction = investigation.DateOfAction,
-                    Description = investigation.Description,
-                    InvestigatorId = investigation.InvestigatorId,
-                    InvestigatorUsername = investigatorUsername,
-                    ReportId = _investigationRepository.getReportIdByInvestigation(id)
+                DateOfAction = DateTime.Now,
+                Description = investigation.Description,
+                InvestigatorId = investigation.InvestigatorId,
+                InvestigatorUsername = investigatorUsername,
+                ReportId = _investigationRepository.getReportIdByInvestigation(id)
 
+            };
+
+            var status = _investigationRepository.GetStatusById(investigation.StatusId);
+            if (status != null)
+            {
+                model.Status = new StatusViewModel()
+                {
+                    Id = status.Id,
+                    Name = status.Name
+                };
+            }
+
+            return View(model);
+        }
+    
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult EditInvestigation(int id)
+        {
+            Report report = _reportRepository.GetReportById(id);
+
+            if (report == null)
+            {
+                return NotFound();
+            }
+
+            var statusList = _investigationRepository.GetAllStatuses().Select(c => new StatusViewModel()
+            {
+                Id = c.Id,
+                Name = c.Name
+            }).ToList();
+
+            var model = new EditInvestigationViewModel
+            {
+                ReportId = report.Id,
+                Statuses = statusList
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditInvestigation([Bind("DateOfAction, Description, StatusId")] EditInvestigationViewModel newInvestigation, int reportId)
+        {
+            if (ModelState.IsValid)
+            {
+                Investigation investigation = new Investigation()
+                {
+                    Description = newInvestigation.Description,
+                    DateOfAction = newInvestigation.DateOfAction,
+                    InvestigatorId = _userManager.GetUserId(User),
+                    StatusId = newInvestigation.StatusId,
                 };
 
-                var status = _investigationRepository.GetStatusById(investigation.StatusId);
-                if (status != null)
-                {
-                    model.Status = new StatusViewModel()
-                    {
-                        Id = status.Id,
-                        Name = status.Name
-                    };
-                }
-                return View(model);
+                _investigationRepository.AddInvestigation(reportId, investigation);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(newInvestigation);
             }
         }
     }

@@ -12,7 +12,7 @@ namespace nemesis.ViewModels
 
         public string Description { get; set; }
 
-        public DateTime DateOfAction { get; set; }
+        public DateTime DateOfAction { get; set; } = DateTime.Now;
 
         public StatusViewModel Status { get; set; }
 

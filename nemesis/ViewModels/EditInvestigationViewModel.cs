@@ -21,9 +21,9 @@ namespace nemesis.ViewModels
         public string Description { get; set; }
 
 
+        [Display(Name = "Date of Action")]
         [Required(ErrorMessage = "Date is required")]
-        [Display(Name = "Date of Investigation")]
-        public DateTime DateOfAction { get; set; }
+        public DateTime DateOfAction { get; set; } = DateTime.Now;
 
         public bool? IncludePhoneNumber { get; set; }
 

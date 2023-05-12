@@ -31,9 +31,9 @@ namespace nemesis.ViewModels
 
         [Required(ErrorMessage = "Date is required")]
         [Display(Name = "Date spotted")]
-        public DateTime DateSpotted { get; set; }
+        public DateTime DateSpotted { get; set; } = DateTime.Now;
 
-        public DateTime? DateOfReport { get; set; }
+        public DateTime? DateOfReport { get; set; } = DateTime.Now;
 
         public string? ImageUrl { get; set; }
 
