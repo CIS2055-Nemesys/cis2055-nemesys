@@ -127,7 +127,7 @@ namespace nemesis.Controllers
                     Description = newReport.Description,
                     Location = newReport.Location,
                     DateSpotted = newReport.DateSpotted,
-                    DateOfReport = DateTime.UtcNow,
+                    DateOfReport = DateTime.Now,
                     ImageUrl = "/UserContent/Images/" + fileName,
                     CategoryId = newReport.CategoryId,
                     StatusId = 1,
