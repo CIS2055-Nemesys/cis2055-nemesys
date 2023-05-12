@@ -1,29 +1,26 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using nemesis.Models;
-using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 namespace nemesis.ViewModels
-
 {
     public class InvestigationViewModel
     {
-        public List<ReportViewModel>? Reports { get; set; }
-
-
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Description of the investigation is required")]
-        [StringLength(50000)]
-        [Display(Name = "Investigation Description")]
+        public int ReportId { get; set; }
+
         public string Description { get; set; }
 
+        public DateTime DateOfAction { get; set; } = DateTime.Now;
 
-        [Required(ErrorMessage = "Date is required")]
-        [Display(Name = "Date of Investigation")]
-        public DateTime DateOfAction { get; set; }
+        public StatusViewModel Status { get; set; }
 
-        public bool? IncludePhoneNumber { get; set; }
+        [DisplayName("Investigator")]
+        public string InvestigatorId { get; set; }
 
-        public string Status { get; set; }
+        public string InvestigatorUsername { get; set; }
+
+
     }
 }

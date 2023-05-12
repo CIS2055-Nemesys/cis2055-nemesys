@@ -13,17 +13,24 @@ namespace nemesis.Models.Repositories
         {
             _appDbContext = appDbContext;
         }
+
         public void AddInvestigation(int reportId, Investigation investigation)
         {
             var report = _appDbContext.Reports.SingleOrDefault(r => r.Id == reportId);
 
+          
+            _appDbContext.Investigations.Add(investigation);
+
+            _appDbContext.SaveChanges();
+
             if (report != null)
             {
                 report.InvestigationId = investigation.Id;
+                report.StatusId = investigation.StatusId;
             }
 
-            _appDbContext.Investigations.Add(investigation);
-            _appDbContext.SaveChanges(); 
+            _appDbContext.SaveChanges();
+
         }
 
         public void DeleteInvestigation(int id)
@@ -50,9 +57,27 @@ namespace nemesis.Models.Repositories
             return _appDbContext.Investigations.Include(i => i.InvestigatorId).OrderByDescending(i => i.DateOfAction);
         }
 
+        public IEnumerable<Status> GetAllStatuses()
+        {
+            return _appDbContext.Statuses.ToList();
+        }
+
         public Investigation GetInvestigationById(int id)
         {
-            return _appDbContext.Investigations.FirstOrDefault(i => i.Id == id);
+            return _appDbContext.Investigations.Include(r => r.Status).FirstOrDefault(r => r.Id == id);
+
+        }
+
+        public int getReportIdByInvestigation(int id)
+        {
+            var report = _appDbContext.Reports.FirstOrDefault((r) => r.InvestigationId == id);
+
+            return report.Id;
+        }
+
+        public Status GetStatusById(int id)
+        {
+            return _appDbContext.Statuses.FirstOrDefault(s => s.Id == id);
         }
     }
 }
