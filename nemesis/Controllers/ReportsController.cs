@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using nemesis.Migrations;
 using nemesis.Models;
+using nemesis.Models.Contexts;
 using nemesis.Models.Interfaces;
 using nemesis.Models.Repositories;
 using nemesis.ViewModels;
@@ -56,12 +57,21 @@ namespace nemesis.Controllers
                         Id = report.Category.Id,
                         Name = report.Category.Name
                     },
-                    //TODO: Add Status
                     CreatedByUser = report.CreatedByUser,
- 
                     InvestigationId = report.InvestigationId,
-                    Upvotes = report.Upvotes                    
+                    Upvotes = report.Upvotes
                 };
+
+                    var status = _investigationRepository.GetStatusById(report.StatusId);
+                    if (status != null)
+                    {
+                        model.Status = new StatusViewModel()
+                        {
+                            Id = status.Id,
+                            Name = status.Name
+                        };
+                    }
+                
 
                 return View(model);
             }
