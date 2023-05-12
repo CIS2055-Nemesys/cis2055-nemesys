@@ -157,10 +157,14 @@ namespace nemesis.Controllers
 
         [HttpGet]
         [Authorize]
-        public IActionResult CreateInvestigation(int Id)
+        public IActionResult CreateInvestigation(int id) 
         {
-            // Retrieve the report from your data source based on the reportId
-            Report report = _reportRepository.GetReportById(Id);
+            Report report = _reportRepository.GetReportById(id);
+
+            if (report == null)
+            {
+                return NotFound();
+            }
 
             var statusList = _investigationRepository.GetAllStatuses().Select(c => new StatusViewModel()
             {
@@ -168,17 +172,10 @@ namespace nemesis.Controllers
                 Name = c.Name
             }).ToList();
 
-            if (report == null)
-            {
-                // Handle the case where the report is not found
-                return NotFound();
-            }
-
             var model = new EditInvestigationViewModel
             {
-                ReportId = Id,
+                ReportId = report.Id, 
                 Statuses = statusList
-
             };
 
             return View(model);
@@ -222,7 +219,8 @@ namespace nemesis.Controllers
                     DateOfAction = investigation.DateOfAction,
                     Description = investigation.Description,
                     InvestigatorId = investigation.InvestigatorId,
-                    InvestigatorUsername = investigatorUsername
+                    InvestigatorUsername = investigatorUsername,
+                    ReportId = _investigationRepository.getReportIdByInvestigation(id)
 
                 };
 

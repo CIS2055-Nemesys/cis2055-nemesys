@@ -41,7 +41,7 @@
 
     <input type="hidden" name="reportId" value="@Model.ReportId" />
     <div class="form-group">
-        <a class="btn btn-secondary" href="@Url.Action("Index", "Reports")">Back</a>
+        <a class="btn btn-secondary" href="@Url.Action("Details", "Reports", new { id = Model.ReportId })">Back</a>
         <input type="submit" value="Create" class="btn btn-primary" />
     </div>
 </form>

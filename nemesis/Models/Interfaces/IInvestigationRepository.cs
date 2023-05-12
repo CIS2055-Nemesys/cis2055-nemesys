@@ -15,5 +15,7 @@
 
         public void DeleteInvestigation(int id);
 
+        public int getReportIdByInvestigation(int id);
+
     }
 }

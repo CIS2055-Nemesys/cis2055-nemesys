@@ -68,6 +68,13 @@ namespace nemesis.Models.Repositories
 
         }
 
+        public int getReportIdByInvestigation(int id)
+        {
+            var report = _appDbContext.Reports.FirstOrDefault((r) => r.InvestigationId == id);
+
+            return report.Id;
+        }
+
         public Status GetStatusById(int id)
         {
             return _appDbContext.Statuses.FirstOrDefault(s => s.Id == id);

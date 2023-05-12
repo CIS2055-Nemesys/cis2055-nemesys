@@ -70,6 +70,14 @@ namespace nemesis.Models.Repositories
             return _investigations.FirstOrDefault((i) => i.Id == id); //return null if not found
         }
 
+        public int getReportIdByInvestigation(int id)
+        {
+            var report = _reports.FirstOrDefault((r) => r.InvestigationId == id);
+
+            return report.Id;
+
+        }
+
         public Status GetStatusById(int id)
         {
             return _statuses.FirstOrDefault((c) => c.Id == id); 

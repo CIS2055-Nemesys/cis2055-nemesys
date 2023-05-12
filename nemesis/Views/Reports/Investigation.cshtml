@@ -36,6 +36,6 @@
 
     <div>
         <a asp-action="EditInvestigation" asp-route-id="@Model?.Id">Edit</a> |
-        <a class="btn btn-secondary" href="@Url.Action("Index", "Reports")">Back</a>
+        <a class="btn btn-secondary" href="@Url.Action("Details", "Reports", new { id = Model.ReportId })">Back</a>
     </div>
 </div>
