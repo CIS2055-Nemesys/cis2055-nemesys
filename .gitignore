@@ -361,3 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+
+#user images
+/nemesis/wwwroot/UserContent/Images/8bd76124-1109-40c0-be56-6b600ffc474c.png
