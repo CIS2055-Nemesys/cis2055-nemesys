@@ -210,15 +210,14 @@ namespace nemesis.Controllers
             if (investigation == null)
                 return NotFound();
 
-            var investigator = await _userManager.FindByIdAsync(investigation.InvestigatorId);
-            var investigatorUsername = investigator != null ? investigator.UserName : "Unknown";
+            var investigatorUsername = await _investigationRepository.GetInvestigatorNameAsync(id);
 
             var model = new InvestigationViewModel()
             {
                 DateOfAction = DateTime.Now,
                 Description = investigation.Description,
                 InvestigatorId = investigation.InvestigatorId,
-                InvestigatorUsername = investigatorUsername,
+                InvestigatorUsername = investigatorUsername ,
                 ReportId = _investigationRepository.getReportIdByInvestigation(id)
 
             };
