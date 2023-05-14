@@ -364,4 +364,5 @@ FodyWeavers.xsd
 
 
 #user images
-/nemesis/wwwroot/UserContent/Images/8bd76124-1109-40c0-be56-6b600ffc474c.png
+/nemesis/wwwroot/UserContent/Images/*
+!/nemesis/wwwroot/UserContent/Images/.gitkeep
