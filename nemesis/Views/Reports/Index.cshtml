@@ -13,7 +13,7 @@
 <div class="table-container">
     <table class="reports-table">
         <tr class="report-headers">
-            <th class="header-container"> # </th>
+            @*<th class="header-container"> # </th>*@
             <th>Report Name</th>
             <th>
                 <div class="header-container">
@@ -23,21 +23,23 @@
             <th>Location</th>
             <th>Type</th>
             <th class="header-container">Date</th>
+            <th>Reported by</th>
             <th>Details</th>
 
         </tr>
     @foreach (var report in Model.Reports)
     {
         <tr>
-            <td class="report-num">@report.Id</td>
+            @*<td class="report-num">@report.Id</td>*@
             <td class="report-column">@report.Title</td>
             <td class="report-column">@report.Upvotes</td>
             <td class="report-column">@report.Location</td>
-            <td class="report-num">@report.CategoryId</td>
+            <td class="report-num">@report.Category.Name</td>
             <td>@report.DateOfReport.ToShortDateString()</td>
+            <td>@report.CreatedByUser.UserName</td>
             <td class="image-center">
                 <a asp-action="Details" asp-route-id="@report.Id">
-                    <img src="/images/Details.png" class="details-image" alt="Upvotes">
+                    <img src="/images/Details.png" class="details-image" alt="Details">
                 </a>
             </td>
         </tr>
