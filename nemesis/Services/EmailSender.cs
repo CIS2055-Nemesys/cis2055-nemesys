@@ -32,7 +32,7 @@ namespace nemesis.Services
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress("no-reply.nemesys.um@wayne.mt", "Password Recovery"),
+                From = new EmailAddress("no-reply.nemesys.um@wayne.mt"),
                 Subject = subject,
                 PlainTextContent = message,
                 HtmlContent = message
