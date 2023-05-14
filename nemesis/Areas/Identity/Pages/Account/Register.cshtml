@@ -17,6 +17,8 @@
                 <label asp-for="Input.Email"></label>
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
+            <span>Warning! Once you set your username, this cannot be changed</span>
+
             <div class="form-floating">
                 <input asp-for="Input.Username" class="form-control" autocomplete="username" aria-required="true" />
                 <label asp-for="Input.Username"></label>
