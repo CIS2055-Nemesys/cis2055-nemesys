@@ -79,9 +79,16 @@
     <hr />
 
     <div>
-        <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+        
         <a class="btn btn-secondary" href="@Url.Action("Index", "Reports")">Back</a>
-        <a class="btn btn-secondary" href="@Url.Action("CreateInvestigation", "Reports", new { Id = Model.Id })">Submit Investigation</a>
+        @if (Model.InvestigationId == null)
+        {
+            <a class="btn btn-secondary" href="@Url.Action("CreateInvestigation", "Reports", new { Id = Model.Id })">Submit Investigation</a>
+        }
+        else
+        {
+            <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>
+        }
     </div>
 
 
