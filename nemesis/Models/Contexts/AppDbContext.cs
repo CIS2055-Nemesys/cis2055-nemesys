@@ -160,7 +160,7 @@ namespace nemesis.Models.Contexts
                     Location = "Hamrun",
                     DateSpotted = DateTime.UtcNow.AddDays(-2.5),
                     DateOfReport = DateTime.UtcNow.AddDays(-2.4),
-                    ImageUrl = "/images/GiantRodent.jpg",
+                    ImageUrl = "/images/GiantRodent.png",
                     CategoryId = 2,
                     CreatedByUserId = "5888e361-c81f-4ac9-8e16-961b0eeed0ae",
                     StatusId = 1,

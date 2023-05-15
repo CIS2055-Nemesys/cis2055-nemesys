@@ -84,6 +84,7 @@
         <a class="btn btn-secondary" href="@Url.Action("Index", "Reports")">Back</a>
         @if (User.Identity.IsAuthenticated)
         {
+            //TODO: Add investigator authorization
             @if (Model.InvestigationId == null && User.IsInRole("Investigator"))
             {
                 <a class="btn btn-secondary" href="@Url.Action("CreateInvestigation", "Reports", new { Id = Model.Id })">Submit Investigation</a>
