@@ -35,7 +35,11 @@
     <hr />
 
     <div>
-        <a class="btn btn-secondary" href="@Url.Action("EditInvestigation", "Reports", new { id = Model.ReportId })">Edit</a>
+        @if (User.Identity.IsAuthenticated && User.IsInRole("Investigator"))
+        {
+            <a class="btn btn-secondary" href="@Url.Action("EditInvestigation", "Reports", new { id = Model.ReportId })">Edit</a>
+
+        }
         <a class="btn btn-secondary" href="@Url.Action("Details", "Reports", new { id = Model.ReportId })">Back</a>
     </div>
 </div>

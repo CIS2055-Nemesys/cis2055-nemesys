@@ -42,7 +42,7 @@
     <input type="hidden" name="reportId" value="@Model.ReportId" />
     <div class="form-group">
         <a class="btn btn-secondary" href="@Url.Action("Details", "Reports", new { id = Model.ReportId })">Back</a>
-        @if (User.Identity.IsAuthenticated)
+        @if (User.Identity.IsAuthenticated && User.IsInRole("Investigator"))
         {
             <input type="submit" value="Update" class="btn btn-primary" />
         }
