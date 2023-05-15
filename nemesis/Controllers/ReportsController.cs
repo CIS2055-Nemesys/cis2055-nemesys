@@ -19,7 +19,11 @@ namespace nemesis.Controllers
 
         private readonly UserManager<IdentityUser> _userManager;
 
-        public ReportsController(IReportRepository reportRepository, UserManager<IdentityUser> userManager, IInvestigationRepository investigationRepository)
+        public ReportsController(
+            IReportRepository reportRepository,
+            UserManager<IdentityUser> userManager,
+            IInvestigationRepository investigationRepository
+            )
         {
             _investigationRepository = investigationRepository;
             _reportRepository = reportRepository;
@@ -92,7 +96,7 @@ namespace nemesis.Controllers
 
 
             //Pass the list into an EditReportViewModel, which is used by the View (all other properties may be left blank, unless you want to add other default values
-            var model = new EditReportViewModel()
+            var model = new CreateReportViewModel()
             {
                 Categories = categoryList,
             };
@@ -103,7 +107,7 @@ namespace nemesis.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Title, Description, Location, DateSpotted,CategoryId,ImageToUpload")] EditReportViewModel newReport)
+        public IActionResult Create([Bind("Title, Description, Location, DateSpotted,CategoryId,ImageToUpload")] CreateReportViewModel newReport)
         {
             if (ModelState.IsValid)
             {
@@ -151,11 +155,96 @@ namespace nemesis.Controllers
 
                 return View(newReport);
             }
-
-
         }
 
+
         [HttpGet]
+        [Authorize]
+        public IActionResult EditReport(int id)
+        {
+            var oldReport = _reportRepository.GetReportById(id);
+            if (oldReport != null)
+            {
+                //Checking for ownership
+                var currentUserId = _userManager.GetUserId(User);
+                if (oldReport.CreatedByUserId == currentUserId)
+                {
+
+                    EditReportViewModel model = new EditReportViewModel()
+                    {
+                        Id = oldReport.Id,
+                        Description = oldReport.Description,
+                        ImageUrl = oldReport.ImageUrl,
+                    };
+
+                   
+                    return View(model);
+                }
+                else
+                    return RedirectToAction("Index");  //or return Forbid()
+            }
+            else
+                return RedirectToAction("Index");
+        }
+
+
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditReport([FromRoute] int id, [Bind("ImageToUpload, Description, DateOfReport")] EditReportViewModel newReport)
+        {
+            Report oldReport = _reportRepository.GetReportById(id);
+
+            if (oldReport == null)
+            {
+                return NotFound();
+            }
+
+            var currentUserId = _userManager.GetUserId(User);
+            if (oldReport.CreatedByUserId == currentUserId)
+            {
+                if (ModelState.IsValid)
+                {
+                    string imageUrl = "";
+
+                    if (newReport.ImageToUpload != null)
+                    {
+                        string fileName = "";
+                        //At this point you should check size, extension etc...
+                        //Then persist using a new name for consistency (e.g. new Guid)
+                        var extension = "." + newReport.ImageToUpload.FileName.Split('.')[newReport.ImageToUpload.FileName.Split('.').Length - 1];
+                        fileName = Guid.NewGuid().ToString() + extension;
+                        var path = Directory.GetCurrentDirectory() + "\\wwwroot\\images\\" + fileName;
+                        using (var bits = new FileStream(path, FileMode.Create))
+                        {
+                            newReport.ImageToUpload.CopyTo(bits);
+                        }
+                        imageUrl = "/images/" + fileName;
+                    }
+                    else
+                    
+                        imageUrl = oldReport.ImageUrl;
+
+                        oldReport.Description = newReport.Description;
+                        oldReport.ImageUrl = imageUrl;
+                        oldReport.DateOfReport = DateTime.Now;
+
+                        _reportRepository.EditReport(oldReport);
+                        return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View(newReport);
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+    
+
+    [HttpGet]
         [Authorize (Roles = "Investigator")]
         public IActionResult CreateInvestigation(int id)
         {
@@ -184,7 +273,6 @@ namespace nemesis.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Investigator")]
-
         public IActionResult CreateInvestigation([Bind("DateOfAction, Description, StatusId")] EditInvestigationViewModel newInvestigation, int reportId)
         {
             if (ModelState.IsValid)
@@ -206,6 +294,7 @@ namespace nemesis.Controllers
             }
         }
 
+        [HttpGet]
         public async Task<IActionResult> InvestigationAsync(int id)
         {
             var investigation = _investigationRepository.GetInvestigationById(id);
@@ -240,6 +329,7 @@ namespace nemesis.Controllers
 
         [HttpGet]
         [Authorize]
+        [Authorize(Roles = "Investigator")]
         public IActionResult EditInvestigation(int id)
         {
             Report report = _reportRepository.GetReportById(id);
@@ -266,6 +356,7 @@ namespace nemesis.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Investigator")]
         public IActionResult EditInvestigation([Bind("DateOfAction, Description, StatusId")] EditInvestigationViewModel newInvestigation, int reportId)
         {
             if (ModelState.IsValid)
