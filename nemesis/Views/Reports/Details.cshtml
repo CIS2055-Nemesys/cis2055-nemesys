@@ -1,4 +1,6 @@
-﻿@model nemesis.ViewModels.ReportViewModel
+﻿@using Microsoft.AspNetCore.Identity;
+@model nemesis.ViewModels.ReportViewModel
+@inject UserManager<IdentityUser> UserManager
 
 @{
     ViewData["Title"] = "Details";
@@ -79,17 +81,17 @@
     <hr />
 
     <div>
-        
         <a class="btn btn-secondary" href="@Url.Action("Index", "Reports")">Back</a>
-        @if (Model.InvestigationId == null)
+        @if (User.Identity.IsAuthenticated)
         {
-            <a class="btn btn-secondary" href="@Url.Action("CreateInvestigation", "Reports", new { Id = Model.Id })">Submit Investigation</a>
-        }
-        else
-        {
-            <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>
+            @if (Model.InvestigationId == null && User.IsInRole("Investigator"))
+            {
+                <a class="btn btn-secondary" href="@Url.Action("CreateInvestigation", "Reports", new { Id = Model.Id })">Submit Investigation</a>
+            }
+            if (UserManager.GetUserAsync(User).Result.Id == Model.CreatedByUser.Id)
+            {
+                <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>
+            }
         }
     </div>
-
-
 </div>
