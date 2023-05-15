@@ -156,7 +156,7 @@ namespace nemesis.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize (Roles = "Investigator")]
         public IActionResult CreateInvestigation(int id)
         {
             Report report = _reportRepository.GetReportById(id);
@@ -183,6 +183,8 @@ namespace nemesis.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Investigator")]
+
         public IActionResult CreateInvestigation([Bind("DateOfAction, Description, StatusId")] EditInvestigationViewModel newInvestigation, int reportId)
         {
             if (ModelState.IsValid)
