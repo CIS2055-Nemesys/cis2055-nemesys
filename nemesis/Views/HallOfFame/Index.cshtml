@@ -7,7 +7,6 @@
 <h1 class="report-headers">@ViewData["Title"]</h1>
 
 <div class="row">
-
     <table class="reports-table">
         <tr>
             <th>Name</th>
@@ -23,10 +22,8 @@
                     <a class="title-link" asp-controller="Reports" asp-action="Details" asp-route-id="@user.MostUpvotedReport.Id">
                         <div class="report-name">@user.MostUpvotedReport.Title</div>
                     </a>
-
                </td>
             </tr>
         }
     </table>
-
 </div>

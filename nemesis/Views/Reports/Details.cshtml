@@ -81,14 +81,12 @@
     <hr />
 
     <div>
-        <a class="btn btn-secondary" href="@Url.Action("Index", "Reports")">Back</a>
+        <a asp-controller="Reports" asp-action="Index" class="btn btn-secondary">Back</a>
         @if (User.Identity.IsAuthenticated)
         {
             @if (Model.InvestigationId == null && User.IsInRole("Investigator"))
             {
                 <a asp-controller="Reports" asp-action="CreateInvestigation" asp-route-id="@Model.Id" class="btn btn-secondary">Submit Investigation</a>
-
-                //<a class="btn btn-secondary" href="@Url.Action("CreateInvestigation", "Reports", new { Id = Model.Id })">Submit Investigation</a>
             }
             if (UserManager.GetUserAsync(User).Result.Id == Model.CreatedByUser.Id)
             {

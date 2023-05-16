@@ -24,8 +24,11 @@
     </div><br>
 
     <div class="form-group">
-        <a class="btn btn-secondary" href="@Url.Action("Details", "Reports", new { id = Model.Id })">Back</a>
-        <input type="submit" value="Update" class="btn btn-primary" />
+        <a asp-controller="Reports" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-secondary">Back</a>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <input type="submit" value="Update" class="btn btn-primary" />
+        }
     </div>
 </form>
 

@@ -273,7 +273,7 @@ namespace nemesis.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Investigator")]
-        public IActionResult CreateInvestigation([Bind("DateOfAction, Description, StatusId")] EditInvestigationViewModel newInvestigation, int reportId)
+        public IActionResult CreateInvestigation([FromRoute] int id, [Bind("DateOfAction, Description, StatusId")] EditInvestigationViewModel newInvestigation)
         {
             if (ModelState.IsValid)
             {
@@ -285,7 +285,7 @@ namespace nemesis.Controllers
                     StatusId = newInvestigation.StatusId
                 };
 
-                _investigationRepository.AddInvestigation(reportId, investigation);
+                _investigationRepository.AddInvestigation(id, investigation);
                 return RedirectToAction("Index");
             }
             else
