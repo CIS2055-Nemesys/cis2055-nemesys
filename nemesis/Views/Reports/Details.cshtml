@@ -84,14 +84,13 @@
         <a class="btn btn-secondary" href="@Url.Action("Index", "Reports")">Back</a>
         @if (User.Identity.IsAuthenticated)
         {
-            //TODO: Add investigator authorization
             @if (Model.InvestigationId == null && User.IsInRole("Investigator"))
             {
                 <a class="btn btn-secondary" href="@Url.Action("CreateInvestigation", "Reports", new { Id = Model.Id })">Submit Investigation</a>
             }
             if (UserManager.GetUserAsync(User).Result.Id == Model.CreatedByUser.Id)
             {
-                <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>
+                <a asp-controller="Reports" asp-action="EditReport" asp-route-id="@Model.Id" class="btn btn-secondary">Edit Report</a>
             }
         }
     </div>
