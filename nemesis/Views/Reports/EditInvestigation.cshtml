@@ -36,16 +36,18 @@
 
 
     <div>
+        <!--TODO-->
         Include phone number in Report: @Html.CheckBox("isActive", true)
     </div>
 
     <input type="hidden" name="reportId" value="@Model.ReportId" />
     <div class="form-group">
-        <a class="btn btn-secondary" href="@Url.Action("Details", "Reports", new { id = Model.ReportId })">Back</a>
+        <a asp-controller="Reports" asp-action="Details" asp-route-id="@Model.ReportId" class="btn btn-secondary">Back</a>
         @if (User.Identity.IsAuthenticated && User.IsInRole("Investigator"))
         {
             <input type="submit" value="Update" class="btn btn-primary" />
         }
+       
     </div>
 </form>
 
