@@ -244,7 +244,7 @@ namespace nemesis.Controllers
         }
     
 
-    [HttpGet]
+        [HttpGet]
         [Authorize (Roles = "Investigator")]
         public IActionResult CreateInvestigation(int id)
         {

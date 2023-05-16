@@ -86,7 +86,9 @@
         {
             @if (Model.InvestigationId == null && User.IsInRole("Investigator"))
             {
-                <a class="btn btn-secondary" href="@Url.Action("CreateInvestigation", "Reports", new { Id = Model.Id })">Submit Investigation</a>
+                <a asp-controller="Reports" asp-action="CreateInvestigation" asp-route-id="@Model.Id" class="btn btn-secondary">Submit Investigation</a>
+
+                //<a class="btn btn-secondary" href="@Url.Action("CreateInvestigation", "Reports", new { Id = Model.Id })">Submit Investigation</a>
             }
             if (UserManager.GetUserAsync(User).Result.Id == Model.CreatedByUser.Id)
             {
