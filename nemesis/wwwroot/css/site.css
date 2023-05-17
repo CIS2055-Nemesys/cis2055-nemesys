@@ -194,7 +194,7 @@
     .form-control {
         font-size: 1vw;
         background-color: #0A1828 !important;
-        color: #178582 !important;
+        color: #178582 ;
         border-color: #BFA181 !important;
         font-size: 1.2vw;
     }
@@ -214,6 +214,10 @@
         color: #BFA181;
         padding-top:0.5vw;
         font-size:0.8vw;
+    }
+
+    .requiredMarker {
+        color: red;
     }
 
 
