@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using nemesis.Migrations;
 using nemesis.Models;
 using nemesis.Models.Contexts;
@@ -67,6 +68,11 @@ namespace nemesis.Controllers
                     Upvotes = report.Upvotes
                 };
 
+                if (report.ImageUrl.IsNullOrEmpty())
+                {
+                    report.ImageUrl = "/images/DefaultImage.png";
+                }
+
                 var status = _investigationRepository.GetStatusById(report.StatusId);
                 if (status != null)
                 {
@@ -132,11 +138,15 @@ namespace nemesis.Controllers
                     Location = newReport.Location,
                     DateSpotted = newReport.DateSpotted,
                     DateOfReport = DateTime.Now,
-                    ImageUrl = "/UserContent/Images/" + fileName,
                     CategoryId = newReport.CategoryId,
                     StatusId = 1,
                     CreatedByUserId = _userManager.GetUserId(User)
                 };
+
+                if (fileName.IsNullOrEmpty())
+                {
+                    report.ImageUrl = "/UserContent/Images/" + fileName;
+                }
 
                 _reportRepository.AddReport(report);
                 return RedirectToAction("Index");

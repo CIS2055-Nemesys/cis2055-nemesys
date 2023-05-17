@@ -39,7 +39,7 @@ namespace nemesis.ViewModels
 
         [Display(Name = "Image of incident")]
         //[FileExtensions(Extensions = "jpg,png,gif,jpeg,bmp,svg")]
-        public IFormFile ImageToUpload { get; set; } //used only when submitting form
+        public IFormFile? ImageToUpload { get; set; } //used only when submitting form
 
 
         [Display(Name = "Report Category")]
