@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using nemesis.Models.Contexts;
 using nemesis.Models.Interfaces;
 using nemesis.Models.Repositories;
+using nemesis.Services;
 
 namespace nemesis
 {
@@ -47,6 +49,9 @@ namespace nemesis
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
                 options.SlidingExpiration = true;
             });
+
+            builder.Services.AddTransient<IEmailSender, EmailSender>();
+            builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 
             /*if (builder.Environment.IsDevelopment())
             {
