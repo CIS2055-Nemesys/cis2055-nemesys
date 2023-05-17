@@ -12,11 +12,13 @@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group text-left">
         <label asp-for="Title" class="control-label"></label>
+        <label asp-for="Title" class="control-label requiredMarker">*</label>
         <input asp-for="Title" class="form-control" id="title" />
         <span asp-validation-for="Title" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="CategoryId" class="control-label"></label>
+        <label asp-for="CategoryId" class="control-label requiredMarker">*</label>
         <div class="col-md-5">
             <select asp-for="CategoryId" class="category-picker"
                     asp-items="@(new SelectList(Model.Categories,"Id","Name"))">
@@ -26,16 +28,19 @@
     </div>
     <div class="form-group">
         <label asp-for="Description" class="control-label"></label>
+        <label asp-for="Description" class="control-label requiredMarker">*</label>
         <textarea asp-for="Description" class="form-control"></textarea>
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="Location" class="control-label"></label>
+        <label asp-for="Location" class="control-label requiredMarker">*</label>
         <input asp-for="Location" class="form-control" />
         <span asp-validation-for="Location" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="DateSpotted" class="control-label"></label>
+        <label asp-for="DateSpotted" class="control-label requiredMarker">*</label>
         <div class="date-picker">
             <input asp-for="DateSpotted" class="form-control" />
         </div>
@@ -43,6 +48,7 @@
     </div>
     <div class="form-group">
         <label asp-for="ImageToUpload" class="control-label"></label>
+        <label asp-for="ImageToUpload" class="control-label requiredMarker">*</label>
         <input type="file" asp-for="ImageToUpload" class="form-control" />
         <span asp-validation-for="ImageToUpload" class="text-danger"></span>
     </div><br>
