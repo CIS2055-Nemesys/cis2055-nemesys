@@ -35,7 +35,10 @@
     <hr />
 
     <div>
-        <a class="btn btn-secondary" href="@Url.Action("EditInvestigation", "Reports", new { id = Model.ReportId })">Edit</a>
-        <a class="btn btn-secondary" href="@Url.Action("Details", "Reports", new { id = Model.ReportId })">Back</a>
+        @if (User.Identity.IsAuthenticated && User.IsInRole("Investigator"))
+        {
+            <a asp-controller="Reports" asp-action="EditInvestigation" asp-route-id="@Model.ReportId" class="btn btn-secondary">Edit</a>
+        }
+        <a asp-controller="Reports" asp-action="Details" asp-route-id="@Model.ReportId" class="btn btn-secondary">Back</a>
     </div>
 </div>

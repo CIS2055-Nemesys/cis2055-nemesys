@@ -21,22 +21,21 @@
                 </div>
             </th>
             <th>Location</th>
-            <th>Type</th>
+            <th class="report-column">Type</th>
             <th class="header-container">Date</th>
-            <th>Reported by</th>
+            <th class="report-column">Reported by</th>
             <th>Details</th>
-
         </tr>
     @foreach (var report in Model.Reports)
     {
         <tr>
             @*<td class="report-num">@report.Id</td>*@
             <td class="report-column">@report.Title</td>
-            <td class="report-column">@report.Upvotes</td>
+            <td class="report-column">@report.Upvotes.Count</td>
             <td class="report-column">@report.Location</td>
-            <td class="report-num">@report.Category.Name</td>
+            <td class="report-column">@report.Category.Name</td>
             <td>@report.DateOfReport.ToShortDateString()</td>
-            <td>@report.CreatedByUser.UserName</td>
+            <td class="report-column">@report.CreatedByUser.UserName</td>
             <td class="image-center">
                 <a asp-action="Details" asp-route-id="@report.Id">
                     <img src="/images/Details.png" class="details-image" alt="Details">

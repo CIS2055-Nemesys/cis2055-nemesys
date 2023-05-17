@@ -1,4 +1,4 @@
-﻿@model nemesis.ViewModels.EditReportViewModel
+﻿@model nemesis.ViewModels.CreateReportViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -55,8 +55,11 @@
 
             
     <div class="form-group">
-        <a class="btn btn-secondary" href="@Url.Action("Index", "Reports")">Back</a>
-        <input type="submit" value="Create" class="btn btn-primary" />
+        <a asp-controller="Reports" asp-action="Index" class="btn btn-secondary">Back</a>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <input type="submit" value="Create" class="btn btn-primary" />
+        }
     </div>
 </form>
 

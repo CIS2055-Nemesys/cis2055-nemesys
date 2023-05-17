@@ -17,5 +17,7 @@
 
         public int getReportIdByInvestigation(int id);
 
+        public Task<string> GetInvestigatorNameAsync(int id);
+
     }
 }

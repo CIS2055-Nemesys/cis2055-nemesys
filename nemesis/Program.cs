@@ -33,7 +33,7 @@ namespace nemesis
 
                 options.User.RequireUniqueEmail = true;
                 
-            }).AddEntityFrameworkStores<AppDbContext>();
+            }).AddRoles<IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 
             builder.Services.ConfigureApplicationCookie(options =>
             {

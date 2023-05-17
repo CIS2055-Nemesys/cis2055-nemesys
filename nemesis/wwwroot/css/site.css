@@ -1,5 +1,4 @@
     /* global css */
-@media (min-width: 768px) {
     html {
         position: relative;
         min-height: 100%;
@@ -84,11 +83,6 @@
         user-select: none;
     }
 
-    .report-num {
-        width: 1vw;
-        text-align: center;
-    }
-
     .image-center {
         justify-content: center;
         align-items: center;
@@ -139,8 +133,9 @@
     .title-link:hover {
         text-decoration: underline;
     }
+
     .report-column {
-        max-width: 17vw;
+        max-width: 15vw;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -225,4 +220,4 @@
         color: red;
     }
 
-}
+

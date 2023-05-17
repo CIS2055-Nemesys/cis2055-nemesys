@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using nemesis.Models.Contexts;
 using nemesis.Models.Interfaces;
 
@@ -7,11 +8,14 @@ namespace nemesis.Models.Repositories
     public class InvestigationRepository : IInvestigationRepository
     {
         private readonly AppDbContext _appDbContext;
-        
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public InvestigationRepository(AppDbContext appDbContext)
+
+        public InvestigationRepository(AppDbContext appDbContext, UserManager<IdentityUser> userManager)
         {
             _appDbContext = appDbContext;
+            _userManager = userManager;
+
         }
 
         public void AddInvestigation(int reportId, Investigation investigation)
@@ -68,6 +72,17 @@ namespace nemesis.Models.Repositories
 
         }
 
+        //takes investigation id as parameter
+        public async Task<string> GetInvestigatorNameAsync(int id)
+        {
+            var investigation = GetInvestigationById(id);
+
+            var investigator = await _userManager.FindByIdAsync(investigation.InvestigatorId);
+            var investigatorUsername = investigator != null ? investigator.UserName : "Unknown";
+
+            return investigatorUsername;
+        }
+
         public int getReportIdByInvestigation(int id)
         {
             var report = _appDbContext.Reports.FirstOrDefault((r) => r.InvestigationId == id);
@@ -79,5 +94,6 @@ namespace nemesis.Models.Repositories
         {
             return _appDbContext.Statuses.FirstOrDefault(s => s.Id == id);
         }
+
     }
 }

@@ -1,4 +1,8 @@
-﻿@model nemesis.ViewModels.ReportViewModel
+﻿@using Microsoft.AspNetCore.Identity;
+@using nemesis.Models.Interfaces;
+@model nemesis.ViewModels.ReportViewModel
+@inject UserManager<IdentityUser> UserManager
+@inject IReportRepository ReportRepository
 
 @{
     ViewData["Title"] = "Details";
@@ -11,6 +15,23 @@
         <h2 class="category">
             Category: @Html.DisplayFor(model => model.Category.Name)
         </h2>
+        @if (User.Identity.IsAuthenticated && UserManager.GetUserAsync(User).Result.Id != Model.CreatedByUser.Id)
+        {
+            <!-- Changes based on if the current user has upvoted the report -->
+            <form method="post" asp-controller="Reports" asp-action="Vote">
+                <input type="hidden" name="reportId" value="@Model.Id" />
+                <button type="submit" class="btn btn-primary">
+                    @if (ReportRepository.HasUpvoted(UserManager.GetUserAsync(User).Result.Id, Model.Id))
+                    {
+                        <span>Remove Upvote</span>
+                    }
+                    else
+                    {
+                        <span>Upvote</span>
+                    }
+                </button>
+            </form>
+        }
     </div>
 
     <div>
@@ -72,17 +93,25 @@
                 @Html.DisplayNameFor(model => model.Upvotes)
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Upvotes)
+                @Html.DisplayFor(model => model.Upvotes.Count)
             </dd>
         </dl>
     </div>
     <hr />
 
     <div>
-        <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-        <a class="btn btn-secondary" href="@Url.Action("Index", "Reports")">Back</a>
-        <a class="btn btn-secondary" href="@Url.Action("CreateInvestigation", "Reports", new { Id = Model.Id })">Submit Investigation</a>
+        <a asp-controller="Reports" asp-action="Index" class="btn btn-secondary">Back</a>
+        @if (User.Identity.IsAuthenticated)
+        {
+            @if (Model.InvestigationId == null && User.IsInRole("Investigator"))
+            {
+                <a asp-controller="Reports" asp-action="CreateInvestigation" asp-route-id="@Model.Id" class="btn btn-secondary">Submit Investigation</a>
+            }
+            if (UserManager.GetUserAsync(User).Result.Id == Model.CreatedByUser.Id)
+            {
+                <a asp-controller="Reports" asp-action="EditReport" asp-route-id="@Model.Id" class="btn btn-secondary">Edit Report</a>
+            }
+            
+        }
     </div>
-
-
 </div>

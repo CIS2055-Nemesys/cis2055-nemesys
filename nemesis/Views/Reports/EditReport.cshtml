@@ -1,0 +1,40 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@model nemesis.ViewModels.EditReportViewModel
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "Edit Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form asp-action="EditReport" class="text-left" method="post" enctype="multipart/form-data">
+    <h1 class="report-headers">Edit Report</h1>
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ImageToUpload" class="control-label"></label>
+        <input type="file" asp-for="ImageToUpload" class="form-control" />
+        <span asp-validation-for="ImageToUpload" class="text-danger"></span>
+    </div><br>
+
+    <div class="form-group">
+        <a asp-controller="Reports" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-secondary">Back</a>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <input type="submit" value="Update" class="btn btn-primary" />
+        }
+    </div>
+</form>
+
+@*Inject JQuery validation scripts in Layout*@
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
