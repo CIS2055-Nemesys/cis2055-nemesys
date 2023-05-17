@@ -242,7 +242,18 @@ namespace nemesis.Controllers
                 return RedirectToAction("Index");
             }
         }
-    
+        [HttpPost]
+        public async Task<IActionResult> UpvoteAsync(int reportId)
+        {
+            // Retrieve the current user
+            var user = await _userManager.GetUserAsync(User);
+
+            // Check if the user has already upvoted the report
+            _reportRepository.Upvote(user.Id, reportId);
+
+            // Redirect to the report details page or any other desired page
+            return RedirectToAction("Details", "Reports", new { id = reportId });
+        }
 
         [HttpGet]
         [Authorize (Roles = "Investigator")]

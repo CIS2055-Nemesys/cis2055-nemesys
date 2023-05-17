@@ -13,6 +13,13 @@
         <h2 class="category">
             Category: @Html.DisplayFor(model => model.Category.Name)
         </h2>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <form method="post" asp-controller="Reports" asp-action="Upvote">
+                <input type="hidden" name="reportId" value="@Model.Id" />
+                <button type="submit" class="btn btn-primary">Upvote</button>
+            </form>
+        }
     </div>
 
     <div>
@@ -92,6 +99,7 @@
             {
                 <a asp-controller="Reports" asp-action="EditReport" asp-route-id="@Model.Id" class="btn btn-secondary">Edit Report</a>
             }
+            
         }
     </div>
 </div>
