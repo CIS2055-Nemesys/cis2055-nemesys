@@ -70,7 +70,7 @@ namespace nemesis.Controllers
 
                 if (report.ImageUrl.IsNullOrEmpty())
                 {
-                    report.ImageUrl = "/images/DefaultImage.png";
+                    model.ImageUrl = "/images/DefaultImage.png";
                 }
 
                 var status = _investigationRepository.GetStatusById(report.StatusId);
@@ -143,7 +143,7 @@ namespace nemesis.Controllers
                     CreatedByUserId = _userManager.GetUserId(User)
                 };
 
-                if (fileName.IsNullOrEmpty())
+                if (!fileName.IsNullOrEmpty())
                 {
                     report.ImageUrl = "/UserContent/Images/" + fileName;
                 }
