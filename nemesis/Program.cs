@@ -12,6 +12,12 @@ namespace nemesis
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddLogging(options =>
+            {
+                options.ClearProviders();
+                options.AddConsole();
+            });
+
             builder.Services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DevDbConnection") ?? throw new InvalidOperationException("missing connection string"));
