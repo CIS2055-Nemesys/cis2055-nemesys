@@ -1,4 +1,7 @@
-﻿using nemesis.Models.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using nemesis.Migrations;
+using nemesis.Models.Contexts;
+using nemesis.Models.Interfaces;
 
 namespace nemesis.Models.Repositories
 {
@@ -7,6 +10,7 @@ namespace nemesis.Models.Repositories
 
         public List<Report> _reports;
         public List<Category> _categories;
+        public List<Upvote> _upvotes;
 
         public MockReportRepository() {
             _categories = new List<Category>();
@@ -60,6 +64,36 @@ namespace nemesis.Models.Repositories
         public IEnumerable<Report> GetTop3Reports()
         {
             return _reports.OrderByDescending(r => r.Upvotes).Take(3);
+        }
+
+        public void Upvote(string userId, int reportId)
+        {
+            bool hasUpvoted = _upvotes.Any(u => u.UserId == userId && u.ReportID == reportId);
+
+            if (!hasUpvoted)
+            {
+                // Create a new upvote entry
+                Upvote upvote = new Upvote
+                {
+                    UserId = userId,
+                    ReportID = reportId
+                };
+
+                _upvotes.Add(upvote);
+            }
+        }
+        public void RemoveUpvote(string userId, int reportId)
+        {
+            var upvote = _upvotes.FirstOrDefault(u => u.UserId == userId && u.ReportID == reportId);
+            if (upvote != null)
+            {
+                _upvotes.Remove(upvote);
+            }
+        }
+
+        public bool HasUpvoted(string userId, int reportId)
+        {
+            return _upvotes.Any(u => u.UserId == userId && u.ReportID == reportId);
         }
     }
 }

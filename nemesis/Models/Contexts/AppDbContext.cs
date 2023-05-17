@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using nemesis.Migrations;
 using nemesis.ViewModels;
+using static nemesis.Models.Upvote;
 
 namespace nemesis.Models.Contexts
 {
@@ -16,6 +18,7 @@ namespace nemesis.Models.Contexts
         public DbSet<Report> Reports { get; set; }
         public DbSet<Investigation> Investigations { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Upvote> Upvotes { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -74,7 +77,7 @@ namespace nemesis.Models.Contexts
                     CreatedByUserId = "555e52b8-22db-4c15-a037-107016c7f827",
                     StatusId = 1,
                     InvestigationId = 1,
-                    Upvotes = 178
+                    Upvotes = null
                 },
 
                 new Report()
@@ -90,7 +93,7 @@ namespace nemesis.Models.Contexts
                     CreatedByUserId = "ad9a20a1-779e-4991-8881-9af6171668a5",
                     StatusId = 1,
                     InvestigationId = 2,
-                    Upvotes = 43
+                    Upvotes = null
                 },
                 new Report()
                 {
@@ -105,7 +108,7 @@ namespace nemesis.Models.Contexts
                     CreatedByUserId = "ad9a20a1-779e-4991-8881-9af6171668a5",
                     StatusId = 1,
                     InvestigationId = null,
-                    Upvotes = 482
+                    Upvotes = null
                 },
                 new Report()
                 {
@@ -120,7 +123,7 @@ namespace nemesis.Models.Contexts
                     CreatedByUserId = "ad9a20a1-779e-4991-8881-9af6171668a5",
                     StatusId = 1,
                     InvestigationId = null,
-                    Upvotes = 25
+                    Upvotes = null
                 },
                 new Report()
                 {
@@ -135,7 +138,7 @@ namespace nemesis.Models.Contexts
                     CreatedByUserId = "afdb900f-344d-4bf7-9239-34a2e",
                     StatusId = 1,
                     InvestigationId = null,
-                    Upvotes = 782
+                    Upvotes = null
                 },
                 new Report()
                 {
@@ -150,7 +153,7 @@ namespace nemesis.Models.Contexts
                     CreatedByUserId = "afdb900f-344d-4bf7-9239-34a2e",
                     StatusId = 1,
                     InvestigationId = null,
-                    Upvotes = 777
+                    Upvotes = null
                 },
                 new Report()
                 {
@@ -165,7 +168,7 @@ namespace nemesis.Models.Contexts
                     CreatedByUserId = "5888e361-c81f-4ac9-8e16-961b0eeed0ae",
                     StatusId = 1,
                     InvestigationId = null,
-                    Upvotes = 246
+                    Upvotes = null
                 },
                 new Report()
                 {
@@ -180,7 +183,7 @@ namespace nemesis.Models.Contexts
                     CreatedByUserId = "ad9a20a1-779e-4991-8881-9af6171668a5",
                     StatusId = 1,
                     InvestigationId = null,
-                    Upvotes = 52
+                    Upvotes = null
                 },
                 new Report()
                 {
@@ -195,7 +198,7 @@ namespace nemesis.Models.Contexts
                     CreatedByUserId = "5cefc46b-1918-4ae3-8a40-4d337ff9a670",
                     StatusId = 1,
                     InvestigationId = null,
-                    Upvotes = 120
+                    Upvotes = null
                 },
                 new Report()
                 {
@@ -210,7 +213,7 @@ namespace nemesis.Models.Contexts
                     CreatedByUserId = "afdb900f-344d-4bf7-9239-34a2e",
                     StatusId = 1,
                     InvestigationId = null,
-                    Upvotes = 345
+                    Upvotes = null
                 },
                 new Report()
                 {
@@ -225,7 +228,7 @@ namespace nemesis.Models.Contexts
                     CreatedByUserId = "5888e361-c81f-4ac9-8e16-961b0eeed0ae",
                     StatusId = 1,
                     InvestigationId = null,
-                    Upvotes = 498
+                    Upvotes = null
                 },
                 new Report()
                 {
@@ -240,7 +243,7 @@ namespace nemesis.Models.Contexts
                     CreatedByUserId = "84b91c9f-74d1-452d-927b-439bfd3a7287",
                     StatusId = 1,
                     InvestigationId = null,
-                    Upvotes = 2000
+                    Upvotes = null
                 }
             );
             modelBuilder.Entity<Status>().HasData(
@@ -383,6 +386,13 @@ namespace nemesis.Models.Contexts
                 u, u1, u2, u3, u4, u5, u6, u7, u8
 
             );
+
+            modelBuilder.ApplyConfiguration(new UpvoteConfiguration());
+
+            //Addresses max key length
+            modelBuilder.Entity<Upvote>().HasIndex(u => new { u.UserId, u.ReportID }).IsUnique().IsClustered(false);
+
+
         }
 
         private void SeedRoles(ModelBuilder modelBuilder)
@@ -439,4 +449,25 @@ namespace nemesis.Models.Contexts
 
         public DbSet<nemesis.ViewModels.ReportViewModel>? ReportViewModel { get; set; }
     }
+
+    //config for upvote composite PK
+    public class UpvoteConfiguration : IEntityTypeConfiguration<Upvote>
+    {
+        public void Configure(EntityTypeBuilder<Upvote> builder)
+        {
+            builder.HasKey(u => new { u.UserId, u.ReportID });
+
+            builder.HasOne(u => u.User)
+                .WithMany()
+                .HasForeignKey(u => u.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(u => u.Report)
+                .WithMany(r => r.Upvotes)
+                .HasForeignKey(u => u.ReportID)
+                .OnDelete(DeleteBehavior.Restrict);
+        }
+    }
+
+
 }
