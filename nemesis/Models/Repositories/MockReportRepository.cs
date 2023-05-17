@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using nemesis.Migrations;
+using nemesis.Models.Contexts;
 using nemesis.Models.Interfaces;
 
 namespace nemesis.Models.Repositories
@@ -79,6 +81,19 @@ namespace nemesis.Models.Repositories
 
                 _upvotes.Add(upvote);
             }
+        }
+        public void RemoveUpvote(string userId, int reportId)
+        {
+            var upvote = _upvotes.FirstOrDefault(u => u.UserId == userId && u.ReportID == reportId);
+            if (upvote != null)
+            {
+                _upvotes.Remove(upvote);
+            }
+        }
+
+        public bool HasUpvoted(string userId, int reportId)
+        {
+            return _upvotes.Any(u => u.UserId == userId && u.ReportID == reportId);
         }
     }
 }

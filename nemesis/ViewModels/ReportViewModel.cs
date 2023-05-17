@@ -27,8 +27,10 @@ namespace nemesis.ViewModels
         public StatusViewModel Status { get; set; }
 
         [DisplayName("Investigation")]
-        public int? InvestigationId{ get; set; }
+        public int? InvestigationId { get; set; }
 
         public ICollection<Upvote> Upvotes { get; set; }
+
+  
     }
 }

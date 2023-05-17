@@ -1,6 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Identity;
+@using nemesis.Models.Interfaces;
 @model nemesis.ViewModels.ReportViewModel
 @inject UserManager<IdentityUser> UserManager
+@inject IReportRepository ReportRepository
 
 @{
     ViewData["Title"] = "Details";
@@ -13,11 +15,21 @@
         <h2 class="category">
             Category: @Html.DisplayFor(model => model.Category.Name)
         </h2>
-        @if (User.Identity.IsAuthenticated)
+        @if (User.Identity.IsAuthenticated && UserManager.GetUserAsync(User).Result.Id != Model.CreatedByUser.Id)
         {
-            <form method="post" asp-controller="Reports" asp-action="Upvote">
+            <!-- Changes based on if the current user has upvoted the report -->
+            <form method="post" asp-controller="Reports" asp-action="Vote">
                 <input type="hidden" name="reportId" value="@Model.Id" />
-                <button type="submit" class="btn btn-primary">Upvote</button>
+                <button type="submit" class="btn btn-primary">
+                    @if (ReportRepository.HasUpvoted(UserManager.GetUserAsync(User).Result.Id, Model.Id))
+                    {
+                        <span>Remove Upvote</span>
+                    }
+                    else
+                    {
+                        <span>Upvote</span>
+                    }
+                </button>
             </form>
         }
     </div>

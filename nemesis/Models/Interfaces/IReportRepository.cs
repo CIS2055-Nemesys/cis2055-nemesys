@@ -18,5 +18,9 @@
 
         public void Upvote(string userId, int reportId);
 
+        public void RemoveUpvote(string userId, int reportId);
+
+        public bool HasUpvoted(string userId, int reportId);
+
     }
 }

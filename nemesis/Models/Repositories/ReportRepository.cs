@@ -64,21 +64,37 @@ namespace nemesis.Models.Repositories
      
 
         public void Upvote(string userId, int reportId)
-         {
-             bool hasUpvoted = _appDbContext.Upvotes.Any(u => u.UserId == userId && u.ReportID == reportId);
+        {
+            bool hasUpvoted = _appDbContext.Upvotes.Any(u => u.UserId == userId && u.ReportID == reportId);
 
-             if (!hasUpvoted)
-             {
-                 // Create a new upvote entry
-                 Upvote upvote = new Upvote
-                 {
-                     UserId = userId,
-                     ReportID = reportId
-                 };
+            if (!hasUpvoted)
+            {
+                // Create a new upvote entry
+                Upvote upvote = new Upvote
+                {
+                    UserId = userId,
+                    ReportID = reportId
+                };
 
-                 _appDbContext.Upvotes.Add(upvote);
+                _appDbContext.Upvotes.Add(upvote);
+            _appDbContext.SaveChanges();
+            }
+        }
+
+        public void RemoveUpvote(string userId, int reportId)
+        {
+            var upvote = _appDbContext.Upvotes.FirstOrDefault(u => u.UserId == userId && u.ReportID == reportId);
+            if (upvote != null)
+            {
+                _appDbContext.Upvotes.Remove(upvote);
                 _appDbContext.SaveChanges();
-             }
-         }
+            }
+
+        }
+
+        public bool HasUpvoted(string userId, int reportId)
+        {
+            return _appDbContext.Upvotes.Any(u => u.UserId == userId && u.ReportID == reportId);
+        }
     }
 }

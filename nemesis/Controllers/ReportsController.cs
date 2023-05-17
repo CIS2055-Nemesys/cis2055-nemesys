@@ -243,13 +243,23 @@ namespace nemesis.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> UpvoteAsync(int reportId)
+        public async Task<IActionResult> VoteAsync(int reportId)
         {
-            // Retrieve the current user
             var user = await _userManager.GetUserAsync(User);
 
             // Check if the user has already upvoted the report
-            _reportRepository.Upvote(user.Id, reportId);
+            var hasUpvoted = _reportRepository.HasUpvoted(user.Id, reportId);
+
+            if (hasUpvoted)
+            {
+                // User has already upvoted, so remove the upvote
+                _reportRepository.RemoveUpvote(user.Id, reportId);
+            }
+            else
+            {
+                // User has not upvoted, so add the upvote
+                _reportRepository.Upvote(user.Id, reportId);
+            }
 
             // Redirect to the report details page or any other desired page
             return RedirectToAction("Details", "Reports", new { id = reportId });
