@@ -16,7 +16,6 @@ namespace nemesis
             {
                 options.ClearProviders();
                 options.AddConsole();
-                options.AddEventLog();
             });
 
             builder.Services.AddDbContext<AppDbContext>(options =>
