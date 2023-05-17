@@ -39,11 +39,12 @@ namespace nemesis.Models.Repositories
             return topUsers;
         }
 
+        //Retrieves the most upvoted report to showcase each of the top 3 reporters' best article
         public Report GetMostUpvotedReport(string userId)
         {
             return _appDbContext.Reports
                 .Where(r => r.CreatedByUserId == userId)
-                .OrderByDescending(r => r.Upvotes)
+                .OrderByDescending(r => r.Upvotes.Count)
                 .FirstOrDefault();
         }
     }

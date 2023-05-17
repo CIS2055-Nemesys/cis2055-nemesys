@@ -16,5 +16,7 @@
 
         public Category GetCategoryById(int id);
 
+        public void Upvote(string userId, int reportId);
+
     }
 }

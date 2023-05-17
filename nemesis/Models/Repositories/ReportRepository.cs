@@ -39,7 +39,12 @@ namespace nemesis.Models.Repositories
 
         public IEnumerable<Report> getAllReports()
         {
-            return _appDbContext.Reports.Include(r => r.Category).Include(r=> r.CreatedByUser).OrderByDescending(r=>r.DateOfReport);
+            return _appDbContext.Reports
+                .Include(r => r.Category)
+                .Include(r => r.CreatedByUser)
+                .Include(r => r.Upvotes)
+                .OrderByDescending(r => r.DateOfReport)
+                .ToList();
         }
 
         public Category? GetCategoryById(int id)
@@ -49,10 +54,31 @@ namespace nemesis.Models.Repositories
 
         public Report? GetReportById(int id)
         {
-            return _appDbContext.Reports.Include(r => r.Category).Include(r => r.CreatedByUser).FirstOrDefault(r => r.Id == id);
+            return _appDbContext.Reports
+                .Include(r => r.Category)
+                .Include(r => r.CreatedByUser)
+                .Include(r => r.Upvotes)
+                .FirstOrDefault(r => r.Id == id);
         }
-       
 
+     
 
+        public void Upvote(string userId, int reportId)
+         {
+             bool hasUpvoted = _appDbContext.Upvotes.Any(u => u.UserId == userId && u.ReportID == reportId);
+
+             if (!hasUpvoted)
+             {
+                 // Create a new upvote entry
+                 Upvote upvote = new Upvote
+                 {
+                     UserId = userId,
+                     ReportID = reportId
+                 };
+
+                 _appDbContext.Upvotes.Add(upvote);
+                _appDbContext.SaveChanges();
+             }
+         }
     }
 }

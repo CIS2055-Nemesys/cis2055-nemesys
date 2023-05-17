@@ -29,6 +29,6 @@ namespace nemesis.ViewModels
         [DisplayName("Investigation")]
         public int? InvestigationId{ get; set; }
 
-        public int Upvotes { get; set; }
+        public ICollection<Upvote> Upvotes { get; set; }
     }
 }
