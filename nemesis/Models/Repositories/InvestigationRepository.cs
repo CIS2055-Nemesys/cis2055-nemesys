@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using nemesis.Models.Contexts;
 using nemesis.Models.Interfaces;
@@ -15,7 +16,6 @@ namespace nemesis.Models.Repositories
         {
             _appDbContext = appDbContext;
             _userManager = userManager;
-
         }
 
         public void AddInvestigation(int reportId, Investigation investigation)
@@ -33,7 +33,10 @@ namespace nemesis.Models.Repositories
                 report.StatusId = investigation.StatusId;
             }
 
+            
             _appDbContext.SaveChanges();
+
+
 
         }
 
