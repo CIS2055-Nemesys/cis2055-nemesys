@@ -55,7 +55,11 @@ namespace nemesis.Controllers
                 TotalReports = totalReports,
                 Reports = pagedReports,
                 ReportsPerPage = reportsPerPage,
-                CurrentPage = currentPage
+                CurrentPage = currentPage,
+                FilterSelectionAllLocations = _reportRepository.getAllLocations(),
+                FilterSelectionAllReporters = _reportRepository.getAllReporterNames(),
+                FilterSelectionAllCategories = _reportRepository.getAllCategories().Select(c=>c.Name),
+                FilterSelectionAllStatus = _reportRepository.getAllStatuses().Select(c=>c.Name)
             };
 
             return View(model);

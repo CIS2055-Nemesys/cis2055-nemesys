@@ -10,11 +10,13 @@ namespace nemesis.Models.Repositories
 
         public List<Report> _reports;
         public List<Category> _categories;
+        public List<Status> _statuses;
         public List<Upvote> _upvotes;
 
         public MockReportRepository() {
             _categories = new List<Category>();
             _reports = new List<Report>();
+            _statuses = new List<Status>();
         }
 
         public void AddReport(Report report)
@@ -44,6 +46,21 @@ namespace nemesis.Models.Repositories
         public IEnumerable<Category> getAllCategories()
         {
             return _categories;
+        }
+
+        public IEnumerable<Status> getAllStatuses()
+        {
+            return _statuses;
+        }
+
+        public IEnumerable<String> getAllLocations()
+        {
+            return _reports.Select(r => r.Location).Distinct().ToList();
+        }
+
+        public IEnumerable<String> getAllReporterNames()
+        {
+            return new String[]{"John Doe", "Bill Smith"}.ToList();
         }
 
         public IEnumerable<Report> getAllReports()

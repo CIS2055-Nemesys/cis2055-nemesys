@@ -36,6 +36,21 @@ namespace nemesis.Models.Repositories
         {
             return _appDbContext.Categories.ToList();
         }
+        
+        public IEnumerable<Status> getAllStatuses()
+        {
+            return _appDbContext.Statuses.ToList();
+        }
+
+        public IEnumerable<String> getAllLocations()
+        {
+            return _appDbContext.Reports.Select(r=>r.Location).Distinct().ToList();
+        }
+
+        public IEnumerable<String> getAllReporterNames()
+        {
+            return _appDbContext.Reports.Include(r => r.CreatedByUser).Select(r => r.CreatedByUser.UserName).Distinct().ToList();
+        }
 
         public IEnumerable<Report> getAllReports()
         {
