@@ -2,6 +2,7 @@
 using nemesis.Migrations;
 using nemesis.Models.Contexts;
 using nemesis.Models.Interfaces;
+using nemesis.ViewModels;
 
 namespace nemesis.Models.Repositories
 {
@@ -111,6 +112,11 @@ namespace nemesis.Models.Repositories
         public bool HasUpvoted(string userId, int reportId)
         {
             return _upvotes.Any(u => u.UserId == userId && u.ReportID == reportId);
+        }
+
+        public IEnumerable<Report> getAllReports(FilterViewModel f)
+        {
+            return _reports; //dont bother filtering in mock - assume they all match the filter
         }
     }
 }

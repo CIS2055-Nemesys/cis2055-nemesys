@@ -1,4 +1,6 @@
-﻿namespace nemesis.Models.Interfaces
+﻿using nemesis.ViewModels;
+
+namespace nemesis.Models.Interfaces
 {
     public interface IReportRepository
     {
@@ -9,6 +11,7 @@
         public void DeleteReport(int id);
 
         public IEnumerable<Report> getAllReports();
+        public IEnumerable<Report> getAllReports(FilterViewModel f);
 
         public Report GetReportById(int id);
 

@@ -39,7 +39,7 @@ namespace nemesis.Controllers
         public IActionResult Index(int currentPage = 1, FilterViewModel filter = null)
         {
             int reportsPerPage = 10; 
-            var reports = _reportRepository.getAllReports();
+            var reports = _reportRepository.getAllReports(filter);
 
             //Pagination 
             int totalReports = reports.Count();

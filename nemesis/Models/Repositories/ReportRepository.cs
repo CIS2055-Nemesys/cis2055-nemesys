@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using nemesis.Models.Contexts;
 using nemesis.Models.Interfaces;
+using nemesis.ViewModels;
 
 namespace nemesis.Models.Repositories
 {
@@ -61,6 +62,44 @@ namespace nemesis.Models.Repositories
                 .OrderByDescending(r => r.DateOfReport)
                 .ToList();
         }
+
+        public IEnumerable<Report> getAllReports(FilterViewModel filter)
+        {
+            IEnumerable<Report> query = _appDbContext.Reports
+                .Include(r => r.Category)
+                .Include(r => r.CreatedByUser)
+                .Include(u => u.Upvotes)
+                .Include(u => u.Status)
+                .OrderByDescending(r => r.DateOfReport);
+
+            // Apply filters
+            if (filter != null)
+            {
+                if (!string.IsNullOrEmpty(filter.Location))
+                {
+                    query = query.Where(r => r.Location == filter.Location);
+                }
+
+                if (!string.IsNullOrEmpty(filter.Reporter))
+                {
+                    query = query.Where(r => r.CreatedByUser.UserName == filter.Reporter);
+                }
+
+                if (!string.IsNullOrEmpty(filter.Category))
+                {
+                    query = query.Where(r => r.Category.Name == filter.Category);
+                }
+
+                if (!string.IsNullOrEmpty(filter.Status))
+                {
+                    query = query.Where(r => r.Status.Name == filter.Status);
+                }
+            }
+
+            return query.ToList();
+        }
+
+
 
         public Category? GetCategoryById(int id)
         {
