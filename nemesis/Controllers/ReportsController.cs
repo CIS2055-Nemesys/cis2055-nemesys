@@ -392,6 +392,8 @@ namespace nemesis.Controllers
         public async Task<IActionResult> EditInvestigation(int id)
         {
             Report report = _reportRepository.GetReportById(id);
+            Investigation oldInvestigation = _investigationRepository.GetInvestigationById((int)report.InvestigationId);
+
 
             if (report == null)
             {
@@ -407,10 +409,42 @@ namespace nemesis.Controllers
             var model = new EditInvestigationViewModel
             {
                 ReportId = report.Id,
-                Statuses = statusList
+                Statuses = statusList,
+                Description = oldInvestigation.Description,     
+                StatusId = oldInvestigation.StatusId
             };
 
             return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Investigator")]
+        public async Task<IActionResult> EditInvestigation([Bind("DateOfAction, Description, StatusId")] EditInvestigationViewModel newInvestigation, int reportId)
+        {
+            if (ModelState.IsValid)
+            {
+                Investigation investigation = new Investigation()
+                {
+                    Description = newInvestigation.Description,
+                    DateOfAction = newInvestigation.DateOfAction,
+                    InvestigatorId = _userManager.GetUserId(User),
+                    StatusId = newInvestigation.StatusId,
+                };
+
+                _investigationRepository.AddInvestigation(reportId, investigation);
+
+                Report report = _reportRepository.GetReportById(reportId);
+                await _emailSender.SendEmailAsync(report.CreatedByUser.Email, "Edited Investigation on your report", "An investigator has edited an investigation to your report \"" + report.Title + "\"");
+
+
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(newInvestigation);
+            }
         }
 
         [HttpPost]
