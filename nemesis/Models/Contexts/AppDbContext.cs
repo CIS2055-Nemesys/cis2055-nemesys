@@ -107,7 +107,7 @@ namespace nemesis.Models.Contexts
                     CategoryId = 2,
                     CreatedByUserId = "ad9a20a1-779e-4991-8881-9af6171668a5",
                     StatusId = 1,
-                    InvestigationId = null,
+                    InvestigationId = 3,
                     Upvotes = null
                 },
                 new Report()
@@ -122,7 +122,7 @@ namespace nemesis.Models.Contexts
                     CategoryId = 4,
                     CreatedByUserId = "ad9a20a1-779e-4991-8881-9af6171668a5",
                     StatusId = 1,
-                    InvestigationId = null,
+                    InvestigationId = 4,
                     Upvotes = null
                 },
                 new Report()
@@ -135,9 +135,9 @@ namespace nemesis.Models.Contexts
                     DateOfReport = DateTime.UtcNow.AddDays(-1.9),
                     ImageUrl = "/images/Meteor.jpg",
                     CategoryId = 1,
-                    CreatedByUserId = "afdb900f-344d-4bf7-9239-34a2e",
+                    CreatedByUserId = "9059e247-2854-40bd-af2b-76088f8dd4e6",
                     StatusId = 1,
-                    InvestigationId = null,
+                    InvestigationId = 5,
                     Upvotes = null
                 },
                 new Report()
@@ -150,9 +150,9 @@ namespace nemesis.Models.Contexts
                     DateOfReport = DateTime.UtcNow.AddDays(-3),
                     ImageUrl = "/images/Cthulhu.jpg",
                     CategoryId = 6,
-                    CreatedByUserId = "afdb900f-344d-4bf7-9239-34a2e",
+                    CreatedByUserId = "ad9a20a1-779e-4991-8881-9af6171668a5",
                     StatusId = 1,
-                    InvestigationId = null,
+                    InvestigationId = 6,
                     Upvotes = null
                 },
                 new Report()
@@ -182,7 +182,7 @@ namespace nemesis.Models.Contexts
                     CategoryId = 1,
                     CreatedByUserId = "ad9a20a1-779e-4991-8881-9af6171668a5",
                     StatusId = 1,
-                    InvestigationId = null,
+                    InvestigationId = 7,
                     Upvotes = null
                 },
                 new Report()
@@ -210,9 +210,9 @@ namespace nemesis.Models.Contexts
                     DateOfReport = DateTime.UtcNow.AddDays(-0.8),
                     ImageUrl = "/images/MissingBeans.webp",
                     CategoryId = 6,
-                    CreatedByUserId = "afdb900f-344d-4bf7-9239-34a2e",
+                    CreatedByUserId = "5888e361-c81f-4ac9-8e16-961b0eeed0ae",
                     StatusId = 1,
-                    InvestigationId = null,
+                    InvestigationId = 8,
                     Upvotes = null
                 },
                 new Report()
@@ -242,10 +242,11 @@ namespace nemesis.Models.Contexts
                     CategoryId = 1,
                     CreatedByUserId = "84b91c9f-74d1-452d-927b-439bfd3a7287",
                     StatusId = 1,
-                    InvestigationId = null,
+                    InvestigationId = 9,
                     Upvotes = null
                 }
             );
+
             modelBuilder.Entity<Status>().HasData(
                new Status()
                {
@@ -268,7 +269,280 @@ namespace nemesis.Models.Contexts
                    Name = "No Action Required"
                }
             );
-            
+
+            modelBuilder.Entity<Investigation>().HasData(
+                new Investigation()
+                {
+                    Id = 1,
+                    DateOfAction = DateTime.UtcNow,
+                    Description = "All must hail Ahman'tuep, the majestic ancient volcano, she who rules over fiery peaks and molten lava with a ceaseless hunger" +
+                    " Legend has it that to keep her volcanic wrath at bay, a staggering offering of ten thousand chicken nuggets must be laid at his divine feet each day" +
+                    " As the heavens watch in awe, we puny mortals must scurry about, frying, seasoning, and presenting an endless bounty of crispy poultry goodness." +
+                    " Perhaps it is the secret blend of herbs and spices that infuses each nugget with just the right amount of flavor to calm his fiery cravings." +
+                    " Or maybe Ahman'tuep just really loves the combination of tender chicken and tantalizing dipping sauces. Either way, one thing is certain: if we want to keep" +
+                    " a volcano from erupting, she must be fed!",
+                    InvestigatorId = "84b91c9f-74d1-452d-927b-439bfd3a7287",
+                    StatusId = 2
+                },
+
+                new Investigation()
+                {
+                    Id = 2,
+                    DateOfAction = DateTime.UtcNow,
+                    Description = "In the battle of the roadways, where rubber meets the asphalt, a case of wild wheelery unfolded this morning." +
+                    " Thankfully no one was 'flattened' in the incident! With 'tireless' dedication devoted to uncovering the enigma behind the truck " +
+                    " tyre's unexpected detachment. By analyzing the gathered surveillance footage, piecing together witness statements, and examining" +
+                    " the evidence, we thankfully managed to unravel the mystery and bring justice to the asphalt.",
+                    InvestigatorId = "9059e247-2854-40bd-af2b-76088f8dd4e6",
+                    StatusId = 3
+                },
+                new Investigation()
+                {
+                    Id = 3,
+                    DateOfAction = DateTime.UtcNow,
+                    Description = "After much debate among the investigators, we have decided that no action is required as we must all learn to share the playground" +
+                    " No, we did not receive an anonymous donation of thirteen million, five hundred and fourty thousand, three hundred and 26 euro and 43 cents to close this case." +
+                    " In fact, studies show that a daily exposure to ionized radiation is healthy for children! Think about how special little Billy with be with an extra hand!" +
+                    " Have you never considered the convenience of such a mutation?!",
+                    InvestigatorId = "92b32ccb-8835-4e2d-ae6c-8c86eb2efed6",
+                    StatusId = 4
+                },
+                new Investigation()
+                {
+                    Id = 4,
+                    DateOfAction = DateTime.UtcNow,
+                    Description = "Solid copy, we went on site and socketed back in place, thank you for the report.",
+                    InvestigatorId = "92b32ccb-8835-4e2d-ae6c-8c86eb2efed6",
+                    StatusId = 3
+                },
+                new Investigation()
+                {
+                    Id = 5,
+                    DateOfAction = DateTime.UtcNow,
+                    Description = "One of us. One of us. One of us. One of us. One of us. One of us. One of us. One of us. One of us. One of us. One of us." +
+                    " One of us. One of us. One of us. One of us. One of us. One of us. One of us. One of us. One of us. One of us. One of us. One of us." +
+                    " One of us. One of us. One of us. One of us. One of us. One of us. One of us. One of us. One of us. One of us. One of us. One of us." +
+                    " One of us. One of us. One of us. One of us. One of us. One of us. One of us. One of us. One of us. One of us. One of us. One of us." +
+                    " One of us. One of us. One of us. One of us. One of us. One of us. One of us. One of us. One of us. One of us. One of us. One of us.",
+                    InvestigatorId = "84b91c9f-74d1-452d-927b-439bfd3a7287",
+                    StatusId = 4
+                },
+                new Investigation()
+                {
+                    Id = 6,
+                    DateOfAction = DateTime.UtcNow,
+                    Description = "Beware the coming terror as Cthulhu awakens! From the depths, an ancient cosmic horror emerges, heralding the end of all sanity" +
+                    " and civilization. Prepare for unimaginable chaos, as madness spreads like wildfire and reality crumbles." +
+                    " The mere glimpse of Cthulhu's grotesque form will shatter the minds of those unfortunate enough to witness it." +
+                    " Brace for the impending doom, for the world as you know it shall be consumed by darkness and despair. Salvation is" +
+                    " but a futile hope against the incomprehensible might of Cthulhu. Abandon all hope, for the age of humanity draws to a close," +
+                    " and the reign of the Great Old Ones begins anew.\r\n\r\nTHE END IS NIGH! THE END IS NIGH!",
+                    InvestigatorId = "9059e247-2854-40bd-af2b-76088f8dd4e6",
+                    StatusId = 4
+                },
+                new Investigation()
+                {
+                    Id = 7,
+                    DateOfAction = DateTime.UtcNow,
+                    Description = "Considering you were at Zeppi's, that was probably just the head rat-chef Remy, he may have fallen on hard times since his wife" +
+                    " left him after the sequel to Ratatouille flopped, but that's no excuse to call him fat! Monster!",
+                    InvestigatorId = "9059e247-2854-40bd-af2b-76088f8dd4e6",
+                    StatusId = 3
+                },
+                new Investigation()
+                {
+                    Id = 8,
+                    DateOfAction = DateTime.UtcNow,
+                    Description = "THE BEAAAAAAAAAAAAAAANZ?!?! WHY WON'T ANYONE THINK OF THE CHILDREN! THE BEAAAAAAAAAAAAAAAANZZZZZ!!",
+                    InvestigatorId = "9059e247-2854-40bd-af2b-76088f8dd4e6",
+                    StatusId = 2
+                },
+                new Investigation()
+                {
+                    Id = 9,
+                    DateOfAction = DateTime.UtcNow,
+                    Description = "Preliminary reports indicate that the impostor prefers fidget spinners over Rubik's Cubes" +
+                    " The impostor must be caught at all costs! All hands on deck!  ",
+                    InvestigatorId = "84b91c9f-74d1-452d-927b-439bfd3a7287",
+                    StatusId = 2
+                });
+
+            modelBuilder.Entity<Upvote>().HasData(
+                new Upvote()
+                {
+                    UserId = "9059e247-2854-40bd-af2b-76088f8dd4e6",
+                    ReportID = 1
+                },
+                new Upvote()
+                {
+                    UserId = "ad9a20a1-779e-4991-8881-9af6171668a5",
+                    ReportID = 1
+                },
+                new Upvote()
+                {
+                    UserId = "9059e247-2854-40bd-af2b-76088f8dd4e6",
+                    ReportID = 2
+                },
+                new Upvote()
+                {
+                    UserId = "555e52b8-22db-4c15-a037-107016c7f827",
+                    ReportID = 4
+                },
+                new Upvote()
+                {
+                    UserId = "5888e361-c81f-4ac9-8e16-961b0eeed0ae",
+                    ReportID = 7
+                },
+                new Upvote()
+                {
+                    UserId = "ad9a20a1-779e-4991-8881-9af6171668a5",
+                    ReportID = 4
+                },
+                new Upvote()
+                {
+                    UserId = "9059e247-2854-40bd-af2b-76088f8dd4e6",
+                    ReportID = 3
+                },
+                new Upvote()
+                {
+                    UserId = "5888e361-c81f-4ac9-8e16-961b0eeed0ae",
+                    ReportID = 5
+                },
+                new Upvote()
+                {
+                    UserId = "5888e361-c81f-4ac9-8e16-961b0eeed0ae",
+                    ReportID = 9
+                },
+                new Upvote()
+                {
+                    UserId = "9059e247-2854-40bd-af2b-76088f8dd4e6",
+                    ReportID = 4
+                },
+                new Upvote()
+                {
+                    UserId = "ad9a20a1-779e-4991-8881-9af6171668a5",
+                    ReportID = 7
+                },
+                new Upvote()
+                {
+                    UserId = "555e52b8-22db-4c15-a037-107016c7f827",
+                    ReportID = 8
+                },
+                new Upvote()
+                {
+                    UserId = "5888e361-c81f-4ac9-8e16-961b0eeed0ae",
+                    ReportID = 12
+                },
+                new Upvote()
+                {
+                    UserId = "9059e247-2854-40bd-af2b-76088f8dd4e6",
+                    ReportID = 5
+                },
+                new Upvote()
+                {
+                    UserId = "ad9a20a1-779e-4991-8881-9af6171668a5",
+                    ReportID = 9
+                },
+                new Upvote()
+                {
+                    UserId = "555e52b8-22db-4c15-a037-107016c7f827",
+                    ReportID = 11
+                },
+                new Upvote()
+                {
+                    UserId = "9059e247-2854-40bd-af2b-76088f8dd4e6",
+                    ReportID = 10
+                },
+
+
+
+                new Upvote()
+                {
+                    UserId = "9059e247-2854-40bd-af2b-76088f8dd4e6",
+                    ReportID = 9
+                },
+                new Upvote()
+                {
+                    UserId = "ad9a20a1-779e-4991-8881-9af6171668a5",
+                    ReportID = 6
+                },
+                new Upvote()
+                {
+                    UserId = "9059e247-2854-40bd-af2b-76088f8dd4e6",
+                    ReportID = 11
+                },
+                new Upvote()
+                {
+                    UserId = "555e52b8-22db-4c15-a037-107016c7f827",
+                    ReportID = 7
+                },
+                new Upvote()
+                {
+                    UserId = "5888e361-c81f-4ac9-8e16-961b0eeed0ae",
+                    ReportID = 3
+                },
+                new Upvote()
+                {
+                    UserId = "ad9a20a1-779e-4991-8881-9af6171668a5",
+                    ReportID = 8
+                },
+                new Upvote()
+                {
+                    UserId = "9059e247-2854-40bd-af2b-76088f8dd4e6",
+                    ReportID = 12
+                },
+                new Upvote()
+                {
+                    UserId = "5888e361-c81f-4ac9-8e16-961b0eeed0ae",
+                    ReportID = 6
+                },
+                new Upvote()
+                {
+                    UserId = "5888e361-c81f-4ac9-8e16-961b0eeed0ae",
+                    ReportID = 10
+                },
+                new Upvote()
+                {
+                    UserId = "ad9a20a1-779e-4991-8881-9af6171668a5",
+                    ReportID = 2
+                },
+                new Upvote()
+                {
+                    UserId = "555e52b8-22db-4c15-a037-107016c7f827",
+                    ReportID = 9
+                },
+                new Upvote()
+                {
+                    UserId = "5888e361-c81f-4ac9-8e16-961b0eeed0ae",
+                    ReportID = 11
+                },
+                new Upvote()
+                {
+                    UserId = "9059e247-2854-40bd-af2b-76088f8dd4e6",
+                    ReportID = 7
+                },
+                new Upvote()
+                {
+                    UserId = "ad9a20a1-779e-4991-8881-9af6171668a5",
+                    ReportID = 11
+                },
+                new Upvote()
+                {
+                    UserId = "555e52b8-22db-4c15-a037-107016c7f827",
+                    ReportID = 10
+                },
+                new Upvote()
+                {
+                    UserId = "9059e247-2854-40bd-af2b-76088f8dd4e6",
+                    ReportID = 8
+                }
+
+
+
+
+
+
+                );
         }
 
         private void SeedUsers(ModelBuilder modelBuilder)
