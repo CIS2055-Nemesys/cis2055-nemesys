@@ -12,6 +12,66 @@
 
 
 @*filters*@
+<div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Fitlers
+            </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <form method="get" asp-action="Index" enctype="multipart/form-data">
+
+                <div class="form-group">
+                    <label asp-for="Filter.Location"></label>
+                    <select class="form-control" id="Location" asp-for="Filter.Location">
+                        <option value="">All Locations</option>
+                        @foreach (var location in Model.FilterSelectionAllLocations)
+                        {
+                            <option value="@location">@location</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Filter.Reporter"></label>
+                    <select class="form-control" id="Reporter" asp-for="Filter.Reporter">
+                        <option value="">All Reporters</option>
+                        @foreach (var reporter in Model.FilterSelectionAllReporters)
+                        {
+                            <option value="@reporter">@reporter</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Filter.Category"></label>
+                    <select class="form-control" id="Category" asp-for="Filter.Category">
+                        <option value="">All Categories</option>
+                        @foreach (var category in Model.FilterSelectionAllCategories)
+                        {
+                            <option value="@category">@category</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Filter.Status"></label>
+                    <select class="form-control" id="Status" asp-for="Filter.Status">
+                        <option value="">All Status</option>
+                        @foreach (var status in Model.FilterSelectionAllStatus)
+                        {
+                            <option value="@status">@status</option>
+                        }
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Apply filters</button>
+            </form>
+
+        </div>
+    </div>
+</div>
 
 
 <div>
@@ -21,15 +81,30 @@
     <div class="pagination">
         @if (Model.TotalReports > Model.ReportsPerPage)
         {
-            if (Model.CurrentPage > 1)
+            @if (Model.CurrentPage > 1)
             {
-                <a asp-action="Index" asp-route-currentPage="@(Model.CurrentPage - 1)" class="btn btn-secondary">Previous</a>
+                <form asp-action="Index" method="get">
+                    <input type="hidden" name="currentPage" value="@(Model.CurrentPage - 1)" />
+                    <input type="hidden" name="filter.Location" value="@Model.Filter.Location" />
+                    <input type="hidden" name="filter.Reporter" value="@Model.Filter.Reporter" />
+                    <input type="hidden" name="filter.Category" value="@Model.Filter.Category" />
+                    <input type="hidden" name="filter.Status" value="@Model.Filter.Status" />
+                    <button type="submit" class="btn btn-secondary">Previous</button>
+                </form>
             }
 
-            if (Model.CurrentPage < Model.TotalPages)
+            @if (Model.CurrentPage < Model.TotalPages)
             {
-                <a asp-action="Index" asp-route-currentPage="@(Model.CurrentPage + 1)" class="btn btn-secondary">Next</a>
+                <form asp-action="Index" method="get">
+                    <input type="hidden" name="currentPage" value="@(Model.CurrentPage + 1)" />
+                    <input type="hidden" name="filter.Location" value="@Model.Filter.Location" />
+                    <input type="hidden" name="filter.Reporter" value="@Model.Filter.Reporter" />
+                    <input type="hidden" name="filter.Category" value="@Model.Filter.Category" />
+                    <input type="hidden" name="filter.Status" value="@Model.Filter.Status" />
+                    <button type="submit" class="btn btn-secondary">Next</button>
+                </form>
             }
+
         }
 </div>
 

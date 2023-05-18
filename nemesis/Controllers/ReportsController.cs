@@ -36,7 +36,7 @@ namespace nemesis.Controllers
             _emailSender = emailSender;
         }
 
-        public IActionResult Index(int currentPage = 1)
+        public IActionResult Index(int currentPage = 1, FilterViewModel filter = null)
         {
             int reportsPerPage = 10; 
             var reports = _reportRepository.getAllReports();
@@ -58,8 +58,9 @@ namespace nemesis.Controllers
                 CurrentPage = currentPage,
                 FilterSelectionAllLocations = _reportRepository.getAllLocations(),
                 FilterSelectionAllReporters = _reportRepository.getAllReporterNames(),
-                FilterSelectionAllCategories = _reportRepository.getAllCategories().Select(c=>c.Name),
-                FilterSelectionAllStatus = _reportRepository.getAllStatuses().Select(c=>c.Name)
+                FilterSelectionAllCategories = _reportRepository.getAllCategories().Select(c => c.Name),
+                FilterSelectionAllStatus = _reportRepository.getAllStatuses().Select(c => c.Name),
+                Filter = filter ?? new FilterViewModel()
             };
 
             return View(model);

@@ -13,6 +13,8 @@ namespace nemesis.ViewModels
         public int CurrentPage { get; set; }
         public int TotalPages => (int)Math.Ceiling((double)TotalReports / ReportsPerPage);
 
+        public FilterViewModel Filter { get; set; }
+
 
         public IEnumerable<String> FilterSelectionAllLocations { get; set; }
         public IEnumerable<String> FilterSelectionAllReporters { get; set; }
