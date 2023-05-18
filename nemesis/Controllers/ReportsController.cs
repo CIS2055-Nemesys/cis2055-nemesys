@@ -392,6 +392,8 @@ namespace nemesis.Controllers
         public async Task<IActionResult> EditInvestigation(int id)
         {
             Report report = _reportRepository.GetReportById(id);
+            Investigation oldInvestigation = _investigationRepository.GetInvestigationById((int)report.InvestigationId);
+
 
             if (report == null)
             {
@@ -407,7 +409,8 @@ namespace nemesis.Controllers
             var model = new EditInvestigationViewModel
             {
                 ReportId = report.Id,
-                Statuses = statusList
+                Statuses = statusList,
+                Description = oldInvestigation.Description,      
             };
 
             return View(model);
