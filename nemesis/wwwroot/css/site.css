@@ -194,7 +194,7 @@
     .form-control {
         font-size: 1vw;
         background-color: #0A1828 !important;
-        color: #178582 ;
+        color: #178582 !important;
         border-color: #BFA181 !important;
         font-size: 1.2vw;
     }
