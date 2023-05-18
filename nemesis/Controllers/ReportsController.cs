@@ -31,16 +31,31 @@ namespace nemesis.Controllers
             _userManager = userManager;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int currentPage = 1)
         {
+            int reportsPerPage = 10; 
             var reports = _reportRepository.getAllReports();
+
+            //Pagination 
+            int totalReports = reports.Count();
+            int totalPages = (int)Math.Ceiling((double)totalReports / reportsPerPage);
+
+            currentPage = Math.Max(1, Math.Min(currentPage, totalPages));
+
+            int startIndex = (currentPage - 1) * reportsPerPage;
+            var pagedReports = reports.Skip(startIndex).Take(reportsPerPage);
+
             var model = new ReportsListViewModel()
             {
-                TotalReports = reports.Count(),
-                Reports = reports
+                TotalReports = totalReports,
+                Reports = pagedReports,
+                ReportsPerPage = reportsPerPage,
+                CurrentPage = currentPage
             };
+
             return View(model);
         }
+
 
         public IActionResult Details(int id)
         {
