@@ -7,7 +7,6 @@
 <div class="report-headers">
     <h1>@ViewData["Title"]</h1>
     <h2>@Model.TotalReports Total Reports Found</h2>
-    <h3>Displaying 10 most recent reports</h3>
 </div>
 
 <div>
@@ -15,6 +14,7 @@
 
     <!--10 report based pagination buttons-->
     <div class="pagination">
+        <span class="me-3">Showing @(((Model.CurrentPage - 1) * Model.ReportsPerPage) + 1) - @(Math.Min(Model.CurrentPage * Model.ReportsPerPage, Model.TotalReports)) out of @(Model.TotalReports)</span>
         @if (Model.TotalReports > Model.ReportsPerPage)
         {
             if (Model.CurrentPage > 1)
