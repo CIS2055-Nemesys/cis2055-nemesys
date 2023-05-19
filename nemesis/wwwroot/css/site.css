@@ -153,6 +153,41 @@
         height: 1.5vw;
     }
 
+    /* Filters */
+    .accordion{
+        padding-bottom:1em;
+    }
+
+    .accordion-button {
+        background-color: #0A1828 !important;
+        color: #BFA181 !important;
+        font-size: 1em;
+    }
+
+    .filter-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        color: #BFA181;
+        background-color: #178582 !important;
+        font-size: 2em;
+        text-align:center;
+        font-weight:bold;
+    }
+
+    .filter-container .form-group {
+        flex: 1 0 200px; 
+    }
+
+    .collapse-show {
+        background-color: #178582 !important;
+    }
+
+    .filter-submit {
+        background-color: #178582 !important;
+    }
+
+
     /* Buttons */
     .btn-primary {
         width: auto;
