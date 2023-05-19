@@ -32,6 +32,6 @@ namespace nemesis.Models
 
         public int? InvestigationId { get; set; }
 
-        public ICollection<Upvote> Upvotes { get; set; }
+        public ICollection<Upvote>? Upvotes { get; set; }
     }
 }
