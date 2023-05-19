@@ -2,6 +2,7 @@
 using nemesis.Migrations;
 using nemesis.Models.Contexts;
 using nemesis.Models.Interfaces;
+using nemesis.ViewModels;
 
 namespace nemesis.Models.Repositories
 {
@@ -10,11 +11,13 @@ namespace nemesis.Models.Repositories
 
         public List<Report> _reports;
         public List<Category> _categories;
+        public List<Status> _statuses;
         public List<Upvote> _upvotes;
 
         public MockReportRepository() {
             _categories = new List<Category>();
             _reports = new List<Report>();
+            _statuses = new List<Status>();
         }
 
         public void AddReport(Report report)
@@ -44,6 +47,21 @@ namespace nemesis.Models.Repositories
         public IEnumerable<Category> getAllCategories()
         {
             return _categories;
+        }
+
+        public IEnumerable<Status> getAllStatuses()
+        {
+            return _statuses;
+        }
+
+        public IEnumerable<String> getAllLocations()
+        {
+            return _reports.Select(r => r.Location).Distinct().ToList();
+        }
+
+        public IEnumerable<String> getAllReporterNames()
+        {
+            return new String[]{"John Doe", "Bill Smith"}.ToList();
         }
 
         public IEnumerable<Report> getAllReports()
@@ -94,6 +112,11 @@ namespace nemesis.Models.Repositories
         public bool HasUpvoted(string userId, int reportId)
         {
             return _upvotes.Any(u => u.UserId == userId && u.ReportID == reportId);
+        }
+
+        public IEnumerable<Report> getAllReports(FilterViewModel f)
+        {
+            return _reports; //dont bother filtering in mock - assume they all match the filter
         }
     }
 }
