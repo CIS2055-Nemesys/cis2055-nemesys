@@ -32,6 +32,11 @@
                 </button>
             </form>
         }
+        else if (UserManager.GetUserAsync(User).Result.Id == Model.CreatedByUser.Id)
+        {
+            <a asp-controller="Reports" asp-action="EditReport" asp-route-id="@Model.Id" class="btn btn-secondary">Edit Report</a>
+        }
+        
     </div>
 
     <div>
@@ -99,7 +104,7 @@
     </div>
     <hr />
 
-    <div>
+    <div class="button-container">
         <a asp-controller="Reports" asp-action="Index" class="btn btn-secondary">Back</a>
         @if (User.Identity.IsAuthenticated)
         {
@@ -109,9 +114,13 @@
             }
             if (UserManager.GetUserAsync(User).Result.Id == Model.CreatedByUser.Id)
             {
-                <a asp-controller="Reports" asp-action="EditReport" asp-route-id="@Model.Id" class="btn btn-secondary">Edit Report</a>
+                <form method="post" asp-controller="Reports" asp-action="DeleteReport">
+                    <input type="hidden" name="reportId" value="@Model.Id" />
+                    <button type="submit" class="btn btn-secondary">Delete Report</button>
+                </form>
             }
-            
         }
     </div>
+
+
 </div>

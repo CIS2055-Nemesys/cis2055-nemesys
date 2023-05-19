@@ -277,6 +277,25 @@ namespace nemesis.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+        [HttpPost]
+        [Authorize(Roles = "Investigator")]
+        public IActionResult DeleteReport(int reportId)
+        {
+            Report report = _reportRepository.GetReportById(reportId);
+
+            if (report == null)
+            {
+                return NotFound();
+            }
+
+            _reportRepository.DeleteReport(reportId);
+
+            return RedirectToAction("Index");
+
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> VoteAsync(int reportId)
         {

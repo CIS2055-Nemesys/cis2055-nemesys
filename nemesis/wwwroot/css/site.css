@@ -201,6 +201,11 @@
         font-size: 1vw;
     }
 
+    .button-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
     /* Details Page */
     .row {
         font-size: 1vw;
