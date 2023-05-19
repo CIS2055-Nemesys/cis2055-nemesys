@@ -11,67 +11,66 @@
 
 
 @*filters*@
-<div class="accordion" id="accordionExample">
+<div class="accordion">
     <div class="accordion-item">
         <h2 class="accordion-header" id="headingOne">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                Fitlers
+                Filters
             </button>
         </h2>
         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-            <form method="get" asp-action="Index" enctype="multipart/form-data">
+            <form method="get" asp-action="Index" enctype="multipart/form-data" class="filter-submit">
+                <div class="filter-container">
+                    <div class="form-group">
+                        <label asp-for="Filter.Location"></label>
+                        <select class="form-control" id="Location" asp-for="Filter.Location">
+                            <option value="">All Locations</option>
+                            @foreach (var location in Model.FilterSelectionAllLocations)
+                            {
+                                <option value="@location">@location</option>
+                            }
+                        </select>
+                    </div>
 
-                <div class="form-group">
-                    <label asp-for="Filter.Location"></label>
-                    <select class="form-control" id="Location" asp-for="Filter.Location">
-                        <option value="">All Locations</option>
-                        @foreach (var location in Model.FilterSelectionAllLocations)
-                        {
-                            <option value="@location">@location</option>
-                        }
-                    </select>
-                </div>
+                    <div class="form-group">
+                        <label asp-for="Filter.Reporter"></label>
+                        <select class="form-control" id="Reporter" asp-for="Filter.Reporter">
+                            <option value="">All Reporters</option>
+                            @foreach (var reporter in Model.FilterSelectionAllReporters)
+                            {
+                                <option value="@reporter">@reporter</option>
+                            }
+                        </select>
+                    </div>
 
-                <div class="form-group">
-                    <label asp-for="Filter.Reporter"></label>
-                    <select class="form-control" id="Reporter" asp-for="Filter.Reporter">
-                        <option value="">All Reporters</option>
-                        @foreach (var reporter in Model.FilterSelectionAllReporters)
-                        {
-                            <option value="@reporter">@reporter</option>
-                        }
-                    </select>
-                </div>
+                    <div class="form-group">
+                        <label asp-for="Filter.Category"></label>
+                        <select class="form-control" id="Category" asp-for="Filter.Category">
+                            <option value="">All Categories</option>
+                            @foreach (var category in Model.FilterSelectionAllCategories)
+                            {
+                                <option value="@category">@category</option>
+                            }
+                        </select>
+                    </div>
 
-                <div class="form-group">
-                    <label asp-for="Filter.Category"></label>
-                    <select class="form-control" id="Category" asp-for="Filter.Category">
-                        <option value="">All Categories</option>
-                        @foreach (var category in Model.FilterSelectionAllCategories)
-                        {
-                            <option value="@category">@category</option>
-                        }
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="Filter.Status"></label>
-                    <select class="form-control" id="Status" asp-for="Filter.Status">
-                        <option value="">All Status</option>
-                        @foreach (var status in Model.FilterSelectionAllStatus)
-                        {
-                            <option value="@status">@status</option>
-                        }
-                    </select>
+                    <div class="form-group">
+                        <label asp-for="Filter.Status"></label>
+                        <select class="form-control" id="Status" asp-for="Filter.Status">
+                            <option value="">All Statuses</option>
+                            @foreach (var status in Model.FilterSelectionAllStatus)
+                            {
+                                <option value="@status">@status</option>
+                            }
+                        </select>
+                    </div>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Apply filters</button>
             </form>
-
         </div>
     </div>
 </div>
-
 
 <div>
     <a asp-controller="Reports" asp-action="Create" class="btn btn-secondary">Create New Report</a>
