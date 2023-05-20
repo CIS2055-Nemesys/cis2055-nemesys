@@ -15,6 +15,10 @@
 
         public Status Status { get; set; }
 
+        public int PreviousVersionID { get; set; }
+
+        public Investigation PreviousVersion { get; set; }
+
 
     }
 }

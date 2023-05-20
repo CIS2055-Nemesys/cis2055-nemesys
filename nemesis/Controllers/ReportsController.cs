@@ -321,9 +321,9 @@ namespace nemesis.Controllers
 
         [HttpGet]
         [Authorize (Roles = "Investigator")]
-        public IActionResult CreateInvestigation(int id)
+        public IActionResult CreateInvestigation(int reportID)
         {
-            Report report = _reportRepository.GetReportById(id);
+            Report report = _reportRepository.GetReportById(reportID);
 
             if (report == null)
             {
@@ -348,7 +348,7 @@ namespace nemesis.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Investigator")]
-        public async Task<IActionResult> CreateInvestigation([FromRoute] int id, [Bind("DateOfAction, Description, StatusId")] EditInvestigationViewModel newInvestigation)
+        public async Task<IActionResult> CreateInvestigation([FromRoute] int reportID, [Bind("DateOfAction, Description, StatusId")] EditInvestigationViewModel newInvestigation)
         {
             if (ModelState.IsValid)
             {
@@ -360,9 +360,9 @@ namespace nemesis.Controllers
                     StatusId = newInvestigation.StatusId
                 };
 
-                _investigationRepository.AddInvestigation(id, investigation);
+                _investigationRepository.AddInvestigation(reportID, investigation);
 
-                Report r = _reportRepository.GetReportById(id);
+                Report r = _reportRepository.GetReportById(reportID);
 
 
                 await _emailSender.SendEmailAsync(r.CreatedByUser.Email, "New Investigation on your report", "An investigator has added an investigation to your report \"" + r.Title + "\"");
@@ -392,8 +392,8 @@ namespace nemesis.Controllers
                 Description = investigation.Description,
                 InvestigatorId = investigation.InvestigatorId,
                 InvestigatorUsername = investigatorUsername ,
+                PreviousVersion = investigation.PreviousVersion,
                 ReportId = _investigationRepository.getReportIdByInvestigation(id)
-
             };
 
             var status = _investigationRepository.GetStatusById(investigation.StatusId);

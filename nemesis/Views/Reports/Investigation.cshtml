@@ -36,6 +36,13 @@
     </div>
     <hr />
 
+    @if(Model.PreviousVersion != null)
+    {
+        <div>
+            This report was previously updated, <a asp-controller="Reports" asp-action="Investigation" asp-route-id="@(Model.PreviousVersion.Id)">Click Here</a> to see the previous version of the investigation.
+        </div>
+    }
+
     <div>
         @if (User.Identity.IsAuthenticated && (UserManager.GetUserAsync(User).Result.Id == Model.InvestigatorId))
         {

@@ -21,6 +21,7 @@ namespace nemesis.ViewModels
 
         public string InvestigatorUsername { get; set; }
 
+        public Investigation PreviousVersion { get; set; }
 
     }
 }
