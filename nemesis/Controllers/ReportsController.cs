@@ -36,35 +36,40 @@ namespace nemesis.Controllers
             _emailSender = emailSender;
         }
 
+
         public IActionResult Index(int currentPage = 1, FilterViewModel filter = null)
         {
-            int reportsPerPage = 10; 
-            var reports = _reportRepository.getAllReports(filter);
+            
 
-            //Pagination 
-            int totalReports = reports.Count();
-            int totalPages = (int)Math.Ceiling((double)totalReports / reportsPerPage);
+                int reportsPerPage = 10;
+                var reports = _reportRepository.getAllReports(filter);
 
-            currentPage = Math.Max(1, Math.Min(currentPage, totalPages));
+                // Pagination
+                int totalReports = reports.Count();
+                int totalPages = (int)Math.Ceiling((double)totalReports / reportsPerPage);
 
-            int startIndex = (currentPage - 1) * reportsPerPage;
-            var pagedReports = reports.Skip(startIndex).Take(reportsPerPage);
+                currentPage = Math.Max(1, Math.Min(currentPage, totalPages));
 
-            var model = new ReportsListViewModel()
-            {
-                TotalReports = totalReports,
-                Reports = pagedReports,
-                ReportsPerPage = reportsPerPage,
-                CurrentPage = currentPage,
-                FilterSelectionAllLocations = _reportRepository.getAllLocations(),
-                FilterSelectionAllReporters = _reportRepository.getAllReporterNames(),
-                FilterSelectionAllCategories = _reportRepository.getAllCategories().Select(c => c.Name),
-                FilterSelectionAllStatus = _reportRepository.getAllStatuses().Select(c => c.Name),
-                Filter = filter ?? new FilterViewModel()
-            };
+                int startIndex = (currentPage - 1) * reportsPerPage;
+                var pagedReports = reports.Skip(startIndex).Take(reportsPerPage);
 
-            return View(model);
+                var model = new ReportsListViewModel()
+                {
+                    TotalReports = totalReports,
+                    Reports = pagedReports,
+                    ReportsPerPage = reportsPerPage,
+                    CurrentPage = currentPage,
+                    FilterSelectionAllLocations = _reportRepository.getAllLocations(),
+                    FilterSelectionAllReporters = _reportRepository.getAllReporterNames(),
+                    FilterSelectionAllCategories = _reportRepository.getAllCategories().Select(c => c.Name),
+                    FilterSelectionAllStatus = _reportRepository.getAllStatuses().Select(c => c.Name),
+                    Filter = filter ?? new FilterViewModel()
+                };
+
+                return View(model);
         }
+            
+        
 
 
         public IActionResult Details(int id)
