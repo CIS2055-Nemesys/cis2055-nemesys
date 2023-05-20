@@ -32,7 +32,7 @@
                 </button>
             </form>
         }
-        else if (UserManager.GetUserAsync(User).Result.Id == Model.CreatedByUser.Id)
+        else if (User.Identity.IsAuthenticated && UserManager.GetUserAsync(User).Result.Id == Model.CreatedByUser.Id)
         {
             <a asp-controller="Reports" asp-action="EditReport" asp-route-id="@Model.Id" class="btn btn-secondary">Edit Report</a>
         }

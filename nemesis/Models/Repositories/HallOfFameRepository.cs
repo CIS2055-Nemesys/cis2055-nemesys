@@ -1,51 +1,72 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using nemesis.Models.Contexts;
 using nemesis.Models.Interfaces;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace nemesis.Models.Repositories
 {
     public class HallOfFameRepository : IHallOfFameRepository
     {
         private readonly AppDbContext _appDbContext;
+        private readonly ILogger<HallOfFameRepository> _logger;
 
-        public HallOfFameRepository(AppDbContext appDbContext)
+        public HallOfFameRepository(AppDbContext appDbContext, ILogger<HallOfFameRepository> logger)
         {
             _appDbContext = appDbContext;
+            _logger = logger;
         }
 
         public IEnumerable<UserReportCount> GetTop3Reporters()
         {
-            var groupedReports = _appDbContext.Reports
-                 .GroupBy(r => r.CreatedByUserId)
-                 .Select(g => new { UserId = g.Key, ReportCount = g.Count() });
+            try
+            {
+                var groupedReports = _appDbContext.Reports
+                    .GroupBy(r => r.CreatedByUserId)
+                    .Select(g => new { UserId = g.Key, ReportCount = g.Count() });
 
-            var topReporters = groupedReports
-                .OrderByDescending(g => g.ReportCount)
-                .Take(3)
-                .ToList();
+                var topReporters = groupedReports
+                    .OrderByDescending(g => g.ReportCount)
+                    .Take(3)
+                    .ToList();
 
-            var topUsers = topReporters
-                .Join(_appDbContext.Users,
-                    g => g.UserId,
-                    u => u.Id,
-                    (g, u) => new UserReportCount
-                    {
-                        User = u,
-                        ReportCount = g.ReportCount,
-                        MostUpvotedReport = GetMostUpvotedReport(g.UserId)
-                    })
-                .ToList();
+                var topUsers = topReporters
+                    .Join(_appDbContext.Users,
+                        g => g.UserId,
+                        u => u.Id,
+                        (g, u) => new UserReportCount
+                        {
+                            User = u,
+                            ReportCount = g.ReportCount,
+                            MostUpvotedReport = GetMostUpvotedReport(g.UserId)
+                        })
+                    .ToList();
 
-            return topUsers;
+                return topUsers;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                throw;
+            }
         }
 
-        //Retrieves the most upvoted report to showcase each of the top 3 reporters' best article
         public Report GetMostUpvotedReport(string userId)
         {
-            return _appDbContext.Reports
-                .Where(r => r.CreatedByUserId == userId)
-                .OrderByDescending(r => r.Upvotes.Count)
-                .FirstOrDefault();
+            try
+            {
+                return _appDbContext.Reports
+                    .Where(r => r.CreatedByUserId == userId)
+                    .OrderByDescending(r => r.Upvotes.Count)
+                    .FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                throw;
+            }
         }
     }
 }
