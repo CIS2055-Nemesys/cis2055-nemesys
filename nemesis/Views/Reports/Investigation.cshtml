@@ -36,11 +36,28 @@
     </div>
     <hr />
 
+    @if(Model.PreviousVersion != null)
+    {
+        <div>
+            <a asp-controller="Reports" asp-action="Investigation" asp-route-id="@(Model.PreviousVersion.Id)">Click Here</a> to see the previous entry of the investigation.
+        </div>
+    }
+
     <div>
         @if (User.Identity.IsAuthenticated && (UserManager.GetUserAsync(User).Result.Id == Model.InvestigatorId))
         {
             <a asp-controller="Reports" asp-action="EditInvestigation" asp-route-id="@Model.ReportId" class="btn btn-secondary">Edit</a>
         }
-        <a asp-controller="Reports" asp-action="Details" asp-route-id="@Model.ReportId" class="btn btn-secondary">Back</a>
+
+
+        @if (Model.ReportId > 0)
+        {
+            <a asp-controller="Reports" asp-action="Details" asp-route-id="@Model.ReportId" class="btn btn-secondary">Back to report</a>
+        }
+        else
+        {
+            <a asp-controller="Reports" asp-action="Index" class="btn btn-secondary">Back to report list</a>
+
+        }
     </div>
 </div>

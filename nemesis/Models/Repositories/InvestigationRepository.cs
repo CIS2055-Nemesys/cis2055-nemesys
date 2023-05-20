@@ -22,6 +22,8 @@ namespace nemesis.Models.Repositories
         {
             var report = _appDbContext.Reports.SingleOrDefault(r => r.Id == reportId);
 
+            investigation.PreviousVersionID = report.InvestigationId; //store the id of the prev investigation
+
           
             _appDbContext.Investigations.Add(investigation);
 
@@ -71,7 +73,7 @@ namespace nemesis.Models.Repositories
 
         public Investigation GetInvestigationById(int id)
         {
-            return _appDbContext.Investigations.Include(r => r.Status).FirstOrDefault(r => r.Id == id);
+            return _appDbContext.Investigations.Include(i => i.Status).Include(i=>i.PreviousVersion).FirstOrDefault(r => r.Id == id);
 
         }
 
@@ -90,7 +92,7 @@ namespace nemesis.Models.Repositories
         {
             var report = _appDbContext.Reports.FirstOrDefault((r) => r.InvestigationId == id);
 
-            return report.Id;
+            return report!=null?report.Id:-1;
         }
 
         public Status GetStatusById(int id)

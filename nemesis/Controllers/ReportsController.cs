@@ -348,7 +348,7 @@ namespace nemesis.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Investigator")]
-        public async Task<IActionResult> CreateInvestigation([FromRoute] int id, [Bind("DateOfAction, Description, StatusId")] EditInvestigationViewModel newInvestigation)
+        public async Task<IActionResult> CreateInvestigation( int id, [Bind("DateOfAction, Description, StatusId")] EditInvestigationViewModel newInvestigation)
         {
             if (ModelState.IsValid)
             {
@@ -392,8 +392,8 @@ namespace nemesis.Controllers
                 Description = investigation.Description,
                 InvestigatorId = investigation.InvestigatorId,
                 InvestigatorUsername = investigatorUsername ,
+                PreviousVersion = investigation.PreviousVersion,
                 ReportId = _investigationRepository.getReportIdByInvestigation(id)
-
             };
 
             var status = _investigationRepository.GetStatusById(investigation.StatusId);
