@@ -15,28 +15,32 @@
         <h2 class="category">
             Category: @Html.DisplayFor(model => model.Category.Name)
         </h2>
-        @if (User.Identity.IsAuthenticated && UserManager.GetUserAsync(User).Result.Id != Model.CreatedByUser.Id)
+        @if (User.Identity.IsAuthenticated)
         {
-            <!-- Changes based on if the current user has upvoted the report -->
-            <form method="post" asp-controller="Reports" asp-action="Vote">
-                <input type="hidden" name="reportId" value="@Model.Id" />
-                <button type="submit" class="btn btn-primary">
-                    @if (ReportRepository.HasUpvoted(UserManager.GetUserAsync(User).Result.Id, Model.Id))
-                    {
-                        <span>Remove Upvote</span>
-                    }
-                    else
-                    {
-                        <span>Upvote</span>
-                    }
-                </button>
-            </form>
+            @if (UserManager.GetUserAsync(User).Result.Id != Model.CreatedByUser.Id)
+            {
+                <!-- Changes based on if the current user has upvoted the report -->
+                <form method="post" asp-controller="Reports" asp-action="Vote">
+                    <input type="hidden" name="reportId" value="@Model.Id" />
+                    <button type="submit" class="btn btn-primary">
+                        @if (ReportRepository.HasUpvoted(UserManager.GetUserAsync(User).Result.Id, Model.Id))
+                        {
+                            <span>Remove Upvote</span>
+                        }
+                        else
+                        {
+                            <span>Upvote</span>
+                        }
+                    </button>
+                </form>
+            }
+            else if (UserManager.GetUserAsync(User).Result.Id == Model.CreatedByUser.Id)
+            {
+                <a asp-controller="Reports" asp-action="EditReport" asp-route-id="@Model.Id" class="btn btn-secondary">Edit Report</a>
+            }
+
         }
-        else if (UserManager.GetUserAsync(User).Result.Id == Model.CreatedByUser.Id)
-        {
-            <a asp-controller="Reports" asp-action="EditReport" asp-route-id="@Model.Id" class="btn btn-secondary">Edit Report</a>
-        }
-        
+       
     </div>
 
     <div>

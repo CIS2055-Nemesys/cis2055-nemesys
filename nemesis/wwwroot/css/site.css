@@ -21,13 +21,13 @@
 
     .nav-link {
         color: #178582 !important;
-        font-size: 1.2vw;
-        margin-left: 1vw;
+        font-size: 1.5vw;
+        margin-left: 1.2vw;
     }
 
     .navbar-brand {
         color: #178582 !important;
-        font-size: 2vw;
+        font-size: 2.5em;
     }
 
     .container {
@@ -53,14 +53,46 @@
         text-align: center !important;
     }
 
+    /* Error Page */
+    .sherrorlock {
+        display: flex;
+        max-height: 40rem;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .sherrorlock img {
+        max-height: 30%;
+        max-width: 30%;
+    }
+
+    .error-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .redirect-home {
+        font-size:2em;
+        display: flex;
+        justify-content: center;
+    }
+
     /* Home Page*/
     .display-1 {
-        font-size: 4vw;
+        font-size: 4.5em;
     }
 
     .display-7 {
         font-style: italic;
-        font-size: 2vw;
+        font-size: 2.3em;
+    }
+
+    /* Privacy */
+    .privacy-header{
+        text-align:center;
     }
 
     /* Page content */
@@ -70,7 +102,7 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        font-size: 0.8vw;
+        font-size: 1em;
         line-height: 1.4;
     }
 
@@ -78,7 +110,7 @@
     .reports-table {
         font-family: Arial, Helvetica, sans-serif;
         border-collapse: collapse;
-        font-size: 1.2vw;
+        font-size: 1.5em;
         width: 100%;
         user-select: none;
     }
@@ -89,7 +121,7 @@
     }
 
     .details-image {
-        width: 1vw;
+        width: 1.2em;
         display: block;
         margin: auto;
     }
@@ -117,7 +149,7 @@
     }
 
     .report-title {
-        font-size: 2vw;
+        font-size: 2.3em;
     }
 
     .category {
@@ -135,7 +167,7 @@
     }
 
     .report-column {
-        max-width: 15vw;
+        max-width: 15em;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -145,12 +177,12 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        min-width: 3vw;
+        min-width: 3em;
     }
 
     .upvote {
-        width: 1.1vw;
-        height: 1.5vw;
+        width: 1.2em;
+        height: 1.5em;
     }
 
     /* Filters */
@@ -167,10 +199,11 @@
     .filter-container {
         display: flex;
         flex-wrap: wrap;
-        gap: 10px;
+        gap: 1em;
         color: #BFA181;
+        
         background-color: #178582 !important;
-        font-size: 2em;
+        font-size: 1.2vw;
         text-align:center;
         font-weight:bold;
     }
@@ -192,13 +225,13 @@
     .btn-primary {
         width: auto;
         height: auto;
-        font-size: 1vw;
+        font-size: 1.5em;
     }
 
     .btn-secondary {
         width: auto;
         height: auto;
-        font-size: 1vw;
+        font-size: 1.5em;
     }
 
     .button-container {
@@ -208,7 +241,7 @@
 
     /* Details Page */
     .row {
-        font-size: 1vw;
+        font-size: 1.2em;
         margin: 20px 0;
     }
 
@@ -218,42 +251,39 @@
 
     /* Create Report Page */
     .form-group > textarea {
-        height: 7vw;
-        max-height: 14vw;
-        width: 30vw;
+        height: 7.5em;
+        max-height: 14.5em;
+        width: 30.5em;
     }
 
     .form-group {
-        width: 20vw;
+        width: 20.5em;
     }
 
     #title {
-        width: 15vw;
+        width: 15.5em;
     }
 
     .form-control {
-        font-size: 1vw;
+        font-size: 1.2em;
         background-color: #0A1828 !important;
         color: #178582 !important;
         border-color: #BFA181 !important;
-        font-size: 1.2vw;
+        font-size: 1.4em;
     }
 
     .category-picker {
-        font-size: 1.3vw;
+        font-size: 1.4em;
         background-color: #0A1828 !important;
         color: #178582 !important;
         border-color: #BFA181 !important;
     }
 
-    .date-picker .form-control {
-        width: 12vw;
-    }
 
     .control-label {
         color: #BFA181;
-        padding-top:0.5vw;
-        font-size:0.8vw;
+        padding-top:0.7em;
+        font-size:1em;
     }
 
     .requiredMarker {
