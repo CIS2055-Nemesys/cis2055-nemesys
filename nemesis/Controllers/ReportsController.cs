@@ -39,9 +39,7 @@ namespace nemesis.Controllers
 
         public IActionResult Index(int currentPage = 1, FilterViewModel filter = null)
         {
-            try
-            {
-                throw new Exception("This is an intentional exception.");
+            
 
                 int reportsPerPage = 10;
                 var reports = _reportRepository.getAllReports(filter);
@@ -69,16 +67,9 @@ namespace nemesis.Controllers
                 };
 
                 return View(model);
-            }
-            catch (Exception ex)
-            {
-                // Log the exception if needed
-                // ...
-
-                // Redirect to the error page
-                return RedirectToAction("Error", "Home");
-            }
         }
+            
+        
 
 
         public IActionResult Details(int id)
