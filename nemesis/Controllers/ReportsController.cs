@@ -36,34 +36,48 @@ namespace nemesis.Controllers
             _emailSender = emailSender;
         }
 
+
         public IActionResult Index(int currentPage = 1, FilterViewModel filter = null)
         {
-            int reportsPerPage = 10; 
-            var reports = _reportRepository.getAllReports(filter);
-
-            //Pagination 
-            int totalReports = reports.Count();
-            int totalPages = (int)Math.Ceiling((double)totalReports / reportsPerPage);
-
-            currentPage = Math.Max(1, Math.Min(currentPage, totalPages));
-
-            int startIndex = (currentPage - 1) * reportsPerPage;
-            var pagedReports = reports.Skip(startIndex).Take(reportsPerPage);
-
-            var model = new ReportsListViewModel()
+            try
             {
-                TotalReports = totalReports,
-                Reports = pagedReports,
-                ReportsPerPage = reportsPerPage,
-                CurrentPage = currentPage,
-                FilterSelectionAllLocations = _reportRepository.getAllLocations(),
-                FilterSelectionAllReporters = _reportRepository.getAllReporterNames(),
-                FilterSelectionAllCategories = _reportRepository.getAllCategories().Select(c => c.Name),
-                FilterSelectionAllStatus = _reportRepository.getAllStatuses().Select(c => c.Name),
-                Filter = filter ?? new FilterViewModel()
-            };
+                throw new Exception("This is an intentional exception.");
 
-            return View(model);
+                int reportsPerPage = 10;
+                var reports = _reportRepository.getAllReports(filter);
+
+                // Pagination
+                int totalReports = reports.Count();
+                int totalPages = (int)Math.Ceiling((double)totalReports / reportsPerPage);
+
+                currentPage = Math.Max(1, Math.Min(currentPage, totalPages));
+
+                int startIndex = (currentPage - 1) * reportsPerPage;
+                var pagedReports = reports.Skip(startIndex).Take(reportsPerPage);
+
+                var model = new ReportsListViewModel()
+                {
+                    TotalReports = totalReports,
+                    Reports = pagedReports,
+                    ReportsPerPage = reportsPerPage,
+                    CurrentPage = currentPage,
+                    FilterSelectionAllLocations = _reportRepository.getAllLocations(),
+                    FilterSelectionAllReporters = _reportRepository.getAllReporterNames(),
+                    FilterSelectionAllCategories = _reportRepository.getAllCategories().Select(c => c.Name),
+                    FilterSelectionAllStatus = _reportRepository.getAllStatuses().Select(c => c.Name),
+                    Filter = filter ?? new FilterViewModel()
+                };
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception if needed
+                // ...
+
+                // Redirect to the error page
+                return RedirectToAction("Error", "Home");
+            }
         }
 
 

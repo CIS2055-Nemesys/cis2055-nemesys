@@ -53,6 +53,33 @@
         text-align: center !important;
     }
 
+    /* Error Page */
+    .sherrorlock {
+        display: flex;
+        max-height: 40rem;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .sherrorlock img {
+        max-height: 30%;
+        max-width: 30%;
+    }
+
+    .error-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .redirect-home {
+        font-size:2em;
+        display: flex;
+        justify-content: center;
+    }
+
     /* Home Page*/
     .display-1 {
         font-size: 4vw;
