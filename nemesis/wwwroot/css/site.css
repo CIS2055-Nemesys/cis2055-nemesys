@@ -21,8 +21,8 @@
 
     .nav-link {
         color: #178582 !important;
-        font-size: 1.8em;
-        margin-left: 1.2em;
+        font-size: 1.5vw;
+        margin-left: 1.2vw;
     }
 
     .navbar-brand {
@@ -41,8 +41,8 @@
     }
 
     .nav-logo {
-        width: 7em;
-        height: 7em;
+        width: 6vw;
+        height: 6vw;
         display: block;
         margin: auto;
     }
@@ -201,8 +201,9 @@
         flex-wrap: wrap;
         gap: 1em;
         color: #BFA181;
+        
         background-color: #178582 !important;
-        font-size: 2em;
+        font-size: 1.2vw;
         text-align:center;
         font-weight:bold;
     }
