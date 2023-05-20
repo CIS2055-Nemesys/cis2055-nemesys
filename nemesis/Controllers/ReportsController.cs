@@ -321,9 +321,9 @@ namespace nemesis.Controllers
 
         [HttpGet]
         [Authorize (Roles = "Investigator")]
-        public IActionResult CreateInvestigation(int reportID)
+        public IActionResult CreateInvestigation(int id)
         {
-            Report report = _reportRepository.GetReportById(reportID);
+            Report report = _reportRepository.GetReportById(id);
 
             if (report == null)
             {
@@ -348,7 +348,7 @@ namespace nemesis.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Investigator")]
-        public async Task<IActionResult> CreateInvestigation([FromRoute] int reportID, [Bind("DateOfAction, Description, StatusId")] EditInvestigationViewModel newInvestigation)
+        public async Task<IActionResult> CreateInvestigation( int id, [Bind("DateOfAction, Description, StatusId")] EditInvestigationViewModel newInvestigation)
         {
             if (ModelState.IsValid)
             {
@@ -360,9 +360,9 @@ namespace nemesis.Controllers
                     StatusId = newInvestigation.StatusId
                 };
 
-                _investigationRepository.AddInvestigation(reportID, investigation);
+                _investigationRepository.AddInvestigation(id, investigation);
 
-                Report r = _reportRepository.GetReportById(reportID);
+                Report r = _reportRepository.GetReportById(id);
 
 
                 await _emailSender.SendEmailAsync(r.CreatedByUser.Email, "New Investigation on your report", "An investigator has added an investigation to your report \"" + r.Title + "\"");
