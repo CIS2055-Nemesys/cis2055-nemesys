@@ -196,7 +196,7 @@ namespace nemesis.Models.Repositories
                     .Include(r => r.Category)
                     .Include(r => r.CreatedByUser)
                     .Include(r => r.Upvotes)
-                    .FirstOrDefault(r => r.Id == id);
+                    .Single(r => r.Id == id);
             }
             catch (Exception ex)
             {
