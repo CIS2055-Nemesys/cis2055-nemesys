@@ -283,8 +283,9 @@ namespace nemesis.Controllers
             }
         }
 
+        //TODO: authorize is wrong
         [HttpPost]
-        [Authorize(Roles = "Investigator")]
+        [Authorize]
         public IActionResult DeleteReport(int reportId)
         {
             Report report = _reportRepository.GetReportById(reportId);
@@ -294,10 +295,18 @@ namespace nemesis.Controllers
                 return NotFound();
             }
 
+            // Get the ID of the currently logged-in user
+            string loggedInUserId = User.Identity.Name; // Assuming the user ID is stored in the Name property
+
+            // Check if the report was created by the same user who is currently logged in
+            if (report.CreatedByUserId != loggedInUserId)
+            {
+                return Unauthorized(); // User is not authorized to delete the report
+            }
+
             _reportRepository.DeleteReport(reportId);
 
             return RedirectToAction("Index");
-
         }
 
 
