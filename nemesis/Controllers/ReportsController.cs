@@ -9,8 +9,10 @@ using nemesis.Models.Contexts;
 using nemesis.Models.Interfaces;
 using nemesis.Models.Repositories;
 using nemesis.ViewModels;
+using System;
 using System.Composition;
 using System.Diagnostics;
+
 
 namespace nemesis.Controllers
 {
@@ -283,7 +285,6 @@ namespace nemesis.Controllers
             }
         }
 
-        //TODO: authorize is wrong
         [HttpPost]
         [Authorize]
         public IActionResult DeleteReport(int reportId)
@@ -295,12 +296,14 @@ namespace nemesis.Controllers
                 return NotFound();
             }
 
-            // Get the ID of the currently logged-in user
-            string loggedInUserId = User.Identity.Name; // Assuming the user ID is stored in the Name property
+            string loggedInUserId = _userManager.GetUserAsync(User).Result.Id; 
 
             // Check if the report was created by the same user who is currently logged in
             if (report.CreatedByUserId != loggedInUserId)
             {
+                Debug.WriteLine(loggedInUserId);
+                Debug.WriteLine(report.CreatedByUserId);
+
                 return Unauthorized(); // User is not authorized to delete the report
             }
 
