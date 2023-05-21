@@ -8,21 +8,31 @@ namespace nemesis.Controllers
     public class HallOfFameController : Controller
     {
         private readonly IHallOfFameRepository _hallOfFameRepository;
+        private readonly ILogger _logger;
 
-        public HallOfFameController(IHallOfFameRepository hallOfFameRepository)
+        public HallOfFameController(IHallOfFameRepository hallOfFameRepository, ILogger<HallOfFameController> logger)
         {
             _hallOfFameRepository = hallOfFameRepository;
+            _logger = logger;
         }
 
         public IActionResult Index()
         {
-            var topUsers = _hallOfFameRepository.GetTop3Reporters();
-            var model = new HallOfFameViewModel()
+            try
             {
-                TopUsers = topUsers.Count(),
-                Users = topUsers
-            };
-            return View(model);
+                var topUsers = _hallOfFameRepository.GetTop3Reporters();
+                var model = new HallOfFameViewModel()
+                {
+                    TopUsers = topUsers.Count(),
+                    Users = topUsers
+                };
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return View("Error");
+            }
         }
 
     }
