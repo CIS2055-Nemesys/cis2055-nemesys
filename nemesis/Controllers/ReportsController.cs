@@ -301,9 +301,7 @@ namespace nemesis.Controllers
             // Check if the report was created by the same user who is currently logged in
             if (report.CreatedByUserId != loggedInUserId)
             {
-                Debug.WriteLine(loggedInUserId);
-                Debug.WriteLine(report.CreatedByUserId);
-
+               
                 return Unauthorized(); // User is not authorized to delete the report
             }
 
