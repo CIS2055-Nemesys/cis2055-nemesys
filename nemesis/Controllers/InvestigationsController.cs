@@ -94,7 +94,7 @@ namespace nemesis.Controllers
 
                     await _emailSender.SendEmailAsync(r.CreatedByUser.Email, "New Investigation on your report", "An investigator has added an investigation to your report \"" + r.Title + "\"");
 
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Reports");
                 }
                 else
                 {
@@ -164,6 +164,13 @@ namespace nemesis.Controllers
                     return NotFound();
                 }
 
+                string loggedInUserId = _userManager.GetUserAsync(User).Result.Id;
+
+                if (oldInvestigation.InvestigatorId != loggedInUserId)
+                {
+                    return Unauthorized(); // User is not authorized to edit the report
+                }
+
                 var statusList = _investigationRepository.GetAllStatuses().Select(c => new StatusViewModel()
                 {
                     Id = c.Id,
@@ -192,6 +199,7 @@ namespace nemesis.Controllers
         [Authorize(Roles = "Investigator")]
         public async Task<IActionResult> Edit([Bind("DateOfAction, Description, StatusId")] EditInvestigationViewModel newInvestigation, int reportId)
         {
+
             try
             {
                 if (ModelState.IsValid)

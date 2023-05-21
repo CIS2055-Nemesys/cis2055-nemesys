@@ -21,20 +21,17 @@ namespace nemesis.Controllers
         private readonly IReportRepository _reportRepository;
         private readonly IInvestigationRepository _investigationRepository;
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly IEmailSender _emailSender;
         private readonly ILogger<ReportsController> _logger;
 
         public ReportsController(
             IReportRepository reportRepository,
             UserManager<IdentityUser> userManager,
             IInvestigationRepository investigationRepository,
-            IEmailSender emailSender,
             ILogger<ReportsController> logger)
         {
             _reportRepository = reportRepository;
             _investigationRepository = investigationRepository;
             _userManager = userManager;
-            _emailSender = emailSender;
             _logger = logger;
         }
 
@@ -42,7 +39,6 @@ namespace nemesis.Controllers
 
         public IActionResult Index(int currentPage = 1, FilterViewModel filter = null)
         {
-
 
             try
             {
@@ -79,8 +75,6 @@ namespace nemesis.Controllers
                 return View("Error");
             }
         }
-
-
 
 
         public IActionResult Details(int id)
@@ -224,7 +218,7 @@ namespace nemesis.Controllers
 
         [HttpGet]
         [Authorize]
-        public IActionResult EditReport(int id)
+        public IActionResult Edit(int id)
         {
             try
             {
@@ -265,10 +259,19 @@ namespace nemesis.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public IActionResult EditReport([FromRoute] int id, [Bind("ImageToUpload, Description, DateOfReport")] EditReportViewModel newReport)
+        public IActionResult Edit([FromRoute] int id, [Bind("ImageToUpload, Description, DateOfReport")] EditReportViewModel newReport)
         {
             try
             {
+                Report report = _reportRepository.GetReportById(id);
+
+                string loggedInUserId = _userManager.GetUserAsync(User).Result.Id;
+
+                if (report.CreatedByUserId != loggedInUserId)
+                {
+                    return Unauthorized(); // User is not authorized to Edit the report
+                }
+
                 Report oldReport = _reportRepository.GetReportById(id);
 
                 if (oldReport == null)
@@ -327,7 +330,7 @@ namespace nemesis.Controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult DeleteReport(int reportId)
+        public IActionResult Delete(int reportId)
         {
             try
             {
@@ -343,7 +346,6 @@ namespace nemesis.Controllers
                 // Check if the report was created by the same user who is currently logged in
                 if (report.CreatedByUserId != loggedInUserId)
                 {
-
                     return Unauthorized(); // User is not authorized to delete the report
                 }
 
