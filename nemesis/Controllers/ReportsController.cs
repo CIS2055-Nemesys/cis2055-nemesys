@@ -9,8 +9,10 @@ using nemesis.Models.Contexts;
 using nemesis.Models.Interfaces;
 using nemesis.Models.Repositories;
 using nemesis.ViewModels;
+using System;
 using System.Composition;
 using System.Diagnostics;
+
 
 namespace nemesis.Controllers
 {
@@ -324,21 +326,32 @@ namespace nemesis.Controllers
 
 
         [HttpPost]
-        [Authorize(Roles = "Investigator")]
+        [Authorize]
         public IActionResult DeleteReport(int reportId)
         {
             try
             {
                 Report report = _reportRepository.GetReportById(reportId);
-
-                if (report == null)
+                
+            if (report == null)
                 {
                     return NotFound();
                 }
+                
+            string loggedInUserId = _userManager.GetUserAsync(User).Result.Id; 
+    
+            // Check if the report was created by the same user who is currently logged in
+            if (report.CreatedByUserId != loggedInUserId)
+            {
+               
+                return Unauthorized(); // User is not authorized to delete the report
+            }
 
-                _reportRepository.DeleteReport(reportId);
+            _reportRepository.DeleteReport(reportId);
 
-                return RedirectToAction("Index");
+            return RedirectToAction("Index");
+                
+
             }
             catch (Exception ex)
             {
