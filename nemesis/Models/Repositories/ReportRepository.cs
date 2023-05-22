@@ -5,6 +5,7 @@ using nemesis.Models.Interfaces;
 using nemesis.ViewModels;
 using Microsoft.Extensions.Logging;
 using System;
+using Microsoft.AspNetCore.Identity;
 
 namespace nemesis.Models.Repositories
 {
@@ -12,11 +13,15 @@ namespace nemesis.Models.Repositories
     {
         private readonly AppDbContext _appDbContext;
         private readonly ILogger<ReportRepository> _logger;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public ReportRepository(AppDbContext appDbContext, ILogger<ReportRepository> logger)
+        public ReportRepository(AppDbContext appDbContext, ILogger<ReportRepository> logger, RoleManager<IdentityRole> roleManager,UserManager<IdentityUser> userManager)
         {
             _appDbContext = appDbContext;
             _logger = logger;
+            _roleManager = roleManager;
+            _userManager = userManager;
         }
 
         public void AddReport(Report report)
@@ -260,6 +265,11 @@ namespace nemesis.Models.Repositories
                 _logger.LogError(ex, ex.Message);
                 throw;
             }
+        }
+
+        public IEnumerable<String> GetAllInvestigatorEmails()
+        {
+            return _userManager.GetUsersInRoleAsync("Investigator").Result.Select(u=>u.Email);
         }
     }
 }
