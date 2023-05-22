@@ -47,7 +47,8 @@
         <hr/>
 
         <div class="row">
-            <img class="col" src="@Model.ImageUrl" alt="Image for @Model.Title" />
+            <img src="@Model.ImageUrl" alt="image for @Model.Title" 
+            onerror="this.onerror=null; this.src='/Images/DefaultImage.png'" />
         </div>
 
         <dl class="row">
@@ -104,6 +105,12 @@
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Upvotes.Count)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PhoneNum)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PhoneNum)
             </dd>
         </dl>
     </div>

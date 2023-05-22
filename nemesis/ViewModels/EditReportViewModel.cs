@@ -21,5 +21,9 @@ namespace nemesis.ViewModels
         //[FileExtensions(Extensions = "jpg,png,gif,jpeg,bmp,svg")]
         public IFormFile? ImageToUpload { get; set; } //used only when submitting form
 
+        public bool IncludePhoneNumber { get; set; }
+
+        public string? PhoneNum { get; set; }
+
     }
 }

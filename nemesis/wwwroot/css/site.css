@@ -13,6 +13,15 @@
         color: #BFA181;
     }
 
+    input[type="checkbox"] {
+         -webkit-transform: scale(1.2);
+         -moz-transform: scale(1.2);
+         -ms-transform: scale(1.2);
+         -o-transform: scale(1.2);
+         transform: scale(1.2);
+         width: 20px;
+         height: 20px;
+    }
     .navbar {
         background-color: #0A1828 !important;
         border-bottom-color: #BFA181 !important;
@@ -249,13 +258,16 @@
         margin: 15px 0;
     }
 
-    /* Create Report Page */
+    /* Create Report & Investigation Pages */
     .form-group > textarea {
         height: 7.5em;
         max-height: 14.5em;
         width: 30.5em;
     }
 
+    .phone-checkbox{
+        font-size: 1.5em;
+    }
     .form-group {
         width: 20.5em;
     }

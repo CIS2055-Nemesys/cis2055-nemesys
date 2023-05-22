@@ -30,6 +30,6 @@ namespace nemesis.Models.Interfaces
         public void RemoveUpvote(string userId, int reportId);
 
         public bool HasUpvoted(string userId, int reportId);
-        
+        IEnumerable<string> GetAllInvestigatorEmails();
     }
 }

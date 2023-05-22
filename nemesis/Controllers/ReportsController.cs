@@ -8,6 +8,7 @@ using nemesis.Models;
 using nemesis.Models.Contexts;
 using nemesis.Models.Interfaces;
 using nemesis.Models.Repositories;
+using nemesis.Services;
 using nemesis.ViewModels;
 using System;
 using System.Composition;
@@ -22,17 +23,21 @@ namespace nemesis.Controllers
         private readonly IInvestigationRepository _investigationRepository;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<ReportsController> _logger;
+        private readonly IEmailSender _emailSender;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public ReportsController(
             IReportRepository reportRepository,
             UserManager<IdentityUser> userManager,
             IInvestigationRepository investigationRepository,
-            ILogger<ReportsController> logger)
+            ILogger<ReportsController> logger,
+            IEmailSender emailSender
         {
             _reportRepository = reportRepository;
             _investigationRepository = investigationRepository;
             _userManager = userManager;
             _logger = logger;
+            _emailSender = emailSender;
         }
 
 
@@ -98,7 +103,8 @@ namespace nemesis.Controllers
                     },
                     CreatedByUser = report.CreatedByUser,
                     InvestigationId = report.InvestigationId,
-                    Upvotes = report.Upvotes
+                    Upvotes = report.Upvotes,
+                    PhoneNum = report.PhoneNum
                 };
 
                 if (report.ImageUrl.IsNullOrEmpty())
@@ -156,7 +162,7 @@ namespace nemesis.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Title, Description, Location, DateSpotted, CategoryId, ImageToUpload")] CreateReportViewModel newReport)
+        public async Task<IActionResult> CreateAsync([Bind("Title, Description, Location, DateSpotted, CategoryId, ImageToUpload")] CreateReportViewModel newReport)
         {
             try
             {
@@ -183,7 +189,9 @@ namespace nemesis.Controllers
                         DateOfReport = DateTime.Now,
                         CategoryId = newReport.CategoryId,
                         StatusId = 1,
-                        CreatedByUserId = _userManager.GetUserId(User)
+                        CreatedByUserId = _userManager.GetUserId(User),
+                        PhoneNum = newReport.IncludePhoneNumber ? _userManager.GetUserAsync(User).Result.PhoneNumber : "No phone number available"
+
                     };
 
                     if (!string.IsNullOrEmpty(fileName))
@@ -192,7 +200,21 @@ namespace nemesis.Controllers
                     }
 
                     _reportRepository.AddReport(report);
+
+
+                    var investigatorEmails = _reportRepository.GetAllInvestigatorEmails();
+
+                    foreach (var e in investigatorEmails)
+                    {
+                        await _emailSender.SendEmailAsync(e, "A new report is avaiable", "A new report \"" + report.Title + "\" is avaiable for you to investigate");
+
+                    }
+
+
+
                     return RedirectToAction("Index");
+
+
                 }
                 else
                 {
@@ -203,6 +225,7 @@ namespace nemesis.Controllers
                     }).ToList();
 
                     newReport.Categories = categoryList;
+
 
                     return View(newReport);
                 }
@@ -232,7 +255,8 @@ namespace nemesis.Controllers
                         {
                             Id = oldReport.Id,
                             Description = oldReport.Description,
-                            ImageUrl = oldReport.ImageUrl
+                            ImageUrl = oldReport.ImageUrl,
+                            PhoneNum = oldReport.PhoneNum
                         };
 
                         return View(model);
@@ -259,7 +283,7 @@ namespace nemesis.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit([FromRoute] int id, [Bind("ImageToUpload, Description, DateOfReport")] EditReportViewModel newReport)
+        public IActionResult Edit([FromRoute] int id, [Bind("ImageToUpload, Description, DateOfReport, IncludePhoneNumber")] EditReportViewModel newReport)
         {
             try
             {
@@ -306,6 +330,14 @@ namespace nemesis.Controllers
                         oldReport.Description = newReport.Description;
                         oldReport.ImageUrl = imageUrl;
                         oldReport.DateOfReport = DateTime.Now;
+                        if (newReport.IncludePhoneNumber)
+                        {
+                            oldReport.PhoneNum = newReport.IncludePhoneNumber ? _userManager.GetUserAsync(User).Result.PhoneNumber : "No phone number available";
+                        }
+                        else
+                        {
+                            oldReport.PhoneNum = "No phone number available";
+                        }
 
                         _reportRepository.EditReport(oldReport);
                         return RedirectToAction("Index");
