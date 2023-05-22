@@ -36,25 +36,17 @@ namespace nemesis.Controllers
 
         }
 
-       [HttpGet]
-    [Authorize(Roles = "Investigator")]
-     public async Task<IActionResult> Edit(int id)
+        [HttpGet]
+        [Authorize(Roles = "Investigator")]
+        public IActionResult Create(int id)
         {
             try
             {
                 Report report = _reportRepository.GetReportById(id);
-                Investigation oldInvestigation = _investigationRepository.GetInvestigationById((int)report.InvestigationId);
 
                 if (report == null)
                 {
                     return NotFound();
-                }
-
-                string loggedInUserId = _userManager.GetUserAsync(User).Result.Id;
-
-                if (oldInvestigation.InvestigatorId != loggedInUserId)
-                {
-                    return Unauthorized(); // User is not authorized to edit the report
                 }
 
                 var statusList = _investigationRepository.GetAllStatuses()
@@ -70,20 +62,19 @@ namespace nemesis.Controllers
                 {
                     ReportId = report.Id,
                     Statuses = statusList,
-                    Description = oldInvestigation.Description,
-                    StatusId = oldInvestigation.StatusId
+                    IncludePhoneNumber = true // Set the default value of the checkbox
                 };
 
-            return View(model);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return View("Error");
+            }
         }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, ex.Message);
-            return View("Error");
-        }
-    }
 
-    [HttpPost]
+        [HttpPost]
     [ValidateAntiForgeryToken]
     [Authorize(Roles = "Investigator")]
     public async Task<IActionResult> Create(int id, [Bind("DateOfAction, Description, StatusId, IncludePhoneNumber")] EditInvestigationViewModel newInvestigation)
