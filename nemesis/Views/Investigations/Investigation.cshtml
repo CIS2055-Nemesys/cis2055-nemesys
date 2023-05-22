@@ -39,14 +39,14 @@
     @if(Model.PreviousVersion != null)
     {
         <div>
-            <a asp-controller="Reports" asp-action="Investigation" asp-route-id="@(Model.PreviousVersion.Id)">Click Here</a> to see the previous entry of the investigation.
+            <a asp-controller="Investigations" asp-action="Investigation" asp-route-id="@(Model.PreviousVersion.Id)">Click Here</a> to see the previous entry of the investigation.
         </div>
     }
 
     <div>
         @if (User.Identity.IsAuthenticated && (UserManager.GetUserAsync(User).Result.Id == Model.InvestigatorId))
         {
-            <a asp-controller="Reports" asp-action="EditInvestigation" asp-route-id="@Model.ReportId" class="btn btn-secondary">Edit</a>
+            <a asp-controller="Investigations" asp-action="Edit" asp-route-id="@Model.ReportId" class="btn btn-secondary">Edit</a>
         }
 
 

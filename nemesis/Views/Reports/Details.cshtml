@@ -36,7 +36,7 @@
             }
             else if (User.Identity.IsAuthenticated && UserManager.GetUserAsync(User).Result.Id == Model.CreatedByUser.Id)
             {
-                <a asp-controller="Reports" asp-action="EditReport" asp-route-id="@Model.Id" class="btn btn-secondary">Edit Report</a>
+                <a asp-controller="Reports" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary">Edit Report</a>
             }
 
         }
@@ -88,9 +88,10 @@
             <dd class="col-sm-10">
                 @if (Model.InvestigationId != null)
                 {
-                    <a href="@Url.Action("Investigation", "Reports", new { Id = Model.InvestigationId })">
+                    <a href="@Url.Action("Investigation", "Investigations", new { Id = Model.InvestigationId })">
                         Investigation Details
                     </a>
+                   
                 }
                 else
                 {
@@ -114,11 +115,11 @@
         {
             @if (Model.InvestigationId == null && User.IsInRole("Investigator"))
             {
-                <a asp-controller="Reports" asp-action="CreateInvestigation" asp-route-id="@Model.Id" class="btn btn-secondary">Submit Investigation</a>
+                <a asp-controller="Investigations" asp-action="Create" asp-route-id="@Model.Id" class="btn btn-secondary">Submit Investigation</a>
             }
             if (UserManager.GetUserAsync(User).Result.Id == Model.CreatedByUser.Id)
             {
-                <form method="post" asp-controller="Reports" asp-action="DeleteReport">
+                <form method="post" asp-controller="Reports" asp-action="Delete">
                     <input type="hidden" name="reportId" value="@Model.Id" />
                     <button type="submit" class="btn btn-secondary">Delete Report</button>
                 </form>
