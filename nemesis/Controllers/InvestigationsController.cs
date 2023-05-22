@@ -186,7 +186,9 @@ namespace nemesis.Controllers
                     ReportId = report.Id,
                     Statuses = statusList,
                     Description = oldInvestigation.Description,
-                    StatusId = oldInvestigation.StatusId
+                    StatusId = oldInvestigation.StatusId,
+                    PhoneNum = oldInvestigation.PhoneNum
+
                 };
 
                 return View(model);
@@ -201,7 +203,7 @@ namespace nemesis.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Investigator")]
-        public async Task<IActionResult> Edit([Bind("DateOfAction, Description, StatusId")] EditInvestigationViewModel newInvestigation, int reportId)
+        public async Task<IActionResult> Edit([Bind("DateOfAction, Description, StatusId, IncludePhoneNumber")] EditInvestigationViewModel newInvestigation, int reportId)
         {
 
             try
@@ -214,6 +216,8 @@ namespace nemesis.Controllers
                         DateOfAction = newInvestigation.DateOfAction,
                         InvestigatorId = _userManager.GetUserId(User),
                         StatusId = newInvestigation.StatusId,
+                        PhoneNum = newInvestigation.IncludePhoneNumber ? _userManager.GetUserAsync(User).Result.PhoneNumber : "no phone number available"
+
                     };
 
                     _investigationRepository.AddInvestigation(reportId, investigation);
