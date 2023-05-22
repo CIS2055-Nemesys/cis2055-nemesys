@@ -565,8 +565,8 @@ namespace nemesis.Models.Contexts
                 Id = "fac97539-cb0b-4b9f-ae20-497eafb414bc",
                 UserName = "Sudo",
                 NormalizedUserName = "SUDO",
-                Email = "su@do.com",
-                NormalizedEmail = "SU@DO.COM",
+                Email = "nemesis-accounts-um+sudo@wayne.mt",
+                NormalizedEmail = "NEMESIS-ACCOUNTS-UM+SUDO@WAYNE.MT",
                 PhoneNumber = "0", //you don't need to call him, he's already listening
                 EmailConfirmed = true
             };
@@ -576,8 +576,8 @@ namespace nemesis.Models.Contexts
                 Id = "92b32ccb-8835-4e2d-ae6c-8c86eb2efed6",
                 UserName = "PaulBlart",
                 NormalizedUserName = "PAULBLART",
-                Email = "cop2@mall.com",
-                NormalizedEmail = "COP2@MALL.COM",
+                Email = "nemesis-accounts-um+cop2mall@wayne.mt",
+                NormalizedEmail = "NEMESIS-ACCOUNTS-UM+COP2MALL@WAYNE.MT",
                 PhoneNumber = "911911",
                 EmailConfirmed = true
             };
@@ -587,8 +587,8 @@ namespace nemesis.Models.Contexts
                 Id = "9059e247-2854-40bd-af2b-76088f8dd4e6",
                 UserName = "InspectorGadget",
                 NormalizedUserName = "INSPECTORGADGET",
-                Email = "gadget@inspect.com",
-                NormalizedEmail = "GADGET@INSPECT.COM",
+                Email = "NEMESIS-ACCOUNTS-UM+gadget-inspect@wayne.mt",
+                NormalizedEmail = "NEMESIS-ACCOUNTS-UM+GADGET-INSPECT@wayne.mt",
                 PhoneNumber = "23480922",
                 EmailConfirmed = true
             };
@@ -598,8 +598,8 @@ namespace nemesis.Models.Contexts
                 Id = "84b91c9f-74d1-452d-927b-439bfd3a7287",
                 UserName = "Element",
                 NormalizedUserName = "ELEMENT",
-                Email = "element@inspect.com",
-                NormalizedEmail = "ELEMENT@INSPECT.COM",
+                Email = "NEMESIS-ACCOUNTS-UM+element-inspect@wayne.mt",
+                NormalizedEmail = "NEMESIS-ACCOUNTS-UM+ELEMENT-INSPECT@wayne.mt",
                 PhoneNumber = "(650) 253-0000",
                 EmailConfirmed = true
             };
@@ -609,8 +609,8 @@ namespace nemesis.Models.Contexts
                 Id = "5888e361-c81f-4ac9-8e16-961b0eeed0ae",
                 UserName = "Cetta",
                 NormalizedUserName = "CETTA",
-                Email = "cetta@hotmail.com",
-                NormalizedEmail = "CETTA@HOTMAIL.COM",
+                Email = "NEMESIS-ACCOUNTS-UM+cetta-hotmail@wayne.mt",
+                NormalizedEmail = "NEMESIS-ACCOUNTS-UM+CETTA-HOTMAIL@wayne.mt",
                 PhoneNumber = "21249200",
                 EmailConfirmed = true
             };
@@ -620,8 +620,8 @@ namespace nemesis.Models.Contexts
                 Id = "ad9a20a1-779e-4991-8881-9af6171668a5",
                 UserName = "Karen",
                 NormalizedUserName = "KAREN",
-                Email = "karen@qrid.com",
-                NormalizedEmail = "KAREN@QRID.COM",
+                Email = "NEMESIS-ACCOUNTS-UM+karen-qrid@wayne.mt",
+                NormalizedEmail = "NEMESIS-ACCOUNTS-UM+KAREN-QRID@wayne.mt",
                 PhoneNumber = "10291029",
                 EmailConfirmed = true
             };
@@ -631,8 +631,8 @@ namespace nemesis.Models.Contexts
                 Id = "555e52b8-22db-4c15-a037-107016c7f827",
                 UserName = "Candice",
                 NormalizedUserName = "CANDICE",
-                Email = "CandiceFlynn@snitch.com",
-                NormalizedEmail = "CANDICEFLYNN@SNITCH.COM",
+                Email = "NEMESIS-ACCOUNTS-UM+CandiceFlynn-snitch@wayne.mt",
+                NormalizedEmail = "NEMESIS-ACCOUNTS-UM+CANDICEFLYNN-SNITCH@wayne.mt",
                 PhoneNumber = "201920192",
                 EmailConfirmed = true
             };
@@ -642,8 +642,8 @@ namespace nemesis.Models.Contexts
                 Id = "5cefc46b-1918-4ae3-8a40-4d337ff9a670",
                 UserName = "6ix9ine",
                 NormalizedUserName = "6IX9INE",
-                Email = "head@snitch.com",
-                NormalizedEmail = "HEAD@SNITCH.COM",
+                Email = "NEMESIS-ACCOUNTS-UM+head-snitch@wayne.mt",
+                NormalizedEmail = "NEMESIS-ACCOUNTS-UM+HEAD-SNITCH@wayne.mt",
                 PhoneNumber = "1231233412",
                 EmailConfirmed = true
             };
@@ -653,8 +653,8 @@ namespace nemesis.Models.Contexts
                 Id = "3303fdaf-f438-4582-8f10-52b578c50cb8",
                 UserName = "homeworkReminder",
                 NormalizedUserName = "HOMEWORKREMINDER",
-                Email = "homework@reminder.com",
-                NormalizedEmail = "HOMEWORK@REMINDER.COM",
+                Email = "NEMESIS-ACCOUNTS-UM+homework-reminder@wayne.mt",
+                NormalizedEmail = "NEMESIS-ACCOUNTS-UM+HOMEWORK-REMINDER@wayne.mt",
                 PhoneNumber = "123412521",
                 EmailConfirmed = true
             };

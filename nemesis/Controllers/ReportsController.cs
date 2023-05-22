@@ -31,7 +31,7 @@ namespace nemesis.Controllers
             UserManager<IdentityUser> userManager,
             IInvestigationRepository investigationRepository,
             ILogger<ReportsController> logger,
-            IEmailSender emailSender
+            IEmailSender emailSender)
         {
             _reportRepository = reportRepository;
             _investigationRepository = investigationRepository;
