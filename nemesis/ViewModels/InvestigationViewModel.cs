@@ -24,7 +24,6 @@ namespace nemesis.ViewModels
         public bool IncludePhoneNumber { get; set; }
 
         [DisplayName("Phone Number")]
-
         public string PhoneNum { get; set; }
         public Investigation PreviousVersion { get; set; }
 

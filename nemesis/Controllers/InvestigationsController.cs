@@ -86,7 +86,7 @@ namespace nemesis.Controllers
                     DateOfAction = newInvestigation.DateOfAction,
                     InvestigatorId = _userManager.GetUserId(User),
                     StatusId = newInvestigation.StatusId,
-                    PhoneNum = newInvestigation.IncludePhoneNumber ? _userManager.GetUserAsync(User).Result.PhoneNumber : "no phone number available"
+                    PhoneNum = newInvestigation.IncludePhoneNumber ? _userManager.GetUserAsync(User).Result.PhoneNumber : "No phone number available"
                 };
 
                 _investigationRepository.AddInvestigation(id, investigation);
@@ -216,7 +216,7 @@ namespace nemesis.Controllers
                         DateOfAction = newInvestigation.DateOfAction,
                         InvestigatorId = _userManager.GetUserId(User),
                         StatusId = newInvestigation.StatusId,
-                        PhoneNum = newInvestigation.IncludePhoneNumber ? _userManager.GetUserAsync(User).Result.PhoneNumber : "no phone number available"
+                        PhoneNum = newInvestigation.IncludePhoneNumber ? _userManager.GetUserAsync(User).Result.PhoneNumber : "No phone number available"
 
                     };
 

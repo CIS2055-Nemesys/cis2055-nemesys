@@ -31,6 +31,8 @@ namespace nemesis.ViewModels
 
         public ICollection<Upvote> Upvotes { get; set; }
 
-  
+        [DisplayName("Phone Number")]
+        public string PhoneNum { get; set; }
+        public Investigation PreviousVersion { get; set; }
     }
 }

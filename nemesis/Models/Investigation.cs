@@ -19,6 +19,6 @@
 
         public Investigation? PreviousVersion { get; set; }
 
-        public string? PhoneNum { get; set; }
+        public string? PhoneNum { get; set; } = "No Phone number available";
     }
 }
