@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using nemesis.Migrations;
-using nemesis.ViewModels;
 using static nemesis.Models.Upvote;
 
 namespace nemesis.Models.Contexts
@@ -321,7 +320,7 @@ namespace nemesis.Models.Contexts
                     Location = "Mosta",
                     DateSpotted = DateTime.UtcNow.AddDays(-0.5),
                     DateOfReport = DateTime.UtcNow.AddDays(-0.3),
-                    ImageUrl = "/images/ToiletPaperHoarder.jpg",
+                    ImageUrl = "/images/ToiletPaper.jpg",
                     CategoryId = 1,
                     CreatedByUserId = "5888e361-c81f-4ac9-8e16-961b0eeed0ae",
                     StatusId = 1,
@@ -731,7 +730,6 @@ namespace nemesis.Models.Contexts
             );
         }
 
-        public DbSet<nemesis.ViewModels.ReportViewModel>? ReportViewModel { get; set; }
     }
 
     //config for upvote composite PK
