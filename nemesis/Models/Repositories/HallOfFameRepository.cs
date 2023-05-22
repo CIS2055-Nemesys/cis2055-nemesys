@@ -23,7 +23,10 @@ namespace nemesis.Models.Repositories
         {
             try
             {
+                int currentYear = DateTime.Now.Year;
+
                 var groupedReports = _appDbContext.Reports
+                    .Where(r => r.DateOfReport.Year == currentYear) // Filter by current year
                     .GroupBy(r => r.CreatedByUserId)
                     .Select(g => new { UserId = g.Key, ReportCount = g.Count() });
 
@@ -52,6 +55,7 @@ namespace nemesis.Models.Repositories
                 throw;
             }
         }
+
 
         public Report GetMostUpvotedReport(string userId)
         {
