@@ -36,17 +36,25 @@ namespace nemesis.Controllers
 
         }
 
-        [HttpGet]
-        [Authorize(Roles = "Investigator")]
-        public IActionResult Create(int id)
+       [HttpGet]
+    [Authorize(Roles = "Investigator")]
+     public async Task<IActionResult> Edit(int id)
         {
             try
             {
                 Report report = _reportRepository.GetReportById(id);
+                Investigation oldInvestigation = _investigationRepository.GetInvestigationById((int)report.InvestigationId);
 
                 if (report == null)
                 {
                     return NotFound();
+                }
+
+                string loggedInUserId = _userManager.GetUserAsync(User).Result.Id;
+
+                if (oldInvestigation.InvestigatorId != loggedInUserId)
+                {
+                    return Unauthorized(); // User is not authorized to edit the report
                 }
 
                 var statusList = _investigationRepository.GetAllStatuses()
@@ -58,59 +66,61 @@ namespace nemesis.Controllers
                     })
                     .ToList();
 
-
                 var model = new EditInvestigationViewModel
                 {
                     ReportId = report.Id,
-                    Statuses = statusList
+                    Statuses = statusList,
+                    Description = oldInvestigation.Description,
+                    StatusId = oldInvestigation.StatusId
                 };
 
-                return View(model);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, ex.Message);
-                return View("Error");
-            }
+            return View(model);
         }
-
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Investigator")]
-        public async Task<IActionResult> Create(int id, [Bind("DateOfAction, Description, StatusId")] EditInvestigationViewModel newInvestigation)
+        catch (Exception ex)
         {
-            try
+            _logger.LogError(ex, ex.Message);
+            return View("Error");
+        }
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Investigator")]
+    public async Task<IActionResult> Create(int id, [Bind("DateOfAction, Description, StatusId, IncludePhoneNumber")] EditInvestigationViewModel newInvestigation)
+    {
+        try
+        {
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                Investigation investigation = new Investigation()
                 {
-                    Investigation investigation = new Investigation()
-                    {
-                        Description = newInvestigation.Description,
-                        DateOfAction = newInvestigation.DateOfAction,
-                        InvestigatorId = _userManager.GetUserId(User),
-                        StatusId = newInvestigation.StatusId
-                    };
+                    Description = newInvestigation.Description,
+                    DateOfAction = newInvestigation.DateOfAction,
+                    InvestigatorId = _userManager.GetUserId(User),
+                    StatusId = newInvestigation.StatusId,
+                    PhoneNum = newInvestigation.IncludePhoneNumber ? _userManager.GetUserAsync(User).Result.PhoneNumber : "No phone number available"
+                };
 
-                    _investigationRepository.AddInvestigation(id, investigation);
+                _investigationRepository.AddInvestigation(id, investigation);
 
-                    Report r = _reportRepository.GetReportById(id);
+                Report r = _reportRepository.GetReportById(id);
 
-                    await _emailSender.SendEmailAsync(r.CreatedByUser.Email, "New Investigation on your report", "An investigator has added an investigation to your report \"" + r.Title + "\"");
+                await _emailSender.SendEmailAsync(r.CreatedByUser.Email, "New Investigation on your report", "An investigator has added an investigation to your report \"" + r.Title + "\"");
 
-                    return RedirectToAction("Index", "Reports");
-                }
-                else
-                {
-                    return View(newInvestigation);
-                }
+                return RedirectToAction("Index", "Reports");
             }
-            catch (Exception ex)
+            else
             {
-                _logger.LogError(ex, ex.Message);
-                return View("Error");
+                return View(newInvestigation);
             }
         }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return View("Error");
+        }
+    }
+
 
         [HttpGet]
         public async Task<IActionResult> InvestigationAsync(int id)
@@ -131,7 +141,9 @@ namespace nemesis.Controllers
                     InvestigatorId = investigation.InvestigatorId,
                     InvestigatorUsername = investigatorUsername,
                     PreviousVersion = investigation.PreviousVersion,
-                    ReportId = _investigationRepository.getReportIdByInvestigation(id)
+                    ReportId = _investigationRepository.getReportIdByInvestigation(id),
+                    PhoneNum = investigation.PhoneNum
+                    
                 };
 
                 var status = _investigationRepository.GetStatusById(investigation.StatusId);
@@ -189,7 +201,9 @@ namespace nemesis.Controllers
                     ReportId = report.Id,
                     Statuses = statusList,
                     Description = oldInvestigation.Description,
-                    StatusId = oldInvestigation.StatusId
+                    StatusId = oldInvestigation.StatusId,
+                    PhoneNum = oldInvestigation.PhoneNum
+
                 };
 
                 return View(model);
@@ -204,7 +218,7 @@ namespace nemesis.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Investigator")]
-        public async Task<IActionResult> Edit([Bind("DateOfAction, Description, StatusId")] EditInvestigationViewModel newInvestigation, int reportId)
+        public async Task<IActionResult> Edit([Bind("DateOfAction, Description, StatusId, IncludePhoneNumber")] EditInvestigationViewModel newInvestigation, int reportId)
         {
 
             try
@@ -217,6 +231,8 @@ namespace nemesis.Controllers
                         DateOfAction = newInvestigation.DateOfAction,
                         InvestigatorId = _userManager.GetUserId(User),
                         StatusId = newInvestigation.StatusId,
+                        PhoneNum = newInvestigation.IncludePhoneNumber ? _userManager.GetUserAsync(User).Result.PhoneNumber : "No phone number available"
+
                     };
 
                     _investigationRepository.AddInvestigation(reportId, investigation);
