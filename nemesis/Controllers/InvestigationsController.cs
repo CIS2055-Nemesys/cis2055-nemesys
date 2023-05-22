@@ -36,77 +36,79 @@ namespace nemesis.Controllers
 
         }
 
-        [HttpGet]
-        [Authorize(Roles = "Investigator")]
-        public IActionResult Create(int id)
+       [HttpGet]
+    [Authorize(Roles = "Investigator")]
+    public IActionResult Create(int id)
+    {
+        try
         {
-            try
+            Report report = _reportRepository.GetReportById(id);
+
+            if (report == null)
             {
-                Report report = _reportRepository.GetReportById(id);
+                return NotFound();
+            }
 
-                if (report == null)
-                {
-                    return NotFound();
-                }
+            var statusList = _investigationRepository.GetAllStatuses().Select(c => new StatusViewModel()
+            {
+                Id = c.Id,
+                Name = c.Name
+            }).ToList();
 
-                var statusList = _investigationRepository.GetAllStatuses().Select(c => new StatusViewModel()
-                {
-                    Id = c.Id,
-                    Name = c.Name
-                }).ToList();
+            var model = new EditInvestigationViewModel
+            {
+                ReportId = report.Id,
+                Statuses = statusList,
+                IncludePhoneNumber = true // Set the default value of the checkbox
+            };
 
-                var model = new EditInvestigationViewModel
+            return View(model);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return View("Error");
+        }
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Investigator")]
+    public async Task<IActionResult> Create(int id, [Bind("DateOfAction, Description, StatusId, IncludePhoneNumber")] EditInvestigationViewModel newInvestigation)
+    {
+        try
+        {
+            if (ModelState.IsValid)
+            {
+                Investigation investigation = new Investigation()
                 {
-                    ReportId = report.Id,
-                    Statuses = statusList
+                    Description = newInvestigation.Description,
+                    DateOfAction = newInvestigation.DateOfAction,
+                    InvestigatorId = _userManager.GetUserId(User),
+                    StatusId = newInvestigation.StatusId,
+                    PhoneNum = newInvestigation.IncludePhoneNumber ? _userManager.GetUserAsync(User).Result.PhoneNumber : "no phone number available"
                 };
 
-                return View(model);
+                _investigationRepository.AddInvestigation(id, investigation);
+
+                Report r = _reportRepository.GetReportById(id);
+
+                await _emailSender.SendEmailAsync(r.CreatedByUser.Email, "New Investigation on your report", "An investigator has added an investigation to your report \"" + r.Title + "\"");
+
+                return RedirectToAction("Index", "Reports");
             }
-            catch (Exception ex)
+            else
             {
-                _logger.LogError(ex, ex.Message);
-                return View("Error");
+                return View(newInvestigation);
             }
         }
-
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Investigator")]
-        public async Task<IActionResult> Create(int id, [Bind("DateOfAction, Description, StatusId")] EditInvestigationViewModel newInvestigation)
+        catch (Exception ex)
         {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    Investigation investigation = new Investigation()
-                    {
-                        Description = newInvestigation.Description,
-                        DateOfAction = newInvestigation.DateOfAction,
-                        InvestigatorId = _userManager.GetUserId(User),
-                        StatusId = newInvestigation.StatusId
-                    };
-
-                    _investigationRepository.AddInvestigation(id, investigation);
-
-                    Report r = _reportRepository.GetReportById(id);
-
-                    await _emailSender.SendEmailAsync(r.CreatedByUser.Email, "New Investigation on your report", "An investigator has added an investigation to your report \"" + r.Title + "\"");
-
-                    return RedirectToAction("Index", "Reports");
-                }
-                else
-                {
-                    return View(newInvestigation);
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, ex.Message);
-                return View("Error");
-            }
+            _logger.LogError(ex, ex.Message);
+            return View("Error");
         }
+    }
+
 
         [HttpGet]
         public async Task<IActionResult> InvestigationAsync(int id)
@@ -127,7 +129,9 @@ namespace nemesis.Controllers
                     InvestigatorId = investigation.InvestigatorId,
                     InvestigatorUsername = investigatorUsername,
                     PreviousVersion = investigation.PreviousVersion,
-                    ReportId = _investigationRepository.getReportIdByInvestigation(id)
+                    ReportId = _investigationRepository.getReportIdByInvestigation(id),
+                    PhoneNum = investigation.PhoneNum
+                    
                 };
 
                 var status = _investigationRepository.GetStatusById(investigation.StatusId);

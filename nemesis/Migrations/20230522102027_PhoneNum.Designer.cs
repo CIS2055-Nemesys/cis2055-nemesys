@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using nemesis.Models.Contexts;
 
@@ -11,9 +12,11 @@ using nemesis.Models.Contexts;
 namespace nemesis.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230522102027_PhoneNum")]
+    partial class PhoneNum
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -436,7 +439,7 @@ namespace nemesis.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
 
                     b.HasData(
                         new
@@ -505,7 +508,7 @@ namespace nemesis.Migrations
 
                     b.HasIndex("StatusId");
 
-                    b.ToTable("Investigations", (string)null);
+                    b.ToTable("Investigations");
 
                     b.HasData(
                         new
@@ -644,7 +647,7 @@ namespace nemesis.Migrations
 
                     b.HasIndex("StatusId");
 
-                    b.ToTable("Reports", (string)null);
+                    b.ToTable("Reports");
 
                     b.HasData(
                         new
@@ -840,7 +843,7 @@ namespace nemesis.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Statuses", (string)null);
+                    b.ToTable("Statuses");
 
                     b.HasData(
                         new
@@ -882,7 +885,7 @@ namespace nemesis.Migrations
 
                     SqlServerIndexBuilderExtensions.IsClustered(b.HasIndex("UserId", "ReportID"), false);
 
-                    b.ToTable("Upvotes", (string)null);
+                    b.ToTable("Upvotes");
 
                     b.HasData(
                         new
