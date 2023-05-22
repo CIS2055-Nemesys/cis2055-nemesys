@@ -8,6 +8,7 @@ using nemesis.Models;
 using nemesis.Models.Contexts;
 using nemesis.Models.Interfaces;
 using nemesis.Models.Repositories;
+using nemesis.Services;
 using nemesis.ViewModels;
 using System;
 using System.Composition;
@@ -22,17 +23,21 @@ namespace nemesis.Controllers
         private readonly IInvestigationRepository _investigationRepository;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<ReportsController> _logger;
+        private readonly IEmailSender _emailSender;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public ReportsController(
             IReportRepository reportRepository,
             UserManager<IdentityUser> userManager,
             IInvestigationRepository investigationRepository,
-            ILogger<ReportsController> logger)
+            ILogger<ReportsController> logger,
+            IEmailSender emailSender
         {
             _reportRepository = reportRepository;
             _investigationRepository = investigationRepository;
             _userManager = userManager;
             _logger = logger;
+            _emailSender = emailSender;
         }
 
 
@@ -157,7 +162,7 @@ namespace nemesis.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Title, Description, Location, DateSpotted, CategoryId, ImageToUpload, IncludePhoneNumber")] CreateReportViewModel newReport)
+        public async Task<IActionResult> CreateAsync([Bind("Title, Description, Location, DateSpotted, CategoryId, ImageToUpload")] CreateReportViewModel newReport)
         {
             try
             {
@@ -195,7 +200,21 @@ namespace nemesis.Controllers
                     }
 
                     _reportRepository.AddReport(report);
+
+
+                    var investigatorEmails = _reportRepository.GetAllInvestigatorEmails();
+
+                    foreach (var e in investigatorEmails)
+                    {
+                        await _emailSender.SendEmailAsync(e, "A new report is avaiable", "A new report \"" + report.Title + "\" is avaiable for you to investigate");
+
+                    }
+
+
+
                     return RedirectToAction("Index");
+
+
                 }
                 else
                 {
@@ -206,6 +225,7 @@ namespace nemesis.Controllers
                     }).ToList();
 
                     newReport.Categories = categoryList;
+
 
                     return View(newReport);
                 }

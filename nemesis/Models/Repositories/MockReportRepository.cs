@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using nemesis.Migrations;
 using nemesis.Models.Contexts;
 using nemesis.Models.Interfaces;
@@ -117,6 +118,11 @@ namespace nemesis.Models.Repositories
         public IEnumerable<Report> getAllReports(FilterViewModel f)
         {
             return _reports; //dont bother filtering in mock - assume they all match the filter
+        }
+
+        public IEnumerable<string> GetAllInvestigatorEmails()
+        {
+            return new[] { "nemesis-accounts-um+inv1@wayne.mt", "nemesis-accounts-um+inv2@wayne.mt" }.ToList();
         }
     }
 }
