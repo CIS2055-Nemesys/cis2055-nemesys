@@ -147,7 +147,7 @@ namespace nemesis.Controllers
 
                 var model = new CreateReportViewModel()
                 {
-                    Categories = categoryList,
+                    Categories = categoryList
                 };
 
                 return View(model);
@@ -162,7 +162,7 @@ namespace nemesis.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateAsync([Bind("Title, Description, Location, DateSpotted, CategoryId, ImageToUpload")] CreateReportViewModel newReport)
+        public async Task<IActionResult> CreateAsync([Bind("Title, Description, Location, DateSpotted, CategoryId, ImageToUpload, IncludePhoneNumber")] CreateReportViewModel newReport)
         {
             try
             {
@@ -190,6 +190,7 @@ namespace nemesis.Controllers
                         CategoryId = newReport.CategoryId,
                         StatusId = 1,
                         CreatedByUserId = _userManager.GetUserId(User),
+
                         PhoneNum = newReport.IncludePhoneNumber ? _userManager.GetUserAsync(User).Result.PhoneNumber : "No phone number available"
 
                     };
@@ -210,11 +211,7 @@ namespace nemesis.Controllers
 
                     }
 
-
-
                     return RedirectToAction("Index");
-
-
                 }
                 else
                 {
