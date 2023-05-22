@@ -54,5 +54,10 @@ namespace nemesis.ViewModels
         public int? InvestigationId { get; set; }
 
         public int? Upvotes { get; set; }
+
+        public bool IncludePhoneNumber { get; set; }
+
+        public string? PhoneNum { get; set; }
+
     }
 }
