@@ -38,29 +38,41 @@ namespace nemesis.Controllers
 
        [HttpGet]
     [Authorize(Roles = "Investigator")]
-    public IActionResult Create(int id)
-    {
-        try
+     public async Task<IActionResult> Edit(int id)
         {
-            Report report = _reportRepository.GetReportById(id);
-
-            if (report == null)
+            try
             {
-                return NotFound();
-            }
+                Report report = _reportRepository.GetReportById(id);
+                Investigation oldInvestigation = _investigationRepository.GetInvestigationById((int)report.InvestigationId);
 
-            var statusList = _investigationRepository.GetAllStatuses().Select(c => new StatusViewModel()
-            {
-                Id = c.Id,
-                Name = c.Name
-            }).ToList();
+                if (report == null)
+                {
+                    return NotFound();
+                }
 
-            var model = new EditInvestigationViewModel
-            {
-                ReportId = report.Id,
-                Statuses = statusList,
-                IncludePhoneNumber = true // Set the default value of the checkbox
-            };
+                string loggedInUserId = _userManager.GetUserAsync(User).Result.Id;
+
+                if (oldInvestigation.InvestigatorId != loggedInUserId)
+                {
+                    return Unauthorized(); // User is not authorized to edit the report
+                }
+
+                var statusList = _investigationRepository.GetAllStatuses()
+                    .Where(c => c.Id != 1)
+                    .Select(c => new StatusViewModel()
+                    {
+                        Id = c.Id,
+                        Name = c.Name
+                    })
+                    .ToList();
+
+                var model = new EditInvestigationViewModel
+                {
+                    ReportId = report.Id,
+                    Statuses = statusList,
+                    Description = oldInvestigation.Description,
+                    StatusId = oldInvestigation.StatusId
+                };
 
             return View(model);
         }
@@ -175,11 +187,14 @@ namespace nemesis.Controllers
                     return Unauthorized(); // User is not authorized to edit the report
                 }
 
-                var statusList = _investigationRepository.GetAllStatuses().Select(c => new StatusViewModel()
-                {
-                    Id = c.Id,
-                    Name = c.Name
-                }).ToList();
+                var statusList = _investigationRepository.GetAllStatuses()
+                    .Where(c => c.Id != 1)
+                    .Select(c => new StatusViewModel()
+                    {
+                        Id = c.Id,
+                        Name = c.Name
+                    })
+                    .ToList();
 
                 var model = new EditInvestigationViewModel
                 {
