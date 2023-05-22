@@ -47,7 +47,8 @@
         <hr/>
 
         <div class="row">
-            <img class="col" src="@Model.ImageUrl" alt="Image for @Model.Title" />
+            <img src="@Model.ImageUrl" alt="image for @Model.Title" 
+            onerror="this.onerror=null; this.src='/Images/DefaultImage.png'" />
         </div>
 
         <dl class="row">
