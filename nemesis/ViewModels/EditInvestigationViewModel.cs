@@ -25,12 +25,14 @@ namespace nemesis.ViewModels
         [Required(ErrorMessage = "Date is required")]
         public DateTime DateOfAction { get; set; } = DateTime.Now;
 
-        public bool? IncludePhoneNumber { get; set; }
 
         [Display(Name = "Report Status")]
         [Required(ErrorMessage = "Status is required")]
         public int StatusId { get; set; }
 
+        public bool IncludePhoneNumber { get; set; }
+
+        public string? PhoneNum { get; set; }
 
 
 
