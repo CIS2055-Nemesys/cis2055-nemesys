@@ -49,11 +49,15 @@ namespace nemesis.Controllers
                     return NotFound();
                 }
 
-                var statusList = _investigationRepository.GetAllStatuses().Select(c => new StatusViewModel()
-                {
-                    Id = c.Id,
-                    Name = c.Name
-                }).ToList();
+                var statusList = _investigationRepository.GetAllStatuses()
+                    .Where(c => c.Id != 1)
+                    .Select(c => new StatusViewModel()
+                    {
+                        Id = c.Id,
+                        Name = c.Name
+                    })
+                    .ToList();
+
 
                 var model = new EditInvestigationViewModel
                 {
@@ -171,11 +175,14 @@ namespace nemesis.Controllers
                     return Unauthorized(); // User is not authorized to edit the report
                 }
 
-                var statusList = _investigationRepository.GetAllStatuses().Select(c => new StatusViewModel()
-                {
-                    Id = c.Id,
-                    Name = c.Name
-                }).ToList();
+                var statusList = _investigationRepository.GetAllStatuses()
+                    .Where(c => c.Id != 1)
+                    .Select(c => new StatusViewModel()
+                    {
+                        Id = c.Id,
+                        Name = c.Name
+                    })
+                    .ToList();
 
                 var model = new EditInvestigationViewModel
                 {
