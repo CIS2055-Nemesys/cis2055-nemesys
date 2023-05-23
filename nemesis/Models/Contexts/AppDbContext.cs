@@ -157,7 +157,18 @@ namespace nemesis.Models.Contexts
                     " The impostor must be caught at all costs! All hands on deck!  ",
                     InvestigatorId = "84b91c9f-74d1-452d-927b-439bfd3a7287",
                     StatusId = 2
-                });
+                },
+                new Investigation()
+                {
+                    Id = 10,
+                    DateOfAction = DateTime.UtcNow,
+                    Description = "The imposter was caught and is currently being charged as a war criminal.",
+                    InvestigatorId = "84b91c9f-74d1-452d-927b-439bfd3a7287",
+                    StatusId = 3,
+                    PreviousVersionID = 9
+
+                }
+                );
 
             modelBuilder.Entity<Report>().HasData(
 
@@ -172,7 +183,7 @@ namespace nemesis.Models.Contexts
                     ImageUrl = "/images/SentientVolcano.jpg",
                     CategoryId = 6,
                     CreatedByUserId = "555e52b8-22db-4c15-a037-107016c7f827",
-                    StatusId = 1,
+                    StatusId = 2,
                     InvestigationId = 1,
                     Upvotes = null
                 },
@@ -188,7 +199,7 @@ namespace nemesis.Models.Contexts
                     ImageUrl = "/images/RunawayTyre.jpg",
                     CategoryId = 4,
                     CreatedByUserId = "ad9a20a1-779e-4991-8881-9af6171668a5",
-                    StatusId = 1,
+                    StatusId = 3,
                     InvestigationId = 2,
                     Upvotes = null
                 },
@@ -203,7 +214,7 @@ namespace nemesis.Models.Contexts
                     ImageUrl = "/images/RadioactiveBarrel.jpg",
                     CategoryId = 2,
                     CreatedByUserId = "ad9a20a1-779e-4991-8881-9af6171668a5",
-                    StatusId = 1,
+                    StatusId = 4,
                     InvestigationId = 3,
                     Upvotes = null
                 },
@@ -218,7 +229,7 @@ namespace nemesis.Models.Contexts
                     ImageUrl = "/images/Manhole.jpg",
                     CategoryId = 4,
                     CreatedByUserId = "ad9a20a1-779e-4991-8881-9af6171668a5",
-                    StatusId = 1,
+                    StatusId = 3,
                     InvestigationId = 4,
                     Upvotes = null
                 },
@@ -233,7 +244,7 @@ namespace nemesis.Models.Contexts
                     ImageUrl = "/images/Meteor.jpg",
                     CategoryId = 1,
                     CreatedByUserId = "9059e247-2854-40bd-af2b-76088f8dd4e6",
-                    StatusId = 1,
+                    StatusId = 4,
                     InvestigationId = 5,
                     Upvotes = null
                 },
@@ -248,7 +259,7 @@ namespace nemesis.Models.Contexts
                     ImageUrl = "/images/Cthulhu.jpg",
                     CategoryId = 6,
                     CreatedByUserId = "ad9a20a1-779e-4991-8881-9af6171668a5",
-                    StatusId = 1,
+                    StatusId = 3,
                     InvestigationId = 6,
                     Upvotes = null
                 },
@@ -278,7 +289,7 @@ namespace nemesis.Models.Contexts
                     ImageUrl = "/images/HairBurger.jpeg",
                     CategoryId = 1,
                     CreatedByUserId = "ad9a20a1-779e-4991-8881-9af6171668a5",
-                    StatusId = 1,
+                    StatusId = 2,
                     InvestigationId = 7,
                     Upvotes = null
                 },
@@ -308,7 +319,7 @@ namespace nemesis.Models.Contexts
                     ImageUrl = "/images/MissingBeans.webp",
                     CategoryId = 6,
                     CreatedByUserId = "5888e361-c81f-4ac9-8e16-961b0eeed0ae",
-                    StatusId = 1,
+                    StatusId = 2,
                     InvestigationId = 8,
                     Upvotes = null
                 },
@@ -338,10 +349,11 @@ namespace nemesis.Models.Contexts
                     ImageUrl = "/images/Porter.jpg",
                     CategoryId = 1,
                     CreatedByUserId = "84b91c9f-74d1-452d-927b-439bfd3a7287",
-                    StatusId = 1,
-                    InvestigationId = 9,
+                    StatusId = 3,  
+                    InvestigationId = 10,
                     Upvotes = null
                 }
+
             );
 
             //Status seed data
