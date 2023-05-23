@@ -107,12 +107,7 @@
     /* Page content */
     .text-center {
         color: #BFA181;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 1em;
-        line-height: 1.4;
+ 
     }
 
     /* Reports and Hall of Fame */
@@ -262,7 +257,7 @@
     .form-group > textarea {
         height: 7.5em;
         max-height: 14.5em;
-        width: 30.5em;
+        width: 25.5em;
     }
 
     .phone-checkbox{
