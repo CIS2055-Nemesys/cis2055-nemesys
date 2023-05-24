@@ -16,6 +16,7 @@ namespace nemesis.Controllers
             _logger = logger;
         }
 
+        //Fires a method to populate the Hall of Fame with the three reporters with the most reports for the current year, also displaying their most upvoted report of all time
         public IActionResult Index()
         {
             try

@@ -41,7 +41,7 @@ namespace nemesis.Controllers
         }
 
 
-
+        //Populates the Report Table, Includes paginator
         public IActionResult Index(int currentPage = 1, FilterViewModel filter = null)
         {
 
@@ -65,6 +65,7 @@ namespace nemesis.Controllers
                     Reports = pagedReports,
                     ReportsPerPage = reportsPerPage,
                     CurrentPage = currentPage,
+                    //populate the list of items chooseable in the filter dropdowns
                     FilterSelectionAllLocations = _reportRepository.getAllLocations(),
                     FilterSelectionAllReporters = _reportRepository.getAllReporterNames(),
                     FilterSelectionAllCategories = _reportRepository.getAllCategories().Select(c => c.Name),
@@ -81,7 +82,7 @@ namespace nemesis.Controllers
             }
         }
 
-
+        //Details page for an individual report
         public IActionResult Details(int id)
         {
             try
@@ -133,6 +134,7 @@ namespace nemesis.Controllers
 
         }
 
+        //Report create page
         [HttpGet]
         [Authorize]
         public IActionResult Create()
@@ -147,7 +149,7 @@ namespace nemesis.Controllers
 
                 var model = new CreateReportViewModel()
                 {
-                    Categories = categoryList
+                    Categories = categoryList //populate category dropdown
                 };
 
                 return View(model);
@@ -159,8 +161,10 @@ namespace nemesis.Controllers
             }
         }
 
-
+        //Responsible for creating a report and adding it to the database
+        //Sends email to investigators when it is fired
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateAsync([Bind("Title, Description, Location, DateSpotted, CategoryId, ImageToUpload, IncludePhoneNumber")] CreateReportViewModel newReport)
         {
@@ -171,6 +175,7 @@ namespace nemesis.Controllers
                     string fileName = "";
                     if (newReport.ImageToUpload != null)
                     {
+                        //save the image
                         var extension = "." + newReport.ImageToUpload.FileName.Split('.')[newReport.ImageToUpload.FileName.Split('.').Length - 1];
                         fileName = Guid.NewGuid().ToString() + extension;
                         var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UserContent", "Images", fileName);
@@ -197,16 +202,18 @@ namespace nemesis.Controllers
 
                     if (!string.IsNullOrEmpty(fileName))
                     {
+                        //assign the image to the report
                         report.ImageUrl = "/UserContent/Images/" + fileName;
                     }
 
                     _reportRepository.AddReport(report);
 
-
+                    //get all investigators
                     var investigatorEmails = _reportRepository.GetAllInvestigatorEmails();
 
                     foreach (var e in investigatorEmails)
                     {
+                        //send an email to all investigators
                         await _emailSender.SendEmailAsync(e, "A new report is avaiable", "A new report \"" + report.Title + "\" is avaiable for you to investigate");
 
                     }
@@ -235,7 +242,7 @@ namespace nemesis.Controllers
         }
 
 
-
+        //Retreives current report entry so users may edit it in place
         [HttpGet]
         [Authorize]
         public IActionResult Edit(int id)
@@ -277,6 +284,7 @@ namespace nemesis.Controllers
 
 
 
+        //called when edit report form is submitted
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
@@ -309,6 +317,7 @@ namespace nemesis.Controllers
 
                         if (newReport.ImageToUpload != null)
                         {
+                            //if we have a new image, save it
                             string fileName = "";
                             var extension = "." + newReport.ImageToUpload.FileName.Split('.')[newReport.ImageToUpload.FileName.Split('.').Length - 1];
                             fileName = Guid.NewGuid().ToString() + extension;
@@ -321,6 +330,7 @@ namespace nemesis.Controllers
                         }
                         else
                         {
+                            //otherwise keep the URL for the old image
                             imageUrl = oldReport.ImageUrl;
                         }
 
@@ -356,7 +366,7 @@ namespace nemesis.Controllers
             }
         }
 
-
+        //Deletes a report if it is the same person that created the report
         [HttpPost]
         [Authorize]
         public IActionResult Delete(int reportId)
@@ -391,7 +401,10 @@ namespace nemesis.Controllers
             }
         }
 
+        //Method responsible for upvoting a report, changes to a downvote if the user has already upvoted
+        //Refreshes page once the button is pressed
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> VoteAsync(int reportId)
         {
             try

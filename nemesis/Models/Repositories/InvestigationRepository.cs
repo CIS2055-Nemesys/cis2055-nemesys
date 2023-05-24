@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿    using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using nemesis.Models.Contexts;
@@ -47,8 +47,6 @@ namespace nemesis.Models.Repositories
                 throw;
                 
             }
-
-
 
         }
 
@@ -135,6 +133,7 @@ namespace nemesis.Models.Repositories
             {
                 var investigation = GetInvestigationById(id);
 
+                //all investigators must have a username, but this adds an extra layer of protection
                 var investigator = await _userManager.FindByIdAsync(investigation.InvestigatorId);
                 var investigatorUsername = investigator != null ? investigator.UserName : "Unknown";
 
