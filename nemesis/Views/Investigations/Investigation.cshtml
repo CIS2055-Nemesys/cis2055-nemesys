@@ -1,6 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Identity;
+@using nemesis.Models.Interfaces;
+
 @model nemesis.ViewModels.InvestigationViewModel
 @inject UserManager<IdentityUser> UserManager
+@inject IReportRepository ReportRepository
 
 @{
     ViewData["Title"] = "Current Investigation";
@@ -54,7 +57,10 @@
     <div>
         @if (User.Identity.IsAuthenticated && (UserManager.GetUserAsync(User).Result.Id == Model.InvestigatorId))
         {
-            <a asp-controller="Investigations" asp-action="Edit" asp-route-id="@Model.ReportId" class="btn btn-secondary">Edit</a>
+            if(Model.ReportId != -1)
+            {
+                <a asp-controller="Investigations" asp-action="Edit" asp-route-id="@Model.ReportId" class="btn btn-secondary">Edit</a>
+            }
         }
 
 
