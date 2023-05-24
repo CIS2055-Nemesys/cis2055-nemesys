@@ -36,10 +36,10 @@ namespace nemesis.Controllers
 
         }
 
-        //Default values, investigator may change these in the form
+        //load the form to create an invesitgation for a report
         [HttpGet]
         [Authorize(Roles = "Investigator")]
-        public IActionResult Create(int id)
+        public IActionResult Create(int id /*id of the report*/)
         {
             try
             {
@@ -61,9 +61,10 @@ namespace nemesis.Controllers
 
                 var model = new EditInvestigationViewModel
                 {
-                    ReportId = report.Id,
-                    Statuses = statusList,
-                    IncludePhoneNumber = true 
+                    ReportId = report.Id, //report that this investigation is attached to
+                    Statuses = statusList, //populate status dropdown
+                    IncludePhoneNumber = true //Default value, investigator may change this in the form
+
                 };
 
                 return View(model);
@@ -76,6 +77,7 @@ namespace nemesis.Controllers
         }
 
         //Allows users with the investigator role to add an investigation to a report
+        //this endpoint is called when the investigation is submitted
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Investigator")]
@@ -192,6 +194,7 @@ namespace nemesis.Controllers
 
                 var model = new EditInvestigationViewModel
                 {
+                    //load previous values
                     ReportId = report.Id,
                     Statuses = statusList,
                     Description = oldInvestigation.Description,
