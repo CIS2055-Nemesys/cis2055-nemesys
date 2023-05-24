@@ -41,7 +41,7 @@ namespace nemesis.Controllers
         }
 
 
-
+        //Populates the Report Table, Includes paginator
         public IActionResult Index(int currentPage = 1, FilterViewModel filter = null)
         {
 
@@ -81,7 +81,7 @@ namespace nemesis.Controllers
             }
         }
 
-
+        //Details page for an individual report
         public IActionResult Details(int id)
         {
             try
@@ -133,6 +133,7 @@ namespace nemesis.Controllers
 
         }
 
+        //Populates the create report form with a default value for the category picker
         [HttpGet]
         [Authorize]
         public IActionResult Create()
@@ -159,7 +160,8 @@ namespace nemesis.Controllers
             }
         }
 
-
+        //Responsible for creating a report and adding it to the database
+        //Sends email to investigators when it is fired
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateAsync([Bind("Title, Description, Location, DateSpotted, CategoryId, ImageToUpload, IncludePhoneNumber")] CreateReportViewModel newReport)
@@ -235,7 +237,7 @@ namespace nemesis.Controllers
         }
 
 
-
+        //Retreives current report entry so users may edit it in place
         [HttpGet]
         [Authorize]
         public IActionResult Edit(int id)
@@ -356,7 +358,7 @@ namespace nemesis.Controllers
             }
         }
 
-
+        //Deletes a report if it is the same person that created the report
         [HttpPost]
         [Authorize]
         public IActionResult Delete(int reportId)
@@ -391,7 +393,10 @@ namespace nemesis.Controllers
             }
         }
 
+        //Method responsible for upvoting a report, changes to a downvote if the user has already upvoted
+        //Refreshes page once the button is pressed
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> VoteAsync(int reportId)
         {
             try

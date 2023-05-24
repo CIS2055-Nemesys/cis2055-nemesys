@@ -36,6 +36,7 @@ namespace nemesis.Controllers
 
         }
 
+        //Default values, investigator may change these in the form
         [HttpGet]
         [Authorize(Roles = "Investigator")]
         public IActionResult Create(int id)
@@ -62,7 +63,7 @@ namespace nemesis.Controllers
                 {
                     ReportId = report.Id,
                     Statuses = statusList,
-                    IncludePhoneNumber = true // Set the default value of the checkbox
+                    IncludePhoneNumber = true 
                 };
 
                 return View(model);
@@ -74,45 +75,46 @@ namespace nemesis.Controllers
             }
         }
 
+        //Allows users with the investigator role to add an investigation to a report
         [HttpPost]
-    [ValidateAntiForgeryToken]
-    [Authorize(Roles = "Investigator")]
-    public async Task<IActionResult> Create(int id, [Bind("DateOfAction, Description, StatusId, IncludePhoneNumber")] EditInvestigationViewModel newInvestigation)
-    {
-        try
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Investigator")]
+        public async Task<IActionResult> Create(int id, [Bind("DateOfAction, Description, StatusId, IncludePhoneNumber")] EditInvestigationViewModel newInvestigation)
         {
-            if (ModelState.IsValid)
+            try
             {
-                Investigation investigation = new Investigation()
+                if (ModelState.IsValid)
                 {
-                    Description = newInvestigation.Description,
-                    DateOfAction = newInvestigation.DateOfAction,
-                    InvestigatorId = _userManager.GetUserId(User),
-                    StatusId = newInvestigation.StatusId,
-                    PhoneNum = newInvestigation.IncludePhoneNumber ? _userManager.GetUserAsync(User).Result.PhoneNumber : "No phone number available"
-                };
+                    Investigation investigation = new Investigation()
+                    {
+                        Description = newInvestigation.Description,
+                        DateOfAction = newInvestigation.DateOfAction,
+                        InvestigatorId = _userManager.GetUserId(User),
+                        StatusId = newInvestigation.StatusId,
+                        PhoneNum = newInvestigation.IncludePhoneNumber ? _userManager.GetUserAsync(User).Result.PhoneNumber : "No phone number available"
+                    };
 
-                _investigationRepository.AddInvestigation(id, investigation);
+                    _investigationRepository.AddInvestigation(id, investigation);
 
-                Report r = _reportRepository.GetReportById(id);
+                    Report r = _reportRepository.GetReportById(id);
 
-                await _emailSender.SendEmailAsync(r.CreatedByUser.Email, "New Investigation on your report", "An investigator has added an investigation to your report \"" + r.Title + "\"");
+                    await _emailSender.SendEmailAsync(r.CreatedByUser.Email, "New Investigation on your report", "An investigator has added an investigation to your report \"" + r.Title + "\"");
 
-                return RedirectToAction("Index", "Reports");
+                    return RedirectToAction("Index", "Reports");
+                }
+                else
+                {
+                    return View(newInvestigation);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return View(newInvestigation);
+                _logger.LogError(ex, ex.Message);
+                return View("Error");
             }
         }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, ex.Message);
-            return View("Error");
-        }
-    }
 
-
+        //Retreives the investigation entry for a report
         [HttpGet]
         public async Task<IActionResult> InvestigationAsync(int id)
         {
@@ -156,6 +158,7 @@ namespace nemesis.Controllers
             }
         }
 
+        //Retreives the current investigation entry
         [HttpGet]
         [Authorize]
         [Authorize(Roles = "Investigator")]
@@ -206,6 +209,7 @@ namespace nemesis.Controllers
             }
         }
 
+        //Adds a new investigation to the report, serves as an edit too. This is explained more in the documentation
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Investigator")]
